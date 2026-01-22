@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اختبار الوعي الأمني | سايف ديجيتال</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="description" content="اختبر مستوى وعيك بالأمن السيبراني في سايف ديجيتال عبر 10 أسئلة سريعة تمنحك ملاحظات ونصائح فورية لتحسين أمانك.">
+</head>
+
+<body>
+  <!-- ===== رأس الصفحة ===== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <span class="logo">🛡️</span>
+        <div>
+          <strong>سايف ديجيتال</strong>
+          <span class="badge">Quiz</span>
+        </div>
+      </div>
+
+      <nav class="links">
+        <a href="index.html">الرئيسية</a>
+        <a href="learn.html">تعلّم</a>
+        <a href="quiz.html" class="active">اختبار</a>
+        <a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a>
+        <a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a>
+        <a href="contact.html">تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== المحتوى ===== -->
+  <main class="container">
+    <section class="card pad">
+      <h1>اختبار الوعي الأمني 🔒</h1>
+      <p>يتكون الاختبار من <strong>10 أسئلة</strong> سريعة، وفي النهاية سنظهر لك نصائح مخصصة حسب إجاباتك.</p>
+
+      <div class="pill" id="progressPill">السؤال 1 / 10</div>
+      <hr class="sep" />
+
+      <div id="quizBox">
+        <div class="quiz-q" id="qText">...</div>
+        <div class="choices" id="choices"></div>
+
+        <div class="cta-row" style="margin-top:12px">
+          <button class="btn outline" id="skipBtn" type="button">تخطي</button>
+          <button class="btn primary" id="nextBtn" type="button" disabled>التالي</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== صندوق النتيجة ===== -->
+    <section class="card pad" id="resultBox" style="display:none; margin-top:18px">
+      <h2>نتيجتك 🎯</h2>
+      <p id="scoreText"></p>
+      <div class="note" id="adviceBox"></div>
+
+      <div class="cta-row" style="margin-top:14px">
+        <a class="btn outline" href="learn.html">راجع الدروس</a>
+        <a class="btn outline" href="tools.html">جرّب الأدوات</a>
+        <button class="btn primary" id="restartBtn" type="button">أعد الاختبار</button>
+      </div>
+    </section>
+
+    <!-- ===== التذييل ===== -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="small">
+          📘 هذا الاختبار لأغراض التوعية فقط، وليس تشخيصًا أمنياً احترافيًا.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ===== السكربتات ===== -->
+  <script src="main.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>

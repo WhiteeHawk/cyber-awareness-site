@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>سيناريوهات | سايف ديجيتال</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Scenarios</span></div></div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <nav class="links" id="navLinks">
+      <a href="index.html">الرئيسية</a><a href="learn.html">تعلّم</a><a href="quiz.html">اختبار</a><a href="tools.html">أدوات</a><a href="scenarios.html" class="active">سيناريوهات</a><a href="resources.html">موارد</a><a href="about.html">عن المشروع</a><a href="contact.html">تواصل</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="card pad">
+    <h1>📱 مواقف واقعية</h1>
+    <p>اختر التصرف الصحيح لكل موقف لتقوية وعيك الأمني 👇</p>
+  </div>
+
+  <div class="card pad" id="scene">
+    <h2 id="sceneTitle">...</h2>
+    <p id="sceneDesc">...</p>
+    <div class="cta-row" id="sceneActions"></div>
+    <div class="note" id="sceneResult" style="margin-top:12px"></div>
+  </div>
+
+  <footer class="footer"><div class="small">🎯 تعلّم من المواقف لتفادي الأخطاء الواقعية.</div></footer>
+</main>
+
+<script src="main.js"></script>
+<script>
+const scenes = [
+  {
+    title: "رسالة واتساب تقول: 'ربحت جائزة من البنك! اضغط هنا'",
+    desc: "وش تسوي؟",
+    options: [
+      { text: "أضغط الرابط بسرعة", correct: false },
+      { text: "أتأكد من موقع البنك الرسمي أولًا", correct: true },
+    ],
+    tip: "افحص المصدر ولا تثق بالعروض المفاجئة."
+  },
+  {
+    title: "موظف دعم فني يطلب منك رمز الدخول للحساب",
+    desc: "هل تعطيه؟",
+    options: [
+      { text: "أكيد، عشان يساعدني", correct: false },
+      { text: "أرفض وأبلغ الجهة الرسمية", correct: true },
+    ],
+    tip: "الموظف الحقيقي ما يطلب كلمات مرور أو رموز دخول."
+  }
+];
+let idx = 0;
+const titleEl = document.getElementById("sceneTitle");
+const descEl = document.getElementById("sceneDesc");
+const actionsEl = document.getElementById("sceneActions");
+const resultEl = document.getElementById("sceneResult");
+
+function renderScene() {
+  const s = scenes[idx];
+  titleEl.textContent = s.title;
+  descEl.textContent = s.desc;
+  resultEl.textContent = "";
+  actionsEl.innerHTML = "";
+  s.options.forEach(op => {
+    const btn = document.createElement("button");
+    btn.className = "btn outline";
+    btn.textContent = op.text;
+    btn.onclick = () => {
+      if(op.correct){
+        resultEl.textContent = "✅ تصرف سليم! " + s.tip;
+      }else{
+        resultEl.textContent = "❌ تصرف خاطئ. " + s.tip;
+      }
+      if(idx < scenes.length - 1){
+        setTimeout(()=>{ idx++; renderScene(); }, 2500);
+      }
+    };
+    actionsEl.appendChild(btn);
+  });
+}
+renderScene();
+</script>
+</body>
+</html>

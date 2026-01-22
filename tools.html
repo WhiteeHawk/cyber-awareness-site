@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أدوات الأمان | سايف ديجيتال</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Tools</span></div></div>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
+        <a href="learn.html">تعلّم</a>
+        <a href="quiz.html">اختبار</a>
+        <a href="tools.html" class="active">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a>
+        <a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a>
+        <a href="contact.html">تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card pad">
+      <h1>🧰 أدوات للأمان السيبراني</h1>
+      <p>جرب أدوات مبسطة تساعدك في تقوية حساباتك الرقمية.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card pad">
+        <h2>🔐 مولد كلمة مرور قوية</h2>
+        <p>اختر الطول واضغط "توليد":</p>
+        <input type="number" class="input" id="lengthInput" placeholder="مثلاً 12" min="6" max="40" />
+        <div class="cta-row">
+          <button class="btn primary" type="button" id="genBtn">توليد</button>
+          <button class="btn outline" type="button" id="copyBtn">نسخ</button>
+        </div>
+        <div class="note" style="margin-top:10px" id="passwordBox">—</div>
+      </div>
+
+      <div class="card pad">
+        <h2>💪 فحص قوة كلمة المرور</h2>
+        <p>اكتب كلمة مرورك هنا لمعرفة قوتها:</p>
+        <input type="password" class="input" id="checkInput" placeholder="••••••" />
+        <div class="note" id="strengthBox">—</div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="small">🔏 سايف ديجيتال — أدوات تعليمية فقط، لا تُرسل كلمات المرور لأي جهة.</div>
+    </footer>
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]";
+    const genBtn = document.getElementById("genBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const lengthInput = document.getElementById("lengthInput");
+    const passwordBox = document.getElementById("passwordBox");
+    const checkInput = document.getElementById("checkInput");
+    const strengthBox = document.getElementById("strengthBox");
+
+    genBtn.addEventListener("click", () => {
+      const len = Math.max(6, Math.min(40, Number(lengthInput.value) || 12));
+      let pass = "";
+      for (let i = 0; i < len; i++) pass += chars[Math.floor(Math.random() * chars.length)];
+      passwordBox.textContent = pass;
+    });
+
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(passwordBox.textContent);
+      copyBtn.textContent = "✅ تم النسخ!";
+      setTimeout(() => (copyBtn.textContent = "نسخ"), 1000);
+    });
+
+    checkInput.addEventListener("input", () => {
+      const val = checkInput.value;
+      let score = 0;
+      if (val.length > 7) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const levels = ["ضعيفة ❌", "متوسطة ⚠️", "جيدة ✅", "قوية جدًا 🟢"];
+      strengthBox.textContent = val ? `القوة: ${levels[Math.min(score, 3)]}` : "—";
+    });
+  </script>
+</body>
+</html>
