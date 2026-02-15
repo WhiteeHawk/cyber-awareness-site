@@ -1,8 +1,4 @@
-// ======================================
-// 🧰 Safe Digital — Tools & Utilities JS
-// ======================================
 
-// عناصر الصفحة
 const lengthInput = document.getElementById("lengthInput");
 const genBtn = document.getElementById("genBtn");
 const copyBtn = document.getElementById("copyBtn");
@@ -15,7 +11,7 @@ const strengthBox = document.getElementById("strengthBox");
 const charset =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?/[]{}~";
 
-// 🔹 توليد كلمة مرور
+//  توليد كلمة مرور
 if (genBtn) {
   genBtn.addEventListener("click", () => {
     const len = Math.max(6, Math.min(40, Number(lengthInput.value) || 12));
@@ -39,7 +35,7 @@ if (copyBtn) {
   });
 }
 
-// 🔹 فحص قوة كلمة المرور
+// فحص قوة كلمة المرور
 if (checkInput) {
   checkInput.addEventListener("input", () => {
     const val = checkInput.value;
