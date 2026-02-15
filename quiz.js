@@ -1,4 +1,3 @@
-// 🧠 سايف ديجيتال — اختبار الوعي الأمني
 
 const questions = [
   {
@@ -63,7 +62,7 @@ const questions = [
   }
 ];
 
-// عناصر HTML
+
 const qText = document.getElementById("qText");
 const choicesEl = document.getElementById("choices");
 const nextBtn = document.getElementById("nextBtn");
@@ -75,13 +74,12 @@ const scoreText = document.getElementById("scoreText");
 const adviceBox = document.getElementById("adviceBox");
 const restartBtn = document.getElementById("restartBtn");
 
-// متغيرات التحكم
 let idx = 0;
 let score = 0;
 let answered = false;
 let missedTips = [];
 
-// 🔹 عرض السؤال الحالي
+
 function render() {
   const total = questions.length;
   const cur = questions[idx];
@@ -103,7 +101,7 @@ function render() {
   });
 }
 
-// 🔹 اختيار إجابة
+
 function pick(i) {
   if (answered) return;
   answered = true;
@@ -125,20 +123,19 @@ function pick(i) {
   }
 }
 
-// 🔹 التالي
+
 function next() {
   idx++;
   idx < questions.length ? render() : finish();
 }
 
-// 🔹 تخطي
+
 function skip() {
   const cur = questions[idx];
   missedTips.push(`• ${cur.tip}`);
   next();
 }
 
-// 🔹 عرض النتيجة النهائية
 function finish() {
   quizBox.style.display = "none";
   resultBox.style.display = "block";
@@ -146,7 +143,6 @@ function finish() {
   const total = questions.length;
   const percentage = Math.round((score / total) * 100);
 
-  // تحديد مستوى النتيجة
   let level = "";
   if (score >= 9) level = "ممتاز جدًا 👑";
   else if (score >= 7) level = "جيد جدًا ✅";
@@ -162,7 +158,6 @@ function finish() {
   adviceBox.innerHTML = `<strong>${level}</strong><br><br>${tips}`;
 }
 
-// 🔹 إعادة التشغيل
 function restart() {
   idx = 0;
   score = 0;
@@ -173,10 +168,8 @@ function restart() {
   render();
 }
 
-// 🎬 تهيئة الأحداث
 nextBtn.addEventListener("click", next);
 skipBtn.addEventListener("click", skip);
 restartBtn.addEventListener("click", restart);
 
-// بدء الاختبار
 render();
