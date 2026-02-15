@@ -1,10 +1,3 @@
-/* ================================
-   🛡️ Safe Digital — main.js
-   - Mobile menu toggle (auto)
-   - Active nav link highlight
-   - Close menu on link click / outside click
-   ================================ */
-
 (function () {
   "use strict";
 
@@ -28,14 +21,13 @@
       toggleBtn.setAttribute("aria-label", "فتح/إغلاق القائمة");
       toggleBtn.setAttribute("aria-expanded", "false");
 
-      // insert button before the nav links
+
       navInner.insertBefore(toggleBtn, linksNav);
     }
 
-    // helper: is mobile breakpoint active (same as CSS 860px)
     const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
 
-    // 2) Toggle menu open/close
+
     const openMenu = () => {
       linksNav.classList.add("show");
       toggleBtn.setAttribute("aria-expanded", "true");
@@ -56,14 +48,13 @@
       toggleMenu();
     });
 
-    // Close when clicking on any link (mobile)
     linksNav.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => {
         if (isMobile()) closeMenu();
       });
     });
 
-    // Close when clicking outside (mobile)
+
     document.addEventListener("click", (e) => {
       if (!isMobile()) return;
       const clickedInside =
@@ -71,7 +62,6 @@
       if (!clickedInside) closeMenu();
     });
 
-    // Close if resized to desktop
     window.addEventListener("resize", () => {
       if (!isMobile()) closeMenu();
     });
@@ -88,17 +78,16 @@
         const href = (a.getAttribute("href") || "").toLowerCase().trim();
         if (!href) return;
 
-        // match exact file (index.html, learn.html, ...)
+  
         if (href === path) matched = a;
 
-        // also allow index fallback ("/" or empty)
+       
         if ((path === "" || path === "/") && href.includes("index.html")) matched = a;
       });
 
-      // If nothing matched, keep existing active (if any), otherwise do nothing
       if (matched) matched.classList.add("active");
     } catch (err) {
-      // silent fail (no need to break the site)
+    
     }
   });
 })();
