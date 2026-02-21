@@ -1,6 +1,3 @@
-// ======================================
-// 🧰 Safe Digital — Tools & Utilities JS
-// ======================================
 
 // عناصر الصفحة
 const lengthInput = document.getElementById("lengthInput");
@@ -15,7 +12,7 @@ const strengthBox = document.getElementById("strengthBox");
 const charset =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?/[]{}~";
 
-// 🔹 توليد كلمة مرور
+// توليد كلمة مرور
 if (genBtn) {
   genBtn.addEventListener("click", () => {
     const len = Math.max(6, Math.min(40, Number(lengthInput.value) || 12));
@@ -27,7 +24,7 @@ if (genBtn) {
   });
 }
 
-// 🔹 نسخ كلمة المرور
+// نسخ كلمة المرور
 if (copyBtn) {
   copyBtn.addEventListener("click", () => {
     const pass = passwordBox?.textContent?.trim();

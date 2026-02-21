@@ -1,6 +1,3 @@
-// ==========================================
-// 📱 Safe Digital — Scenario Learning Module
-// ==========================================
 
 const scenes = [
   {
@@ -32,7 +29,7 @@ const scenes = [
   }
 ];
 
-// عناصر الصفحة
+
 const titleEl = document.getElementById("sceneTitle");
 const descEl = document.getElementById("sceneDesc");
 const actionsEl = document.getElementById("sceneActions");
@@ -40,7 +37,7 @@ const resultEl = document.getElementById("sceneResult");
 
 let index = 0;
 
-// 🔹 عرض السيناريو الحالي
+
 function renderScene() {
   const s = scenes[index];
   titleEl.textContent = s.title;
@@ -57,13 +54,13 @@ function renderScene() {
   });
 }
 
-// 🔹 التحقق من الإجابة
+
 function handleChoice(isCorrect, tip) {
   resultEl.textContent = isCorrect
     ? `✅ تصرف صحيح! ${tip}`
     : `❌ خطأ! ${tip}`;
 
-  // الانتقال بعد وقت بسيط
+  
   if (index < scenes.length - 1) {
     setTimeout(() => {
       index++;
@@ -76,5 +73,5 @@ function handleChoice(isCorrect, tip) {
   }
 }
 
-// ابدأ العرض
+
 renderScene();

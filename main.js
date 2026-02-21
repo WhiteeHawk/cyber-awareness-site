@@ -1,9 +1,3 @@
-/* ================================
-   🛡️ Safe Digital — main.js
-   - Mobile menu toggle (auto)
-   - Active nav link highlight
-   - Close menu on link click / outside click
-   ================================ */
 
 (function () {
   "use strict";
@@ -100,5 +94,9 @@
     } catch (err) {
       // silent fail (no need to break the site)
     }
+    function showMessage() {
+    document.getElementById("workMessage").style.display = "block";
+}
+
   });
 })();
