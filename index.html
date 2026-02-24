@@ -163,10 +163,30 @@
   <h2 style="margin: 0 0 15px;">آخر أخبار الأمن السيبراني (RSS)</h2>
 
   <!-- RSS Widget (جاهز) -->
-  <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" data-fw-param="170917/"></script>
+  <div id="rss-container"></div>
+
+<script>
+fetch("https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedburner.com/TheHackersNews")
+  .then(response => response.json())
+  .then(data => {
+    let output = "";
+    data.items.slice(0,5).forEach(item => {
+      output += `
+        <div style="margin-bottom:15px; padding:10px; background:#1e1e1e; border-radius:8px;">
+          <a href="${item.link}" target="_blank" style="color:#00d4ff; font-weight:bold;">
+            ${item.title}
+          </a>
+          <p style="font-size:13px; opacity:0.7;">
+            ${new Date(item.pubDate).toLocaleDateString()}
+          </p>
+        </div>
+      `;
+    });
+    document.getElementById("rss-container").innerHTML = output;
+  });
+</script>
 
   <p style="margin-top: 12px; font-size: 14px; opacity: 0.8;">
-    إذا ما ظهرت الأخبار، قلّي ونعطيك وِجِت ثاني.
   </p>
 </section>
 </body>
