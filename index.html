@@ -239,22 +239,14 @@ allItems = allItems.filter(item => item.date);
         </div>
       `;
 
-      container.innerHTML = html || <div style="opacity:.85;">No news available right now.</div>;
-    } catch (e) {
-      container.innerHTML = <div style="opacity:.85;">Failed to load RSS feeds.</div>;
-      console.error(e);
-    }
+      container.innerHTML = html || '<div style="opacity:.85;">No news available right now.</div>';
+  } catch (e) {
+    container.innerHTML = '<div style="opacity:.85;">Failed to load RSS feeds.</div>';
+    console.error(e);
   }
+}
 
-  loadRSS();
+loadRSS();
 </script>
-
-    document.getElementById("rss-container").innerHTML = output;
-  });
-</script>
-
-  <p style="margin-top: 12px; font-size: 14px; opacity: 0.8;">
-  </p>
-</section>
 </body>
 </html>
