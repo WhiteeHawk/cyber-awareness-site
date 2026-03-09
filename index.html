@@ -178,7 +178,7 @@
       let allItems = [];
 
       for (const feed of feeds) {
-        const api = https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)};
+        onst api = https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)};
         const res = await fetch(api);
         const data = await res.json();
 
