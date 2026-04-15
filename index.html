@@ -188,7 +188,7 @@ font-size:16px;
   <div id="news-container">جاري تحميل الأخبار...</div>
 </section>
 
-<script>
+
 async function loadCyberNews() {
   const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedburner.com/TheHackersNews";
 
@@ -215,7 +215,21 @@ async function loadCyberNews() {
   }
 }
 
+
+<section class="news-section">
+  <h2>📰 أخبار الأمن السيبراني</h2>
+  <div id="news-container" class="news-grid">
+    جاري تحميل الأخبار...
+  </div>
+</section>
+
+<script>
+async function loadCyberNews() {
+  ...
+}
 loadCyberNews();
 </script>
+  
+
 </body>
 </html>
