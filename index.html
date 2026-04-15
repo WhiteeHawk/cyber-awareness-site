@@ -183,107 +183,39 @@ font-size:16px;
   </footer>
   <script src="main.js"></script>
 
-  <!--صفحه كشف روابط بعد الاتفاق بالمشروع فقط تجربه
--->
-
-<section class="feature-section">
-  <h2 onclick="showMessage()" style="cursor:pointer;">
-         كشف الروابط الخبيثة
-    </h2>
-
-    <p id="workMessage" style="display:none;">
-         جاري العمل على هذه الميزة حالياً...
-    </p>
+  <section class="card">
+  <h2>📰 أخبار الأمن السيبراني</h2>
+  <div id="news-container">جاري تحميل الأخبار...</div>
 </section>
+
 <script>
-  const feeds = [
-    { name: "The Hacker News", url: "https://feeds.feedburner.com/TheHackersNews" },
-    { name: "BleepingComputer", url: "https://www.bleepingcomputer.com/feed/" }
-  ];
+async function loadCyberNews() {
+  const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedburner.com/TheHackersNews";
 
-  async function loadRSS() {
-    const container = document.getElementById("rss-container");
+  try {
+    const response = await fetch(rssUrl);
+    const data = await response.json();
 
-    container.innerHTML = `
-      <div style="opacity:.85; padding:10px 0;">
-        Loading latest security news...
-      </div>
-    `;
+    let html = "";
 
-    try {
-      let allItems = [];
-
-      for (const feed of feeds) {
-        const api = 'https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)};
-    
-        const res = await fetch(api);
-        const data = await res.json();
-
-        if (data && data.items) {
-          data.items.slice(0, 6).forEach(item => {
-            allItems.push({
-              source: feed.name,
-              title: item.title || "Untitled",
-              link: item.link,
-              date: item.pubDate ? new Date(item.pubDate) : null
-            });
-          });
-        }
-      }
-allItems = allItems.filter(item => item.date);
-      // Sort newest first
-      allItems.sort((a, b) => b.date - a.date);
-
-      // Remove duplicates (same title)
-      const seen = new Set();
-      const unique = [];
-      for (const it of allItems) {
-        const key = (it.title || "").trim().toLowerCase();
-        if (!seen.has(key)) {
-          seen.add(key);
-          unique.push(it);
-        }
-      }
-
-      const itemsToShow = unique.slice(0, 10);
-
-      const html = `
-        <div style="display:grid; gap:12px;">
-          ${itemsToShow.map(item => `
-            <article style="
-              padding:14px;
-              border:1px solid #2a2a2a;
-              border-radius:12px;
-              background: linear-gradient(145deg, #1b1b1b, #222);
-              transition: transform .15s ease;
-            " onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
-              
-              <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; opacity:.8; font-size:12px;">
-                <span><b>Source:</b> ${item.source}</span>
-                <span><b>Published:</b> ${item.date.toLocaleDateString('en-GB', {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric'
-})}</span>
-              </div>
-
-              <a href="${item.link}" target="_blank" rel="noopener noreferrer"
-                 style="display:block; margin-top:10px; color:#00d4ff; font-weight:700; text-decoration:none;">
-                ${item.title}
-              </a>
-            </article>
-          `).join("")}
+    data.items.slice(0, 5).forEach(item => {
+      html += `
+        <div style="margin-bottom:15px;">
+          <a href="${item.link}" target="_blank" style="color:#4CAF50; font-weight:bold;">
+            ${item.title}
+          </a>
         </div>
       `;
+    });
 
-      container.innerHTML = html || '<div style="opacity:.85;">No news available right now.</div>';
-  } catch (e) {
-    container.innerHTML = '<div style="opacity:.85;">Failed to load RSS feeds.</div>';
-    console.error(e);
+    document.getElementById("news-container").innerHTML = html;
+
+  } catch (error) {
+    document.getElementById("news-container").innerHTML = "❌ فشل تحميل الأخبار";
   }
 }
 
-loadRSS();
+loadCyberNews();
 </script>
 </body>
 </html>
