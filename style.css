@@ -340,3 +340,17 @@ hr.sep {
 .btn { border: 0; padding: 10px 14px; border-radius: 12px; cursor: pointer; border: 1px solid rgba(0,0,0,.12); background: transparent; }
 
 .site-footer { padding: 18px 0; border-top: 1px solid rgba(0,0,0,.08); margin-top: 26px; }
+.policy-btn{
+display:inline-block;
+margin-top:10px;
+padding:8px 14px;
+background:#4CAF50;
+color:white;
+text-decoration:none;
+border-radius:6px;
+font-size:14px;
+}
+
+.policy-btn:hover{
+background;jjj #3e8e41;
+}
