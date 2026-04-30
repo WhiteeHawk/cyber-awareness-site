@@ -17,18 +17,25 @@
   <!-- ===== شريط التنقل ===== -->
   <header class="nav">
     <div class="container nav-inner">
-      <div class="brand">
-        <span class="logo">🛡️</span>
-        <div>
-          <strong>سايف ديجيتال</strong>
-          <span class="badge">Cyber Awareness</span>
+
+      <!-- الجانب الأيسر: brand + زر الوضع -->
+      <div class="nav-left">
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div>
+            <strong>سايف ديجيتال</strong>
+            <span class="badge">Cyber Awareness</span>
+          </div>
         </div>
+        <button id="themeToggle" type="button" aria-label="تبديل الوضع">
+          <span id="themeIcon">🌙</span>
+          <span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
       </div>
 
-      <!-- ✅ زر قائمة للجوال (كان ناقص في الإندكس) -->
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="فتح/إغلاق القائمة">☰</button>
 
-      <!-- ✅ نفس النظام الموجود في باقي الصفحات -->
+      <!-- روابط التنقل -->
       <nav class="links" id="navLinks">
         <a href="index.html" class="active">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -132,56 +139,202 @@
     </section>
   </main>
 
- 
-  
+  <!-- ===== خريطة الهجمات ===== -->
+  <section class="container" style="padding-top:0;">
+    <div class="card pad" style="margin-top:20px;">
+      <h2 style="margin-bottom:8px;">🗺️ خريطة الهجمات السيبرانية المباشرة</h2>
+      <p style="margin-bottom:16px;">عرض مباشر لحركة التهديدات والهجمات السيبرانية حول العالم.</p>
+      <div style="text-align:center; padding:16px 0;">
+        <a href="https://cybermap.kaspersky.com/" target="_blank" class="btn primary" style="font-size:15px; padding:13px 26px;">
+          🌐 فتح خريطة الهجمات المباشرة
+        </a>
+        <p class="small" style="margin-top:10px;">اضغط لعرض الخريطة التفاعلية في نافذة جديدة.</p>
+      </div>
+    </div>
+  </section>
 
-  <section style="margin:40px 0; padding:20px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+  <!-- ===== أخبار الأمن السيبراني ===== -->
+  <section class="container" style="padding-top:0;">
+    <div style="margin-top:24px;">
 
-  <h2 style="margin-bottom:10px;">خريطة الهجمات السيبرانية المباشرة</h2>
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+        <div>
+          <h2 style="margin:0; color:var(--accent2);">📡 أخبار الأمن السيبراني</h2>
+          <p class="small" style="margin:5px 0 0;" id="news-last-update">جاري التحميل...</p>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <button class="btn primary news-src-btn active-src" data-src="thn"     style="font-size:13px; padding:8px 14px;">📰 Hacker News</button>
+          <button class="btn outline news-src-btn"            data-src="bleeping" style="font-size:13px; padding:8px 14px;">💻 BleepingComputer</button>
+          <button class="btn outline news-src-btn"            data-src="csnews"   style="font-size:13px; padding:8px 14px;">🔐 CyberSec News</button>
+        </div>
+      </div>
 
-  <p style="opacity:.85; margin-bottom:18px;">
-    عرض مباشر لحركة التهديدات والهجمات السيبرانية حول العالم.
-  </p>
+      <!-- تحميل -->
+      <div id="news-loading" style="text-align:center; padding:52px 0;">
+        <div class="news-spinner"></div>
+        <p class="small" style="margin-top:14px; opacity:.65;">جاري جلب آخر الأخبار...</p>
+      </div>
 
-  <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,.12);">
+      <!-- خطأ -->
+      <div id="news-error" style="display:none;">
+        <div class="note" style="text-align:center; padding:28px;">
+          <p style="margin:0 0 12px; font-size:15px;">⚠️ تعذّر تحميل الأخبار. تأكد من الـ API key أو الاتصال.</p>
+          <button class="btn outline" id="news-retry" style="font-size:13px;">🔄 إعادة المحاولة</button>
+        </div>
+      </div>
 
-    <div style="text-align:center; padding:40px;">
+      <!-- الشبكة -->
+      <div id="news-grid" style="display:none;"></div>
 
-<a href="https://cybermap.kaspersky.com/" 
-target="_blank"
-style="
-display:inline-block;
-padding:14px 26px;
-background:#00d4ff;
-color:#000;
-font-weight:bold;
-border-radius:10px;
-text-decoration:none;
-font-size:16px;
-">
-فتح خريطة الهجمات السيبرانية المباشرة
-</a>
+      <!-- تحميل المزيد -->
+      <div id="news-more-wrap" style="display:none; text-align:center; margin-top:20px;">
+        <button class="btn outline" id="news-more-btn" style="font-size:13px; padding:10px 26px;">⬇️ تحميل المزيد</button>
+      </div>
 
-<p style="margin-top:15px; opacity:.7;">
-اضغط لعرض الخريطة التفاعلية للهجمات السيبرانية حول العالم.
-</p>
+    </div>
+  </section>
 
-</div>
-
-  </div>
-
-</section>
+  <!-- ===== التذييل ===== -->
   <footer class="footer">
-    <div class="container footer-content">
+    <div class="footer-content">
       <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
       <div class="footer-links">
         <a href="policies.html">سياسة الخصوصية</a>
         <a href="contact.html">تواصل معنا</a>
       </div>
     </div>
-    <sect/sion>
   </footer>
+
   <script src="main.js"></script>
+  <script>
+  /* ============================================================
+     Dark / Light Mode Toggle
+  ============================================================ */
+  (function(){
+    const btn  = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    const lbl  = document.getElementById("themeLabel");
+    const DARK_KEY = "sd-theme";
+
+    function applyTheme(isDark){
+      if(isDark){
+        document.body.classList.remove("light-mode");
+        icon.textContent = "🌙";
+        lbl.textContent  = "ليلي";
+      } else {
+        document.body.classList.add("light-mode");
+        icon.textContent = "☀️";
+        lbl.textContent  = "صباحي";
+      }
+      localStorage.setItem(DARK_KEY, isDark ? "dark" : "light");
+    }
+
+    // استعادة التفضيل
+    const saved = localStorage.getItem(DARK_KEY);
+    applyTheme(saved !== "light");
+
+    btn.addEventListener("click", () => {
+      applyTheme(document.body.classList.contains("light-mode"));
+    });
+  })();
+  </script>
+
+  <script>
+  /* ============================================================
+     أخبار الأمن السيبراني — GNews API (يدعم CORS من المتصفح)
+     سجّل مجاناً: https://gnews.io
+  ============================================================ */
+  (function(){
+    const GNEWS_KEY = "0e5630468dfc4fcf800960a3f529a1e4"; // key مؤقت — استبدله بـ GNews key
+
+    const TOPICS = {
+      thn:      { q:"cybersecurity hacking",      label:"Hacker News",       color:"#6aa6ff", icon:"📰" },
+      bleeping: { q:"cyber attack malware",        label:"BleepingComputer",  color:"#7cf0d6", icon:"💻" },
+      csnews:   { q:"vulnerability data breach",  label:"CyberSec News",     color:"#ffb347", icon:"🔐" }
+    };
+
+    const BATCH = 6;
+    let allItems = [], shown = 0, currentSrc = "thn";
+
+    const gridEl     = document.getElementById("news-grid");
+    const loadEl     = document.getElementById("news-loading");
+    const errorEl    = document.getElementById("news-error");
+    const moreWrap   = document.getElementById("news-more-wrap");
+    const moreBtn    = document.getElementById("news-more-btn");
+    const retryBtn   = document.getElementById("news-retry");
+    const lastUpdate = document.getElementById("news-last-update");
+
+    function fmtDate(str){
+      if(!str) return "";
+      try { return new Date(str).toLocaleDateString("ar-SA",{year:"numeric",month:"short",day:"numeric"}); }
+      catch { return ""; }
+    }
+    function trim(str,max){
+      if(!str) return "";
+      const t = str.replace(/<[^>]*>/g,"").trim();
+      return t.length>max ? t.slice(0,max)+"…" : t;
+    }
+
+    function buildCard(item){
+      const s=TOPICS[currentSrc], col=s.color;
+      const d=document.createElement("div");
+      d.className="news-card";
+      d.innerHTML=`
+        <div class="nc-inner">
+          <div class="nc-top">
+            <span class="nc-badge" style="border-color:${col};color:${col};">${s.icon} ${s.label}</span>
+            <span class="small" style="opacity:.6;">${fmtDate(item.publishedAt)}</span>
+          </div>
+          <p class="nc-title">${trim(item.title,85)}</p>
+          ${item.description?`<p class="nc-desc small">${trim(item.description,115)}</p>`:""}
+          <a class="nc-link" href="${item.url}" target="_blank" rel="noopener">اقرأ التفاصيل ←</a>
+        </div>
+        <div class="nc-bar" style="background:${col};"></div>`;
+      return d;
+    }
+
+    function showBatch(){
+      allItems.slice(shown,shown+BATCH).forEach(it=>gridEl.appendChild(buildCard(it)));
+      shown=Math.min(shown+BATCH,allItems.length);
+      moreWrap.style.display=shown<allItems.length?"block":"none";
+    }
+
+    async function loadNews(srcKey){
+      currentSrc=srcKey; allItems=[]; shown=0;
+      gridEl.innerHTML=""; gridEl.style.display="none";
+      moreWrap.style.display="none"; errorEl.style.display="none";
+      loadEl.style.display="block"; lastUpdate.textContent="جاري التحميل...";
+
+      const q=encodeURIComponent(TOPICS[srcKey].q);
+      const url=`https://gnews.io/api/v4/search?q=${q}&lang=en&max=30&token=${GNEWS_KEY}`;
+
+      try{
+        const res=await fetch(url,{signal:AbortSignal.timeout(12000)});
+        const data=await res.json();
+        if(!data.articles?.length) throw new Error("empty");
+        allItems=data.articles;
+        loadEl.style.display="none"; gridEl.style.display="grid";
+        lastUpdate.textContent="آخر تحديث: "+new Date().toLocaleTimeString("ar-SA");
+        showBatch();
+      } catch(e){
+        loadEl.style.display="none"; errorEl.style.display="block";
+        lastUpdate.textContent="فشل التحميل";
+      }
+    }
+
+    document.querySelectorAll(".news-src-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll(".news-src-btn").forEach(b=>{b.classList.remove("active-src","primary");b.classList.add("outline");});
+        btn.classList.add("active-src","primary"); btn.classList.remove("outline");
+        loadNews(btn.dataset.src);
+      });
+    });
+
+    moreBtn.addEventListener("click",showBatch);
+    retryBtn.addEventListener("click",()=>loadNews(currentSrc));
+    loadNews("thn");
+  })();
+  </script>
 
 </body>
 </html>
