@@ -6,22 +6,84 @@
   <title>تعلّم | سايف ديجيتال</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="تعلّم أهم مفاهيم الأمن السيبراني من خلال منصة سايف ديجيتال — نصائح مختصرة ومواقف يومية واقعية.">
+  <meta name="description" content="تعلّم أهم مفاهيم الأمن السيبراني من خلال منصة سايف ديجيتال.">
+  <style>
+    .topic-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; }
+    .topic-tab {
+      padding:8px 16px; border-radius:999px; border:1px solid var(--border);
+      background:var(--item-bg); color:var(--muted); cursor:pointer;
+      font-size:13px; font-family:var(--font); font-weight:500; transition:.2s;
+    }
+    .topic-tab:hover { border-color:var(--accent2); color:var(--text); }
+    .topic-tab.active { border-color:rgba(106,166,255,.5); background:rgba(106,166,255,.14); color:var(--text); }
+
+    .topic-panel { display:none; animation:fadeIn .3s ease; }
+    .topic-panel.show { display:block; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+    .topic-hero { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+    @media(max-width:680px){ .topic-hero{grid-template-columns:1fr;} }
+
+    .tip-card {
+      display:flex; gap:12px; align-items:flex-start; padding:13px;
+      border:1px solid var(--border); border-radius:14px; background:var(--item-bg);
+      margin-bottom:10px; transition:border-color .2s, transform .2s;
+    }
+    .tip-card:hover { border-color:var(--accent2); transform:translateX(-3px); }
+    .tip-icon {
+      font-size:20px; flex-shrink:0; width:38px; height:38px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:10px; background:rgba(106,166,255,.1);
+    }
+    .tip-text h4 { margin:0 0 3px; font-size:14px; color:var(--text); }
+    .tip-text p  { margin:0; font-size:13px; color:var(--muted); line-height:1.5; }
+
+    .risk-bar-wrap { margin:6px 0 14px; }
+    .risk-label { font-size:12px; color:var(--muted); margin-bottom:5px; }
+    .risk-bar { height:6px; border-radius:999px; background:var(--border); overflow:hidden; }
+    .risk-fill { height:100%; border-radius:999px; }
+
+    .example-box {
+      border-right:3px solid var(--accent); padding:12px 14px;
+      background:rgba(106,166,255,.06); border-radius:0 12px 12px 0;
+      margin:14px 0; font-size:14px; color:var(--muted); line-height:1.6;
+    }
+
+    .progress-wrap {
+      background:var(--item-bg); border:1px solid var(--border);
+      border-radius:14px; padding:14px 18px; margin:16px 0 0;
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    }
+    .progress-track { flex:1; min-width:140px; height:7px; background:var(--border); border-radius:999px; overflow:hidden; }
+    .progress-fill  { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:999px; transition:width .5s ease; }
+    .progress-text  { font-size:13px; color:var(--muted); white-space:nowrap; }
+
+    .summary-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; margin-top:16px; }
+    .summary-item {
+      padding:14px; border:1px solid var(--border); border-radius:14px;
+      background:var(--item-bg); text-align:center; transition:.2s;
+    }
+    .summary-item:hover { border-color:var(--accent2); transform:translateY(-2px); }
+    .summary-item .s-icon { font-size:26px; margin-bottom:6px; }
+    .summary-item h4 { margin:0 0 4px; font-size:14px; color:var(--text); }
+    .summary-item p  { margin:0; font-size:12px; color:var(--muted); }
+  </style>
 </head>
 
 <body>
-
   <header class="nav">
     <div class="container nav-inner">
-      <div class="brand">
-        <span class="logo">🛡️</span>
-        <div>
-          <strong>سايف ديجيتال</strong>
-          <span class="badge">Learn</span>
+      <div class="nav-left">
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Learn</span></div>
         </div>
+        <button id="themeToggle" type="button" aria-label="تبديل الوضع">
+          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
       </div>
-
-      <nav class="links">
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html" class="active">تعلّم</a>
         <a href="quiz.html">اختبار</a>
@@ -34,83 +96,252 @@
     </div>
   </header>
 
-
   <main class="container">
-    <section class="card pad">
-      <h1>التعلّم السريع 💡</h1>
-      <p>
-        هنا ستجد أهم المحاور الأمنية بشكل مبسّط وسريع، مع نصائح يمكنك تطبيقها فورًا لتعزيز وعيك الرقمي.
-      </p>
-    </section>
 
-    <!-- ===== الشبكة التعليمية ===== -->
-    <section class="grid">
-      <div class="card pad">
-        <h2>🎯 التصيّد (Phishing)</h2>
-        <p>محاولات لخداعك برسائل أو روابط تقلّد جهات موثوقة لسرقة بياناتك.</p>
-        <ul class="small">
-          <li>افحص اسم الموقع (الدومين) قبل الضغط.</li>
-          <li>لا تعطِ OTP أو كلمة المرور لأي شخص.</li>
-          <li>إذا الرسالة فيها استعجال مريب — انتبه!</li>
-        </ul>
+    <!-- Hero -->
+    <section class="card pad" style="margin-bottom:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;">
+        <div>
+          <h1>التعلّم السريع 💡</h1>
+          <p style="max-width:560px;">اختر المحور اللي يهمك — ستجد تعريفاً مبسطاً، نصائح قابلة للتطبيق، وأمثلة واقعية.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+            <span class="tag">8 محاور</span>
+            <span class="tag">نصائح فورية</span>
+            <span class="tag">أمثلة واقعية</span>
+          </div>
+        </div>
+        <div style="text-align:center;padding:12px 22px;border:1px solid var(--border);border-radius:14px;background:var(--item-bg);flex-shrink:0;">
+          <strong style="font-size:30px;color:var(--accent2);" id="readCount">0</strong><span style="font-size:18px;color:var(--muted);">/8</span>
+          <p class="small" style="margin:2px 0 0;">محور قرأته</p>
+        </div>
       </div>
 
-      <div class="card pad">
-        <h2>🔐 كلمات المرور</h2>
-        <p>كلمة مرور طويلة وفريدة لكل حساب = أقوى خط دفاع.</p>
-        <ul class="small">
-          <li>استخدم مدير كلمات مرور (Password Manager).</li>
-          <li>فعّل التحقق بخطوتين (MFA).</li>
-          <li>لا تكرر نفس الكلمة على أكثر من موقع.</li>
-        </ul>
+      <div class="progress-wrap">
+        <span class="progress-text">تقدّمك</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+        <span class="progress-text" id="progressPct">0%</span>
       </div>
 
-      <div class="card pad">
-        <h2>📶 Wi‑Fi وأمان الشبكات</h2>
-        <p>الشبكات العامة قد تكون مراقَبة أو مزيفة.</p>
-        <ul class="small">
-          <li>تجنب إدخال بيانات حساسة على شبكات عامة.</li>
-          <li>استخدم VPN إذا اضطررت.</li>
-          <li>لا تتصل بأي شبكة مجانية بدون تحقق من المصدر.</li>
-        </ul>
-      </div>
-
-      <div class="card pad">
-        <h2>🔒 الخصوصية</h2>
-        <p>التحكم في بياناتك جزء أساسي من أمانك.</p>
-        <ul class="small">
-          <li>راجع صلاحيات التطبيقات باستمرار.</li>
-          <li>أوقف تحديد الموقع للتطبيقات غير الضرورية.</li>
-          <li>لا تنشر معلوماتك الشخصية في العلن.</li>
-        </ul>
-      </div>
-
-      <div class="card pad">
-        <h2>⏫ التحديثات</h2>
-        <p>التحديثات تسد الثغرات قبل أن تُستغل.</p>
-        <ul class="small">
-          <li>حدّث نظام التشغيل والمتصفح دائمًا.</li>
-          <li>تأكد من تحديث الراوتر إذا توفر إصدار جديد.</li>
-        </ul>
-      </div>
-
-      <div class="card pad">
-        <h2>☁️ السحابة</h2>
-        <p>خدمات التخزين السحابي مفيدة لكن تحتاج ضبط وصول دقيق.</p>
-        <ul class="small">
-          <li>لا تفتح ملفاتك للوصول العام إلا للضرورة القصوى.</li>
-          <li>فعّل التنبيهات لتسجيل الدخول أو المشاركة.</li>
-          <li>نظّم صلاحيات المستخدمين بانتظام.</li>
-        </ul>
+      <div class="topic-tabs" id="topicTabs">
+        <button class="topic-tab active" data-topic="phishing">🎯 التصيّد</button>
+        <button class="topic-tab" data-topic="password">🔐 كلمات المرور</button>
+        <button class="topic-tab" data-topic="wifi">📶 Wi-Fi</button>
+        <button class="topic-tab" data-topic="privacy">🔒 الخصوصية</button>
+        <button class="topic-tab" data-topic="updates">⏫ التحديثات</button>
+        <button class="topic-tab" data-topic="cloud">☁️ السحابة</button>
+        <button class="topic-tab" data-topic="social">🧠 الهندسة الاجتماعية</button>
+        <button class="topic-tab" data-topic="malware">🦠 البرمجيات الخبيثة</button>
       </div>
     </section>
 
-    <!-- ===== التذييل الصغير ===== -->
+    <!-- التصيّد -->
+    <div class="topic-panel show" id="panel-phishing">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>🎯 التصيّد (Phishing)</h2>
+          <p>محاولات خداع عبر رسائل أو روابط مزيفة تنتحل هوية جهات موثوقة لسرقة بياناتك.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:90%;background:#ff6a6a;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> رسالة من "البنك" تقول "حسابك سيُغلق خلال 24 ساعة — اضغط هنا". الرابط يؤدي لموقع مزيف يسرق بياناتك.</div>
+          <a href="quiz.html" class="btn primary" style="margin-top:10px;">اختبر نفسك 🎯</a>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تكتشف التصيّد؟</h3>
+          <div class="tip-card"><div class="tip-icon">🔗</div><div class="tip-text"><h4>افحص الدومين بدقة</h4><p>مثال: <code>paypa1.com</code> بدل <code>paypal.com</code> — حرف واحد يفرق.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-text"><h4>تجاهل رسائل الاستعجال</h4><p>"حسابك بيتقفل الآن!" — المؤسسات الحقيقية لا تستعجلك هكذا.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🔒</div><div class="tip-text"><h4>لا تعطِ OTP لأحد أبداً</h4><p>حتى لو قال إنه من البنك — OTP سري تماماً.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-text"><h4>ادخل للمواقع يدوياً</h4><p>اكتب عنوان الموقع الرسمي في المتصفح مباشرة بدل الضغط على الرابط.</p></div></div>
+        </div>
+      </div>
+      <div class="card pad">
+        <h3 style="margin-bottom:14px;color:var(--accent2);">⚠️ أنواع التصيّد الشائعة</h3>
+        <div class="summary-grid">
+          <div class="summary-item"><div class="s-icon">📧</div><h4>Email Phishing</h4><p>بريد إلكتروني مزيف من جهات تبدو موثوقة</p></div>
+          <div class="summary-item"><div class="s-icon">📱</div><h4>Smishing</h4><p>تصيّد عبر SMS أو واتساب</p></div>
+          <div class="summary-item"><div class="s-icon">📞</div><h4>Vishing</h4><p>مكالمات هاتفية من "موظفين" وهميين</p></div>
+          <div class="summary-item"><div class="s-icon">🎯</div><h4>Spear Phishing</h4><p>هجوم موجّه لشخص بعينه بمعلومات شخصية</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- كلمات المرور -->
+    <div class="topic-panel" id="panel-password">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>🔐 كلمات المرور</h2>
+          <p>كلمة مرور قوية وفريدة لكل حساب هي أقوى خط دفاع ضد الاختراق.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">خطر الإهمال: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:88%;background:#ff6a6a;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> في 2024 تسرّبت ملايين كلمات المرور. من كرّر نفس الكلمة خسر كل حساباته دفعة واحدة.</div>
+          <a href="tools.html" class="btn primary" style="margin-top:10px;">جرّب مولّد كلمات المرور 🔑</a>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي كلمات مرورك؟</h3>
+          <div class="tip-card"><div class="tip-icon">📏</div><div class="tip-text"><h4>أطوَل = أقوى</h4><p>12 حرف كحد أدنى — جملة طويلة أفضل من كلمة معقدة قصيرة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🎲</div><div class="tip-text"><h4>كلمة فريدة لكل حساب</h4><p>لا تكرر — لو تسرّب موقع واحد ينهار الكل.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🗝️</div><div class="tip-text"><h4>استخدم Password Manager</h4><p>مثل Bitwarden أو 1Password — يحفظها ويولّدها عنك.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📲</div><div class="tip-text"><h4>فعّل MFA دائماً</h4><p>يحميك حتى لو سُرقت كلمة المرور.</p></div></div>
+        </div>
+      </div>
+      <div class="card pad">
+        <h3 style="margin-bottom:14px;color:var(--accent2);">✅ معيار كلمة المرور القوية</h3>
+        <div class="summary-grid">
+          <div class="summary-item"><div class="s-icon">📏</div><h4>12+ حرف</h4><p>الطول أهم عامل</p></div>
+          <div class="summary-item"><div class="s-icon">🔡</div><h4>أحرف كبيرة وصغيرة</h4><p>تنويع يزيد الصعوبة</p></div>
+          <div class="summary-item"><div class="s-icon">🔢</div><h4>أرقام ورموز</h4><p>أضف ! @ # $ للتقوية</p></div>
+          <div class="summary-item"><div class="s-icon">🚫</div><h4>تجنب المعلومات الشخصية</h4><p>اسمك وتاريخ ميلادك سهل التخمين</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wi-Fi -->
+    <div class="topic-panel" id="panel-wifi">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>📶 Wi-Fi وأمان الشبكات</h2>
+          <p>الشبكات العامة قد تكون مراقَبة أو مزيفة — بياناتك تمر عليها بدون تشفير.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">خطر الشبكات العامة: <strong style="color:#ffb347;">متوسط-مرتفع</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:70%;background:#ffb347;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> مهاجم في مقهى يُنشئ شبكة "CafeWiFi_Free" — كل من يتصل يمر حركة بياناته عبر جهازه.</div>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي نفسك؟</h3>
+          <div class="tip-card"><div class="tip-icon">🚫</div><div class="tip-text"><h4>تجنب العمليات الحساسة</h4><p>لا تدخل على البنك أو البريد على شبكة عامة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🔐</div><div class="tip-text"><h4>استخدم VPN</h4><p>يشفّر بياناتك — مثل Mullvad أو ProtonVPN.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">✅</div><div class="tip-text"><h4>تحقق من اسم الشبكة</h4><p>اسأل الموظف عن الاسم الرسمي قبل الاتصال.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📡</div><div class="tip-text"><h4>فضّل بيانات الجوال</h4><p>أكثر أماناً من شبكات مجهولة المصدر.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- الخصوصية -->
+    <div class="topic-panel" id="panel-privacy">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>🔒 الخصوصية الرقمية</h2>
+          <p>بياناتك الشخصية لها قيمة — التحكم فيها حق أساسي يحميك من الاستغلال.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">تأثير الإهمال: <strong style="color:#ffb347;">مرتفع</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:75%;background:#ffb347;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> تطبيق ألعاب يطلب صلاحية الميكروفون والموقع — هذه البيانات تُباع لشركات إعلانية.</div>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">خطوات عملية</h3>
+          <div class="tip-card"><div class="tip-icon">📋</div><div class="tip-text"><h4>راجع صلاحيات التطبيقات</h4><p>الإعدادات ← التطبيقات ← الصلاحيات — كل أسبوع.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📍</div><div class="tip-text"><h4>أوقف تتبع الموقع</h4><p>فعّله فقط للتطبيقات اللي تحتاجه مثل الخرائط.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🍪</div><div class="tip-text"><h4>لا تقبل كل الكوكيز</h4><p>اختر "الضروري فقط" — الكوكيز الإعلانية تتبع تصفحك.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">👤</div><div class="tip-text"><h4>قلّل ما تنشره علناً</h4><p>معلوماتك في السوشيال ميديا تُستخدم في الهندسة الاجتماعية.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- التحديثات -->
+    <div class="topic-panel" id="panel-updates">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>⏫ التحديثات الأمنية</h2>
+          <p>التحديثات ليست مميزات فقط — هي إصلاحات لثغرات يستغلها المهاجمون.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">خطر عدم التحديث: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:85%;background:#ff6a6a;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> هجوم WannaCry 2017 أصاب 200,000 جهاز في 150 دولة — كلها تشغّل ويندوز قديم لم يُحدَّث.</div>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">ماذا تحدّث؟</h3>
+          <div class="tip-card"><div class="tip-icon">💻</div><div class="tip-text"><h4>نظام التشغيل أولاً</h4><p>Windows / macOS / iOS / Android — فعّل التحديث التلقائي.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-text"><h4>المتصفح دائماً</h4><p>Chrome و Firefox يُصدران تحديثات أمنية كل أسبوعين.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📡</div><div class="tip-text"><h4>الراوتر لا تنساه</h4><p>تحقق من التحديثات مرة كل شهر.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-text"><h4>التطبيقات أيضاً</h4><p>فعّل التحديث التلقائي من المتجر.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- السحابة -->
+    <div class="topic-panel" id="panel-cloud">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>☁️ الأمان السحابي</h2>
+          <p>التخزين السحابي مريح لكن خطأ واحد في الإعداد يكشف ملفاتك للعالم.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">خطر الإعداد الخاطئ: <strong style="color:#ffb347;">مرتفع</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:72%;background:#ffb347;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> شركات تركت قواعد بيانات AWS "مفتوحة للعموم" بالخطأ — وتسرّبت بيانات ملايين العملاء.</div>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تأمن ملفاتك السحابية؟</h3>
+          <div class="tip-card"><div class="tip-icon">🔐</div><div class="tip-text"><h4>راجع إعدادات المشاركة</h4><p>تأكد أن ملفاتك "خاصة" وليست "عامة".</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🔔</div><div class="tip-text"><h4>فعّل تنبيهات تسجيل الدخول</h4><p>لو دخل أحد غيرك ستعرف فوراً.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">👥</div><div class="tip-text"><h4>راجع قائمة من لديه صلاحية</h4><p>احذف الصلاحيات القديمة لأشخاص لم تعد تتعامل معهم.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📂</div><div class="tip-text"><h4>لا تشارك روابط "للجميع"</h4><p>فضّل المشاركة بالبريد بدل الرابط العام.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- الهندسة الاجتماعية -->
+    <div class="topic-panel" id="panel-social">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>🧠 الهندسة الاجتماعية</h2>
+          <p>أخطر أنواع الهجمات — لا تحتاج تقنية، تستغل ثقتك وعواطفك فقط.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">الأعلى</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:95%;background:linear-gradient(90deg,#ff6a6a,#ff4444);"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> موظف يعطي "الدعم الفني" كلمة مرور بعد محادثة ودية — المهاجم بنى ثقة بالكلام فقط، بدون أي اختراق تقني.</div>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تتعرف عليها؟</h3>
+          <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-text"><h4>الاستعجال المصطنع</h4><p>"الآن فقط!" — مصمم لمنعك من التفكير.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🎁</div><div class="tip-text"><h4>العروض المغرية جداً</h4><p>ربحت جائزة؟ — تحقق قبل أي خطوة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🎭</div><div class="tip-text"><h4>انتحال الهوية</h4><p>يدّعي أنه من IT أو البنك — تحقق من هويته بشكل مستقل.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">💭</div><div class="tip-text"><h4>القاعدة الذهبية</h4><p>لو شعرت بضغط للتصرف بسرعة — توقف، تنفّس، تحقق.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- البرمجيات الخبيثة -->
+    <div class="topic-panel" id="panel-malware">
+      <div class="topic-hero">
+        <div class="card pad">
+          <h2>🦠 البرمجيات الخبيثة (Malware)</h2>
+          <p>برامج مصممة للتجسس أو التدمير أو الابتزاز — تدخل جهازك بطرق غير متوقعة.</p>
+          <div class="risk-bar-wrap">
+            <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
+            <div class="risk-bar"><div class="risk-fill" style="width:88%;background:#ff6a6a;"></div></div>
+          </div>
+          <div class="example-box">📌 <strong>مثال:</strong> Ransomware يشفّر كل ملفاتك ويطلب فدية بالبيتكوين — شركات كبرى دفعت ملايين لاستعادة بياناتها.</div>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي نفسك؟</h3>
+          <div class="tip-card"><div class="tip-icon">📥</div><div class="tip-text"><h4>حمّل من مصادر رسمية فقط</h4><p>App Store / Play Store / المواقع الرسمية — لا روابط مجهولة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">🛡️</div><div class="tip-text"><h4>فعّل مضاد الفيروسات</h4><p>Windows Defender كافٍ للأغلبية — حدّثه باستمرار.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">💾</div><div class="tip-text"><h4>احتفظ بنسخة احتياطية</h4><p>Backup منتظم على هارد خارجي — يحميك من Ransomware.</p></div></div>
+          <div class="tip-card"><div class="tip-icon">📎</div><div class="tip-text"><h4>لا تفتح مرفقات مجهولة</h4><p>حتى من معارفك — حسابهم ممكن يكون مخترقاً.</p></div></div>
+        </div>
+      </div>
+      <div class="card pad">
+        <h3 style="margin-bottom:14px;color:var(--accent2);">🦠 أنواع Malware الشائعة</h3>
+        <div class="summary-grid">
+          <div class="summary-item"><div class="s-icon">🔒</div><h4>Ransomware</h4><p>يشفّر ملفاتك ويطلب فدية</p></div>
+          <div class="summary-item"><div class="s-icon">👁️</div><h4>Spyware</h4><p>يتجسس على نشاطك وكلمات مرورك</p></div>
+          <div class="summary-item"><div class="s-icon">🐴</div><h4>Trojan</h4><p>يبدو برنامجاً شرعياً لكنه خبيث</p></div>
+          <div class="summary-item"><div class="s-icon">🤖</div><h4>Botnet</h4><p>يحوّل جهازك لأداة في شبكة هجمات</p></div>
+        </div>
+      </div>
+    </div>
+
     <footer class="footer">
       <div class="footer-content">
-        <div class="small">
-          💬 نصيحة: بعد قراءة هذه المحاور، جرّب <a href="quiz.html" class="accent">الاختبار</a> لتقييم وعيك السيبراني.
-        </div>
+        <div class="small">💬 بعد قراءة المحاور، جرّب <a href="quiz.html" class="accent">الاختبار</a> لتقييم وعيك السيبراني.</div>
         <div class="footer-links">
           <a href="policies.html">سياسة الخصوصية</a>
           <a href="contact.html">تواصل معنا</a>
@@ -120,5 +351,48 @@
   </main>
 
   <script src="main.js"></script>
+  <script>
+  (function(){
+    const btn=document.getElementById("themeToggle");
+    const icon=document.getElementById("themeIcon");
+    const lbl=document.getElementById("themeLabel");
+    function applyTheme(isDark){
+      document.body.classList.toggle("light-mode",!isDark);
+      icon.textContent=isDark?"🌙":"☀️";
+      lbl.textContent=isDark?"ليلي":"صباحي";
+      localStorage.setItem("sd-theme",isDark?"dark":"light");
+    }
+    applyTheme(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>applyTheme(document.body.classList.contains("light-mode")));
+  })();
+
+  (function(){
+    const tabs=document.querySelectorAll(".topic-tab");
+    const total=tabs.length;
+    const readSet=new Set(JSON.parse(localStorage.getItem("sd-read")||'["phishing"]'));
+
+    function updateProgress(){
+      const n=readSet.size;
+      const pct=Math.round((n/total)*100);
+      document.getElementById("readCount").textContent=n;
+      document.getElementById("progressFill").style.width=pct+"%";
+      document.getElementById("progressPct").textContent=pct+"%";
+      localStorage.setItem("sd-read",JSON.stringify([...readSet]));
+    }
+
+    function showPanel(id){
+      document.querySelectorAll(".topic-panel").forEach(p=>p.classList.remove("show"));
+      tabs.forEach(t=>t.classList.remove("active"));
+      document.getElementById("panel-"+id)?.classList.add("show");
+      document.querySelector(`[data-topic="${id}"]`)?.classList.add("active");
+      readSet.add(id);
+      updateProgress();
+      window.scrollTo({top:document.querySelector(".card.pad").offsetTop-80,behavior:"smooth"});
+    }
+
+    tabs.forEach(t=>t.addEventListener("click",()=>showPanel(t.dataset.topic)));
+    updateProgress();
+  })();
+  </script>
 </body>
 </html>
