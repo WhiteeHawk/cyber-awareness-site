@@ -5,44 +5,362 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>تواصل معنا | سايف ديجيتال</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .page-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+    .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.14;}
+    .orb-a{width:450px;height:450px;background:#7cf0d6;top:-120px;left:-80px;animation:of 15s ease-in-out infinite;}
+    .orb-b{width:380px;height:380px;background:#6aa6ff;bottom:-100px;right:-60px;animation:of 15s -6s ease-in-out infinite;}
+    @keyframes of{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    /* هيرو */
+    .contact-hero{text-align:center;padding:65px 22px 44px;animation:fadeUp .6s ease both;}
+    .contact-hero h1{
+      font-size:clamp(32px,5vw,58px);font-weight:900;margin:0 0 12px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .contact-hero p{font-size:16px;color:var(--muted);max-width:500px;margin:0 auto;}
+
+    /* شبكة الاتصال */
+    .contact-grid{
+      display:grid;grid-template-columns:1fr 1.4fr;gap:22px;
+      max-width:860px;margin:0 auto 40px;
+      animation:fadeUp .6s .1s ease both;
+    }
+    @media(max-width:680px){.contact-grid{grid-template-columns:1fr;}}
+
+    /* بطاقات التواصل */
+    .contact-info{display:flex;flex-direction:column;gap:14px;}
+    .ci-card{
+      background:rgba(16,26,51,.88);
+      border:1px solid rgba(106,166,255,.12);
+      border-radius:18px;padding:20px;
+      backdrop-filter:blur(10px);
+      display:flex;gap:14px;align-items:center;
+      transition:.2s;
+    }
+    .ci-card:hover{border-color:rgba(124,240,214,.3);transform:translateX(-3px);}
+    .ci-icon{
+      width:46px;height:46px;border-radius:12px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:22px;
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .ci-label{font-size:12px;color:var(--muted);margin:0 0 3px;}
+    .ci-value{font-size:14px;font-weight:600;color:var(--text);margin:0;font-family:'IBM Plex Mono',monospace;}
+
+    /* بطاقة إضافية عن الأمان */
+    .security-note{
+      background:rgba(75,227,154,.05);
+      border:1px dashed rgba(75,227,154,.25);
+      border-radius:16px;padding:16px;
+      font-size:13px;color:var(--muted);line-height:1.6;
+    }
+    .security-note strong{color:var(--ok);}
+
+    /* فورم */
+    .contact-form-card{
+      background:rgba(16,26,51,.88);
+      border:1px solid rgba(106,166,255,.15);
+      border-radius:24px;padding:32px;
+      backdrop-filter:blur(12px);
+      position:relative;overflow:hidden;
+    }
+    .contact-form-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent2),var(--accent),transparent);
+    }
+
+    .form-title{font-size:20px;font-weight:800;color:var(--text);margin:0 0 6px;}
+    .form-sub{font-size:14px;color:var(--muted);margin:0 0 24px;}
+
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+    @media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+
+    .form-group{margin-bottom:12px;}
+    .form-label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;letter-spacing:.4px;}
+
+    .form-input,.form-textarea{
+      width:100%;padding:12px 14px;border-radius:12px;
+      border:1px solid rgba(106,166,255,.18);
+      background:rgba(0,0,0,.25);color:var(--text);
+      font-family:var(--font);font-size:14px;
+      outline:none;transition:.2s;
+      box-sizing:border-box;
+    }
+    .form-input:focus,.form-textarea:focus{
+      border-color:rgba(106,166,255,.5);
+      box-shadow:0 0 0 3px rgba(106,166,255,.08);
+    }
+    .form-input::placeholder,.form-textarea::placeholder{color:rgba(169,179,214,.35);}
+    .form-textarea{resize:vertical;min-height:120px;line-height:1.6;}
+
+    /* نوع الرسالة */
+    .msg-types{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+    .msg-type{
+      padding:6px 13px;border-radius:999px;font-size:12px;font-weight:600;
+      border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.2);
+      color:var(--muted);cursor:pointer;transition:.2s;
+      user-select:none;
+    }
+    .msg-type:hover{border-color:var(--border);color:var(--text);}
+    .msg-type.sel{border-color:rgba(124,240,214,.4);background:rgba(124,240,214,.08);color:var(--accent2);}
+
+    /* زر الإرسال */
+    .submit-btn{
+      width:100%;padding:14px;border-radius:14px;
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.22),rgba(124,240,214,.15));
+      color:var(--text);font-family:var(--font);font-size:15px;font-weight:700;
+      cursor:pointer;transition:.2s;margin-top:8px;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .submit-btn:hover{background:linear-gradient(135deg,rgba(106,166,255,.32),rgba(124,240,214,.22));transform:translateY(-1px);}
+    .submit-btn:active{transform:scale(.99);}
+    .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+    /* رسالة نجاح */
+    .success-msg{
+      display:none;text-align:center;padding:32px 20px;
+      animation:fadeUp .4s ease both;
+    }
+    .success-icon{font-size:52px;margin-bottom:14px;}
+    .success-title{font-size:22px;font-weight:800;color:var(--ok);margin:0 0 8px;}
+    .success-sub{font-size:15px;color:var(--muted);}
+
+    /* FAQ */
+    .faq-section{
+      max-width:860px;margin:0 auto 48px;
+      animation:fadeUp .6s .2s ease both;
+    }
+    .faq-title{font-size:22px;font-weight:800;color:var(--text);margin:0 0 20px;text-align:center;}
+    .faq-item{
+      background:rgba(16,26,51,.85);
+      border:1px solid rgba(106,166,255,.1);
+      border-radius:16px;margin-bottom:10px;
+      backdrop-filter:blur(8px);overflow:hidden;
+    }
+    .faq-q{
+      padding:16px 20px;cursor:pointer;
+      display:flex;align-items:center;justify-content:space-between;
+      font-size:15px;font-weight:600;color:var(--text);
+      transition:.2s;user-select:none;
+    }
+    .faq-q:hover{color:var(--accent2);}
+    .faq-arrow{transition:transform .3s;font-size:14px;color:var(--muted);}
+    .faq-item.open .faq-arrow{transform:rotate(180deg);}
+    .faq-a{
+      max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s;
+      font-size:14px;color:var(--muted);line-height:1.7;
+      padding:0 20px;
+    }
+    .faq-item.open .faq-a{max-height:200px;padding:0 20px 16px;}
+  </style>
 </head>
 <body>
-<header class="nav">
-  <div class="container nav-inner">
-    <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Contact</span></div></div>
-    <button class="menu-toggle" id="menuToggle">☰</button>
-    <nav class="links" id="navLinks">
-          <a href="index.html">الرئيسية</a>
+  <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Contact</span></div></div>
+        <button id="themeToggle" type="button"><span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span></button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
         <a href="quiz.html">اختبار</a>
         <a href="tools.html">أدوات</a>
         <a href="scenarios.html">سيناريوهات</a>
-        <a href="resources.html">مصادر</a>
-        <a href="policies.html">تلخيص سياسات الخصوصية</a>
+        <a href="resources.html">موارد</a>
+        <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
-        <a href="contact.html" class="active">تواصل</a>
-    </nav>
-  </div>
-</header>
+        <a href="contact.html" class="active ">تواصل</a>
+      </nav>
+      </nav>
+    </div>
+  </header>
 
-<main class="container">
-  <div class="card pad">
-    <h1>✉️ تواصل معنا</h1>
-    <p>نسعد باستفساراتك أو مقترحاتك.</p>
-    <form class="form" action="mailto:example@email.com">
-      <div class="two">
-        <input type="text" class="input" placeholder="الاسم" required/>
-        <input type="email" class="input" placeholder="البريد الإلكتروني" required/>
-      </div>
-      <textarea class="input" placeholder="رسالتك" rows="5" required></textarea>
-      <div class="cta-row">
-        <button class="btn primary" type="submit">إرسال</button>
-      </div>
-    </form>
-  </div>
-  <footer class="footer"><div class="small">📩 ملاحظاتك تساعدنا على التطوير.</div></footer>
-</main>
+  <main class="container">
+    <div class="contact-hero">
+      <h1>✉️ تواصل معنا</h1>
+      <p>استفسار، اقتراح، أو ملاحظة؟ نسعد بسماعك وسنرد في أقرب وقت.</p>
+    </div>
 
-<script src="main.js"></script>
+    <div class="contact-grid">
+      <!-- معلومات التواصل -->
+      <div class="contact-info">
+        <div class="ci-card">
+          <div class="ci-icon" style="background:rgba(106,166,255,.1);">📧</div>
+          <div>
+            <p class="ci-label">البريد الإلكتروني</p>
+            <p class="ci-value">AbdulelahMutlaq@gmail.com</p>
+          </div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon" style="background:rgba(124,240,214,.1);">⏱️</div>
+          <div>
+            <p class="ci-label">وقت الاستجابة</p>
+            <p class="ci-value">خلال 24-48 ساعة</p>
+          </div>
+        </div>
+        <div class="ci-card">
+          <div class="ci-icon" style="background:rgba(167,139,250,.1);">🎓</div>
+          <div>
+            <p class="ci-label">نوع المشروع</p>
+            <p class="ci-value">مشروع تخرج أكاديمي</p>
+          </div>
+        </div>
+
+        <div class="security-note">
+          <strong>🔒 ملاحظة أمنية:</strong> لن نطلب منك أبداً كلمة مرورك أو بيانات حساباتك عبر هذا النموذج أو البريد الإلكتروني.
+        </div>
+      </div>
+
+      <!-- الفورم -->
+      <div class="contact-form-card">
+        <div id="formContent">
+          <div class="form-title">أرسل رسالتك</div>
+          <p class="form-sub">اختر نوع رسالتك وأخبرنا بما تريد.</p>
+
+          <!-- نوع الرسالة -->
+          <div class="msg-types">
+            <span class="msg-type sel" data-type="استفسار">❓ استفسار</span>
+            <span class="msg-type" data-type="اقتراح">💡 اقتراح</span>
+            <span class="msg-type" data-type="خطأ">🐛 إبلاغ عن خطأ</span>
+            <span class="msg-type" data-type="شراكة">🤝 شراكة</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">الاسم</label>
+              <input class="form-input" id="nameInput" type="text" placeholder="اسمك الكريم" required/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input class="form-input" id="emailInput" type="email" placeholder="email@example.com" required/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الموضوع</label>
+            <input class="form-input" id="subjectInput" type="text" placeholder="موضوع رسالتك"/>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">رسالتك</label>
+            <textarea class="form-textarea" id="msgInput" placeholder="اكتب رسالتك هنا..." required></textarea>
+          </div>
+
+          <button class="submit-btn" id="submitBtn" type="button">
+            <span id="btnText">إرسال الرسالة</span> <span id="btnIcon">📤</span>
+          </button>
+        </div>
+
+        <!-- رسالة نجاح -->
+        <div class="success-msg" id="successMsg">
+          <div class="success-icon">✅</div>
+          <div class="success-title">تم الإرسال!</div>
+          <p class="success-sub">شكراً لتواصلك — سنرد عليك في أقرب وقت ممكن.</p>
+          <button class="submit-btn" style="margin-top:20px;" onclick="resetForm()">إرسال رسالة أخرى</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div class="faq-title">❓ أسئلة شائعة</div>
+
+      <div class="faq-item">
+        <div class="faq-q">هل المنصة مجانية تماماً؟<span class="faq-arrow">▼</span></div>
+        <div class="faq-a">نعم — سايف ديجيتال مجانية بالكامل ولا تتطلب تسجيلاً أو اشتراكاً. كل المحتوى متاح للجميع.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">هل تجمعون بياناتي الشخصية؟<span class="faq-arrow">▼</span></div>
+        <div class="faq-a">لا — لا نجمع أي بيانات شخصية. كل الأدوات تعمل محلياً في متصفحك فقط. التفضيلات مثل الوضع الليلي تُحفظ في جهازك.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">كيف يعمل تحليل سياسات الخصوصية بالذكاء الاصطناعي؟<span class="faq-arrow">▼</span></div>
+        <div class="faq-a">نستخدم Claude AI من Anthropic — تكتب اسم التطبيق والذكاء الاصطناعي يلخص لك السياسة بنقاط واضحة في ثوانٍ.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">هل يمكنني استخدام المحتوى في مشاريعي؟<span class="faq-arrow">▼</span></div>
+        <div class="faq-a">المحتوى التعليمي للاستخدام الشخصي والأكاديمي. للاستخدام التجاري أو الاقتباس، يرجى التواصل معنا مسبقاً.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
+      <div class="footer-links"><a href="policies.html">سياسة الخصوصية</a><a href="about.html">عن المشروع</a></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  /* نوع الرسالة */
+  let msgType="استفسار";
+  document.querySelectorAll(".msg-type").forEach(t=>{
+    t.addEventListener("click",()=>{
+      document.querySelectorAll(".msg-type").forEach(x=>x.classList.remove("sel"));
+      t.classList.add("sel"); msgType=t.dataset.type;
+    });
+  });
+
+  /* إرسال الفورم */
+  document.getElementById("submitBtn").addEventListener("click",()=>{
+    const name=document.getElementById("nameInput").value.trim();
+    const email=document.getElementById("emailInput").value.trim();
+    const msg=document.getElementById("msgInput").value.trim();
+    if(!name||!email||!msg){
+      alert("يرجى تعبئة الاسم والبريد والرسالة.");return;
+    }
+    const btn=document.getElementById("submitBtn");
+    btn.disabled=true;
+    document.getElementById("btnText").textContent="جاري الإرسال...";
+    document.getElementById("btnIcon").textContent="⏳";
+    setTimeout(()=>{
+      document.getElementById("formContent").style.display="none";
+      document.getElementById("successMsg").style.display="block";
+    },1200);
+  });
+
+  function resetForm(){
+    document.getElementById("formContent").style.display="block";
+    document.getElementById("successMsg").style.display="none";
+    document.getElementById("nameInput").value="";
+    document.getElementById("emailInput").value="";
+    document.getElementById("subjectInput").value="";
+    document.getElementById("msgInput").value="";
+    const btn=document.getElementById("submitBtn");
+    btn.disabled=false;
+    document.getElementById("btnText").textContent="إرسال الرسالة";
+    document.getElementById("btnIcon").textContent="📤";
+  }
+
+  /* FAQ */
+  document.querySelectorAll(".faq-item").forEach(item=>{
+    item.querySelector(".faq-q").addEventListener("click",()=>{
+      const isOpen=item.classList.contains("open");
+      document.querySelectorAll(".faq-item").forEach(i=>i.classList.remove("open"));
+      if(!isOpen)item.classList.add("open");
+    });
+  });
+  </script>
 </body>
 </html>

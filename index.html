@@ -1,205 +1,598 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>منصة التوعية بالأمن السيبراني | سايف ديجيتال</title>
-
-  <!-- ===== CSS ===== -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- ===== أيقونة الموقع ===== -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>سايف ديجيتال | منصة الأمن السيبراني</title>
+  <link rel="stylesheet" href="style.css"/>
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="منصة سايف ديجيتال للتوعية بالأمن السيبراني تساعدك في تعلم الممارسات الآمنة واكتساب وعي رقمي في العالم الحديث.">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="description" content="منصة سايف ديجيتال للتوعية بالأمن السيبراني — تعلّم، اختبر، وحمِ نفسك رقمياً.">
+  <style>
+    /* ══ خلفية متحركة ══ */
+    .hero-bg {
+      position: fixed; inset: 0; z-index: -1; overflow: hidden;
+    }
+    .hero-bg .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: .18;
+      animation: orbFloat 12s ease-in-out infinite;
+    }
+    .orb-1 { width:600px;height:600px; background:#6aa6ff; top:-200px; right:-100px; animation-delay:0s; }
+    .orb-2 { width:500px;height:500px; background:#7cf0d6; bottom:-150px; left:-100px; animation-delay:-4s; }
+    .orb-3 { width:300px;height:300px; background:#a78bfa; top:40%; left:40%; animation-delay:-8s; }
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(30px,-40px) scale(1.05); }
+      66%      { transform: translate(-20px,20px) scale(.97); }
+    }
+    .grid-overlay {
+      position: fixed; inset: 0; z-index: -1;
+      background-image:
+        linear-gradient(rgba(106,166,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(106,166,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ══ هيرو ══ */
+    .hero-section {
+      min-height: 92vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 80px 22px 60px;
+      position: relative;
+    }
+
+    /* شارة علوية */
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px; border-radius: 999px;
+      border: 1px solid rgba(124,240,214,.3);
+      background: rgba(124,240,214,.06);
+      font-size: 13px; color: var(--accent2);
+      margin-bottom: 28px;
+      animation: fadeDown .6s ease both;
+    }
+    .hero-badge span { width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:none} }
+
+    /* العنوان الضخم */
+    .hero-title {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin: 0 0 20px;
+      animation: fadeUp .7s .1s ease both;
+    }
+    .hero-title .line1 { color: var(--text); display: block; }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+
+    .hero-sub {
+      font-size: 17px; color: var(--muted);
+      max-width: 560px; margin: 0 auto 36px;
+      line-height: 1.7;
+      animation: fadeUp .7s .2s ease both;
+    }
+
+    /* أزرار الهيرو */
+    .hero-btns {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; margin-bottom: 48px;
+      animation: fadeUp .7s .3s ease both;
+    }
+    .btn-hero-primary {
+      padding: 15px 30px; border-radius: 14px;
+      border: 1px solid rgba(106,166,255,.45);
+      background: linear-gradient(135deg, rgba(106,166,255,.22), rgba(124,240,214,.14));
+      color: var(--text); font-family: var(--font);
+      font-size: 16px; font-weight: 700;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: .2s; position: relative; overflow: hidden;
+    }
+    .btn-hero-primary::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(106,166,255,.15),rgba(124,240,214,.1));
+      opacity:0;transition:.2s;
+    }
+    .btn-hero-primary:hover::before { opacity:1; }
+    .btn-hero-primary:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(106,166,255,.2); color:var(--text); }
+
+    .btn-hero-outline {
+      padding: 15px 26px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: transparent; color: var(--muted);
+      font-family: var(--font); font-size: 15px; font-weight: 600;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: .2s;
+    }
+    .btn-hero-outline:hover { border-color: var(--border); color: var(--text); transform:translateY(-2px); }
+
+    /* إحصائيات */
+    .hero-stats {
+      display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp .7s .4s ease both;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 32px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: block; line-height: 1;
+    }
+    .stat-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* سهم تمرير */
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 12px;
+      animation: fadeUp .7s .8s ease both;
+    }
+    .scroll-arrow { animation: bounce 1.8s infinite; font-size: 18px; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+    /* ══ قسم المميزات ══ */
+    .features-section { padding: 80px 0; }
+    .section-label {
+      text-align: center; font-size: 12px; font-weight: 700;
+      color: var(--accent2); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center; font-size: clamp(26px,4vw,40px);
+      font-weight: 800; color: var(--text);
+      margin: 0 0 14px;
+    }
+    .section-sub {
+      text-align: center; font-size: 15px;
+      color: var(--muted); max-width: 500px;
+      margin: 0 auto 48px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media(max-width:760px){ .features-grid { grid-template-columns:1fr; } }
+    @media(min-width:761px) and (max-width:1000px){ .features-grid { grid-template-columns:1fr 1fr; } }
+
+    .feature-card {
+      background: rgba(16,26,51,.85);
+      border: 1px solid rgba(106,166,255,.1);
+      border-radius: 20px; padding: 28px;
+      backdrop-filter: blur(10px);
+      position: relative; overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      text-decoration: none; display: block;
+      animation: fadeUp .5s ease both;
+    }
+    .feature-card:nth-child(2){ animation-delay:.08s; }
+    .feature-card:nth-child(3){ animation-delay:.16s; }
+    .feature-card:nth-child(4){ animation-delay:.24s; }
+    .feature-card:nth-child(5){ animation-delay:.32s; }
+    .feature-card:nth-child(6){ animation-delay:.40s; }
+
+    .feature-card::before {
+      content:''; position:absolute; top:0;right:0;left:0; height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent),transparent);
+      opacity:0; transition:.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(106,166,255,.35);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      color: inherit;
+    }
+    .feature-card:hover::before { opacity:1; }
+
+    .fc-icon {
+      font-size: 36px; margin-bottom: 16px; display: block;
+      filter: drop-shadow(0 0 10px rgba(106,166,255,.3));
+    }
+    .fc-title { font-size: 17px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+    .fc-desc  { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 16px; }
+    .fc-link  {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: gap .2s;
+    }
+    .feature-card:hover .fc-link { gap: 8px; }
+
+    /* ══ شريط الأمان اليومي ══ */
+    .daily-section { padding: 0 0 80px; }
+    .daily-card {
+      background: linear-gradient(135deg, rgba(106,166,255,.08), rgba(124,240,214,.06));
+      border: 1px solid rgba(106,166,255,.18);
+      border-radius: 24px; padding: 40px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; align-items: center;
+    }
+    @media(max-width:700px){ .daily-card { grid-template-columns:1fr; gap:24px; } }
+
+    .daily-title { font-size: 28px; font-weight: 800; color: var(--text); margin: 0 0 10px; }
+    .daily-sub   { font-size: 15px; color: var(--muted); margin: 0 0 24px; line-height: 1.6; }
+
+    .daily-steps { display: flex; flex-direction: column; gap: 14px; }
+    .daily-step {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 16px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.2);
+      transition: border-color .2s;
+    }
+    .daily-step:hover { border-color: rgba(124,240,214,.25); }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px; font-weight: 700; color: #000;
+      flex-shrink: 0;
+    }
+    .step-text h4 { margin: 0 0 3px; font-size: 14px; color: var(--text); }
+    .step-text p  { margin: 0; font-size: 13px; color: var(--muted); }
+
+    /* ══ خريطة الهجمات ══ */
+    .map-section { padding: 0 0 80px; }
+    .map-card {
+      background: rgba(16,26,51,.85);
+      border: 1px solid rgba(106,166,255,.12);
+      border-radius: 24px; padding: 36px;
+      text-align: center; backdrop-filter: blur(10px);
+      position: relative; overflow: hidden;
+    }
+    .map-card::before {
+      content:''; position:absolute; top:0;right:0;left:0; height:2px;
+      background: linear-gradient(90deg,transparent,#ff6a6a,#ffb347,transparent);
+    }
+    .map-title { font-size: 26px; font-weight: 800; color: var(--text); margin: 0 0 10px; }
+    .map-sub   { font-size: 15px; color: var(--muted); margin: 0 0 24px; }
+    .btn-map {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 14px;
+      border: 1px solid rgba(255,106,106,.3);
+      background: rgba(255,106,106,.1);
+      color: var(--text); font-family: var(--font);
+      font-size: 15px; font-weight: 600;
+      text-decoration: none; transition: .2s;
+    }
+    .btn-map:hover { background:rgba(255,106,106,.18); transform:translateY(-2px); color:var(--text); }
+    .map-pulse {
+      display: inline-block; width:10px;height:10px;border-radius:50%;
+      background:#ff6a6a; position:relative;
+    }
+    .map-pulse::after {
+      content:''; position:absolute; inset:-4px;
+      border-radius:50%; border:2px solid #ff6a6a;
+      animation: mapPulse 1.5s infinite;
+    }
+    @keyframes mapPulse { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(2)} }
+
+    /* ══ الأخبار ══ */
+    .news-section { padding: 0 0 80px; }
+    .news-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 14px; margin-bottom: 22px;
+    }
+    .news-title-wrap h2 { margin: 0 0 4px; font-size: 24px; font-weight: 800; color: var(--text); }
+    .news-src-btns { display:flex; gap:8px; flex-wrap:wrap; }
+    .news-src-btn {
+      padding: 8px 14px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.2);
+      color: var(--muted); font-family: var(--font);
+      font-size: 13px; cursor: pointer; transition: .2s;
+    }
+    .news-src-btn:hover { border-color: var(--border); color: var(--text); }
+    .news-src-btn.active-src {
+      border-color: rgba(106,166,255,.45) !important;
+      background: rgba(106,166,255,.14) !important;
+      color: var(--text) !important;
+    }
+
+    .news-grid-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+      gap: 16px;
+    }
+    .news-card {
+      background: rgba(16,26,51,.85);
+      border: 1px solid rgba(106,166,255,.1);
+      border-radius: 18px; overflow: hidden;
+      display: flex; flex-direction: column;
+      backdrop-filter: blur(8px);
+      transition: transform .25s, box-shadow .25s, border-color .2s;
+    }
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.4);
+      border-color: rgba(106,166,255,.28);
+    }
+    .nc-inner { padding:16px; flex:1; display:flex; flex-direction:column; }
+    .nc-top { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:10px; }
+    .nc-badge { font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid; }
+    .nc-title { font-size:14px;font-weight:700;color:var(--text);margin:0 0 8px;line-height:1.5;flex:1; }
+    .nc-desc  { margin:0 0 10px;font-size:13px;color:var(--muted);opacity:.8;line-height:1.55; }
+    .nc-link  { font-size:12px;font-weight:600;color:var(--accent);direction:ltr;display:inline-block;margin-top:auto;transition:color .2s; }
+    .nc-link:hover { color:var(--accent2); }
+    .nc-bar   { height:3px;flex-shrink:0;opacity:.65; }
+
+    .news-spinner {
+      width:38px;height:38px;
+      border:3px solid rgba(106,166,255,.15);
+      border-top-color:var(--accent);
+      border-radius:50%; animation:spin .75s linear infinite;
+      margin:0 auto;
+    }
+    @keyframes spin { to{transform:rotate(360deg)} }
+
+    /* ══ Footer ══ */
+    .main-footer {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 32px 22px 40px;
+    }
+    .footer-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 14px;
+    }
+    .footer-brand { display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px; }
+    .footer-links a { font-size:13px;color:var(--muted);margin-right:14px;transition:.2s; }
+    .footer-links a:hover { color:var(--accent2); }
+
+    /* ══ Light mode overrides ══ */
+    body.light-mode .feature-card { background:rgba(255,255,255,.9); }
+    body.light-mode .daily-step   { background:rgba(0,0,0,.03); }
+    body.light-mode .map-card     { background:rgba(255,255,255,.9); }
+    body.light-mode .news-card    { background:rgba(255,255,255,.9); }
+
+    /* ══ Responsive ══ */
+    @media(max-width:640px){
+      .hero-section { padding:100px 16px 60px; }
+      .hero-stats   { gap:24px; }
+      .stat-num     { font-size:26px; }
+      .daily-card   { padding:24px; }
+      .map-card     { padding:24px; }
+    }
+  </style>
 </head>
 
 <body>
-  <!-- ===== شريط التنقل ===== -->
+  <!-- الخلفية -->
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="grid-overlay"></div>
+
+  <!-- الناف -->
   <header class="nav">
     <div class="container nav-inner">
-
-      <!-- الجانب الأيسر: brand + زر الوضع -->
       <div class="nav-left">
         <div class="brand">
           <span class="logo">🛡️</span>
-          <div>
-            <strong>سايف ديجيتال</strong>
-            <span class="badge">Cyber Awareness</span>
-          </div>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Cyber Awareness</span></div>
         </div>
-        <button id="themeToggle" type="button" aria-label="تبديل الوضع">
-          <span id="themeIcon">🌙</span>
-          <span id="themeLabel" class="theme-label">ليلي</span>
+        <button id="themeToggle" type="button">
+          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
         </button>
       </div>
-
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="فتح/إغلاق القائمة">☰</button>
-
-      <!-- روابط التنقل -->
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
       <nav class="links" id="navLinks">
         <a href="index.html" class="active">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
         <a href="quiz.html">اختبار</a>
         <a href="tools.html">أدوات</a>
         <a href="scenarios.html">سيناريوهات</a>
-        <a href="resources.html">مصادر</a>
-        <a href="policies.html">تلخيص سياسات الخصوصية</a>
+        <a href="resources.html">موارد</a>
+        <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
         <a href="contact.html">تواصل</a>
       </nav>
     </div>
   </header>
 
-  <!-- ===== المحتوى الرئيسي ===== -->
-  <main class="container">
-    <section class="hero">
-      <div class="hero-grid">
+  <!-- ══ هيرو ══ -->
+  <section class="hero-section">
+    <div class="hero-badge"><span></span> منصة توعية أمنية مجانية</div>
 
-        
-        <div class="card pad">
-          <h1>خلّ أمانك عادة يومية ✅</h1>
-          <p>
-            منصة مبسّطة تساعدك تفهم أهم التهديدات اليومية مثل التصيّد، كلمات المرور، الخصوصية،
-            وأمان الواي فاي — مع اختبار تفاعلي وأدوات رقمية مفيدة.
-          </p>
+    <h1 class="hero-title">
+      <span class="line1">أمانك الرقمي</span>
+      <span class="line2">يبدأ من هنا</span>
+    </h1>
 
-          <div class="cta-row">
-            <a class="btn primary" href="learn.html">ابدأ التعلّم</a>
-            <a class="btn outline" href="quiz.html">اختبر نفسك</a>
-            <a class="btn outline" href="tools.html">جرّب الأدوات</a>
-          </div>
+    <p class="hero-sub">
+      منصة سايف ديجيتال تساعدك تفهم التهديدات الإلكترونية الحقيقية —
+      من التصيّد وكلمات المرور إلى الخصوصية وأمان الشبكات.
+    </p>
 
-          <div class="kpis">
-            <div class="kpi">
-              <strong>7 أقسام</strong>
-              <span>تعليم وتفاعل</span>
-            </div>
-            <div class="kpi">
-              <strong>10 أسئلة</strong>
-              <span>اختبار سريع</span>
-            </div>
-            <div class="kpi">
-              <strong>2 أدوات</strong>
-              <span>لتعزيز الأمان</span>
-            </div>
-          </div>
+    <div class="hero-btns">
+      <a href="learn.html" class="btn-hero-primary">🚀 ابدأ التعلّم</a>
+      <a href="quiz.html"  class="btn-hero-outline">🎯 اختبر مستواك</a>
+      <a href="policies.html" class="btn-hero-outline">🔍 حلّل سياسة خصوصية</a>
+    </div>
 
-          <div class="tags">
-            <span class="tag">تصيّد</span>
-            <span class="tag">تحقق ثنائي (MFA)</span>
-            <span class="tag">Wi-Fi</span>
-            <span class="tag">خصوصية</span>
-            <span class="tag">سحابة</span>
-          </div>
-        </div>
-
-        <!-- البطاقة الثانية -->
-        <div class="card pad">
-          <h2>خطة 5 دقائق اليوم</h2>
-
-          <div class="item">
-            <h3>1) فعّل التحقق الثنائي</h3>
-            <p>خاصةً للبريد الإلكتروني والحسابات البنكية.</p>
-          </div>
-          <div class="item">
-            <h3>2) حدّث جهازك</h3>
-            <p>التحديثات تسد ثغرات كثيرة.</p>
-          </div>
-          <div class="item">
-            <h3>3) لا تضغط على الروابط بسرعة</h3>
-            <p>تحقق دائمًا من المصدر والدومين.</p>
-          </div>
-
-          <hr class="sep" />
-          <p class="small">ابدأ باختبار بسيط وسنخبرك بالمجالات التي يمكنك تحسينها.</p>
-          <a class="btn primary" href="quiz.html">ابدأ الاختبار</a>
-        </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">8+</span>
+        <span class="stat-lbl">محاور أمنية</span>
       </div>
+      <div class="stat-item">
+        <span class="stat-num">10</span>
+        <span class="stat-lbl">سؤال تفاعلي</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">8</span>
+        <span class="stat-lbl">سيناريو واقعي</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">AI</span>
+        <span class="stat-lbl">تحليل السياسات</span>
+      </div>
+    </div>
 
-      
+    <div class="scroll-hint">
+      <span>اكتشف المزيد</span>
+      <span class="scroll-arrow">↓</span>
+    </div>
+  </section>
 
+  <main class="container">
 
+    <!-- ══ المميزات ══ -->
+    <section class="features-section">
+      <div class="section-label">ماذا تجد هنا؟</div>
+      <h2 class="section-title">كل ما تحتاجه في مكان واحد</h2>
+      <p class="section-sub">من التعلم إلى التطبيق — منصة متكاملة لحمايتك رقمياً.</p>
 
+      <div class="features-grid">
+        <a href="learn.html" class="feature-card">
+          <span class="fc-icon">📘</span>
+          <div class="fc-title">تعلّم</div>
+          <p class="fc-desc">8 محاور أمنية مبسّطة مع أمثلة واقعية وتطبيقات يومية — من التصيّد إلى أمان السحابة.</p>
+          <span class="fc-link">ابدأ التعلّم →</span>
+        </a>
 
+        <a href="quiz.html" class="feature-card">
+          <span class="fc-icon">🎯</span>
+          <div class="fc-title">اختبار الوعي</div>
+          <p class="fc-desc">10 أسئلة مع مؤقت وتغذية راجعة فورية — اكتشف مستوى وعيك السيبراني.</p>
+          <span class="fc-link">ابدأ الاختبار →</span>
+        </a>
 
-      <div class="grid features">
-        <div class="item">
-          <h3>📘 محتوى مبسّط</h3>
-          <p>تعرّف على أمثلة واقعية وتطبيقات يومية.</p>
+        <a href="scenarios.html" class="feature-card">
+          <span class="fc-icon">🎭</span>
+          <div class="fc-title">سيناريوهات واقعية</div>
+          <p class="fc-desc">8 مواقف حقيقية تتخذ فيها القرار الصحيح — تعلّم قبل أن تقع في الفخ.</p>
+          <span class="fc-link">جرّب السيناريوهات →</span>
+        </a>
+
+        <a href="tools.html" class="feature-card">
+          <span class="fc-icon">🔐</span>
+          <div class="fc-title">أدوات الأمان</div>
+          <p class="fc-desc">مولّد كلمات مرور بـ Crypto API وفاحص قوة متقدم — كل شيء محلي وخاص.</p>
+          <span class="fc-link">جرّب الأدوات →</span>
+        </a>
+
+        <a href="policies.html" class="feature-card">
+          <span class="fc-icon">🤖</span>
+          <div class="fc-title">تحليل السياسات بالذكاء الاصطناعي</div>
+          <p class="fc-desc">اكتب اسم أي تطبيق والـ AI يلخّص سياسة الخصوصية في ثوانٍ — بدل صفحات الشروط الطويلة.</p>
+          <span class="fc-link">حلّل سياسة →</span>
+        </a>
+
+        <a href="resources.html" class="feature-card">
+          <span class="fc-icon">🌍</span>
+          <div class="fc-title">موارد ومراجع</div>
+          <p class="fc-desc">مصادر موثوقة من هيئة الأمن السيبراني السعودية وCISA وأبرز المراجع العالمية.</p>
+          <span class="fc-link">استكشف الموارد →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ══ خطة 5 دقائق ══ -->
+    <section class="daily-section">
+      <div class="daily-card">
+        <div>
+          <div class="section-label" style="text-align:right;margin-bottom:8px;">ابدأ اليوم</div>
+          <h2 class="daily-title">خطة الأمان اليومية ⚡</h2>
+          <p class="daily-sub">3 خطوات بسيطة كل يوم تحميك من 90% من التهديدات الشائعة.</p>
+          <a href="quiz.html" class="btn-hero-primary" style="display:inline-flex;">🎯 اختبر نفسك الآن</a>
         </div>
-        <div class="item">
-          <h3>🧠 تفاعل واختبار</h3>
-          <p>احصل على نتيجة ونصائح مخصصة.</p>
-        </div>
-        <div class="item">
-          <h3>🛠️ أدوات مجانية</h3>
-          <p>جرّب مولد كلمات المرور وفاحص قوتها.</p>
+        <div class="daily-steps">
+          <div class="daily-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <h4>فعّل التحقق الثنائي</h4>
+              <p>للبريد والبنك وكل حساب مهم — MFA يوقف 99% من الاختراقات.</p>
+            </div>
+          </div>
+          <div class="daily-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <h4>حدّث أجهزتك فوراً</h4>
+              <p>التحديثات تسد الثغرات قبل أن يستغلها المهاجمون.</p>
+            </div>
+          </div>
+          <div class="daily-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <h4>فكّر قبل ما تضغط</h4>
+              <p>كل رابط مشبوه — تحقق من الدومين أولاً قبل أي خطوة.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- ===== خريطة الهجمات ===== -->
-  <section class="container" style="padding-top:0;">
-    <div class="card pad" style="margin-top:20px;">
-      <h2 style="margin-bottom:8px;">🗺️ خريطة الهجمات السيبرانية المباشرة</h2>
-      <p style="margin-bottom:16px;">عرض مباشر لحركة التهديدات والهجمات السيبرانية حول العالم.</p>
-      <div style="text-align:center; padding:16px 0;">
-        <a href="https://cybermap.kaspersky.com/" target="_blank" class="btn primary" style="font-size:15px; padding:13px 26px;">
-          🌐 فتح خريطة الهجمات المباشرة
+    <!-- ══ خريطة الهجمات ══ -->
+    <section class="map-section">
+      <div class="map-card">
+        <div style="margin-bottom:16px;"><span class="map-pulse"></span></div>
+        <h2 class="map-title">🗺️ خريطة الهجمات السيبرانية المباشرة</h2>
+        <p class="map-sub">شاهد حركة التهديدات والهجمات السيبرانية حول العالم في الوقت الفعلي.</p>
+        <a href="https://cybermap.kaspersky.com/" target="_blank" class="btn-map">
+          <span class="map-pulse"></span>
+          فتح الخريطة المباشرة
         </a>
-        <p class="small" style="margin-top:10px;">اضغط لعرض الخريطة التفاعلية في نافذة جديدة.</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:14px;">يفتح في نافذة جديدة — مقدّم من Kaspersky</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== أخبار الأمن السيبراني ===== -->
-  <section class="container" style="padding-top:0;">
-    <div style="margin-top:24px;">
-
-      <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
-        <div>
-          <h2 style="margin:0; color:var(--accent2);">📡 أخبار الأمن السيبراني</h2>
-          <p class="small" style="margin:5px 0 0;" id="news-last-update">جاري التحميل...</p>
+    <!-- ══ الأخبار ══ -->
+    <section class="news-section">
+      <div class="news-header">
+        <div class="news-title-wrap">
+          <h2>📡 أخبار الأمن السيبراني</h2>
+          <p class="small" id="news-last-update" style="margin:4px 0 0;">جاري التحميل...</p>
         </div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-          <button class="btn primary news-src-btn active-src" data-src="thn"     style="font-size:13px; padding:8px 14px;">📰 Hacker News</button>
-          <button class="btn outline news-src-btn"            data-src="bleeping" style="font-size:13px; padding:8px 14px;">💻 BleepingComputer</button>
-          <button class="btn outline news-src-btn"            data-src="csnews"   style="font-size:13px; padding:8px 14px;">🔐 CyberSec News</button>
+        <div class="news-src-btns">
+          <button class="news-src-btn active-src" data-src="thn">📰 Hacker News</button>
+          <button class="news-src-btn" data-src="bleeping">💻 BleepingComputer</button>
+          <button class="news-src-btn" data-src="csnews">🔐 CyberSec</button>
         </div>
       </div>
 
-      <!-- تحميل -->
-      <div id="news-loading" style="text-align:center; padding:52px 0;">
+      <div id="news-loading" style="text-align:center;padding:52px 0;">
         <div class="news-spinner"></div>
-        <p class="small" style="margin-top:14px; opacity:.65;">جاري جلب آخر الأخبار...</p>
+        <p class="small" style="margin-top:14px;opacity:.6;">جاري جلب آخر الأخبار...</p>
       </div>
-
-      <!-- خطأ -->
       <div id="news-error" style="display:none;">
-        <div class="note" style="text-align:center; padding:28px;">
-          <p style="margin:0 0 12px; font-size:15px;">⚠️ تعذّر تحميل الأخبار. تأكد من الـ API key أو الاتصال.</p>
+        <div class="note" style="text-align:center;padding:28px;">
+          <p style="margin:0 0 12px;">⚠️ تعذّر تحميل الأخبار حالياً.</p>
           <button class="btn outline" id="news-retry" style="font-size:13px;">🔄 إعادة المحاولة</button>
         </div>
       </div>
-
-      <!-- الشبكة -->
-      <div id="news-grid" style="display:none;"></div>
-
-      <!-- تحميل المزيد -->
-      <div id="news-more-wrap" style="display:none; text-align:center; margin-top:20px;">
-        <button class="btn outline" id="news-more-btn" style="font-size:13px; padding:10px 26px;">⬇️ تحميل المزيد</button>
+      <div id="news-grid" class="news-grid-wrap" style="display:none;"></div>
+      <div id="news-more-wrap" style="display:none;text-align:center;margin-top:20px;">
+        <button class="btn outline" id="news-more-btn" style="font-size:13px;padding:10px 26px;">⬇️ تحميل المزيد</button>
       </div>
+    </section>
 
-    </div>
-  </section>
+  </main>
 
-  <!-- ===== التذييل ===== -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span>🛡️</span>
+        <span>سايف ديجيتال</span>
+        <span style="font-size:12px;color:var(--muted);font-weight:400;">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</span>
+      </div>
       <div class="footer-links">
         <a href="policies.html">سياسة الخصوصية</a>
+        <a href="about.html">عن المشروع</a>
         <a href="contact.html">تواصل معنا</a>
       </div>
     </div>
@@ -207,89 +600,38 @@
 
   <script src="main.js"></script>
   <script>
-  /* ============================================================
-     Dark / Light Mode Toggle
-  ============================================================ */
+  /* ── Theme ── */
   (function(){
-    const btn  = document.getElementById("themeToggle");
-    const icon = document.getElementById("themeIcon");
-    const lbl  = document.getElementById("themeLabel");
-    const DARK_KEY = "sd-theme";
-
-    function applyTheme(isDark){
-      if(isDark){
-        document.body.classList.remove("light-mode");
-        icon.textContent = "🌙";
-        lbl.textContent  = "ليلي";
-      } else {
-        document.body.classList.add("light-mode");
-        icon.textContent = "☀️";
-        lbl.textContent  = "صباحي";
-      }
-      localStorage.setItem(DARK_KEY, isDark ? "dark" : "light");
-    }
-
-    // استعادة التفضيل
-    const saved = localStorage.getItem(DARK_KEY);
-    applyTheme(saved !== "light");
-
-    btn.addEventListener("click", () => {
-      applyTheme(document.body.classList.contains("light-mode"));
-    });
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
-  </script>
 
-  <script>
-  /* ============================================================
-     أخبار الأمن السيبراني — GNews API (يدعم CORS من المتصفح)
-     سجّل مجاناً: https://gnews.io
-  ============================================================ */
+  /* ── أخبار RSS ── */
   (function(){
-    const GNEWS_KEY = "0e5630468dfc4fcf800960a3f529a1e4"; // key مؤقت — استبدله بـ GNews key
-
-    const TOPICS = {
-      thn:      { q:"cybersecurity hacking",      label:"Hacker News",       color:"#6aa6ff", icon:"📰" },
-      bleeping: { q:"cyber attack malware",        label:"BleepingComputer",  color:"#7cf0d6", icon:"💻" },
-      csnews:   { q:"vulnerability data breach",  label:"CyberSec News",     color:"#ffb347", icon:"🔐" }
+    const PROXY="https://api.allorigins.win/raw?url=";
+    const SOURCES={
+      thn:     {feed:"https://feeds.feedburner.com/TheHackersNews",label:"Hacker News",   color:"#6aa6ff",icon:"📰"},
+      bleeping:{feed:"https://www.bleepingcomputer.com/feed/",      label:"BleepingComputer",color:"#7cf0d6",icon:"💻"},
+      csnews:  {feed:"https://cybersecuritynews.com/feed/",          label:"CyberSec News",  color:"#ffb347",icon:"🔐"}
     };
+    const BATCH=6;
+    let allItems=[],shown=0,currentSrc="thn";
+    const gridEl=document.getElementById("news-grid");
+    const loadEl=document.getElementById("news-loading");
+    const errorEl=document.getElementById("news-error");
+    const moreWrap=document.getElementById("news-more-wrap");
+    const lastUpdate=document.getElementById("news-last-update");
 
-    const BATCH = 6;
-    let allItems = [], shown = 0, currentSrc = "thn";
-
-    const gridEl     = document.getElementById("news-grid");
-    const loadEl     = document.getElementById("news-loading");
-    const errorEl    = document.getElementById("news-error");
-    const moreWrap   = document.getElementById("news-more-wrap");
-    const moreBtn    = document.getElementById("news-more-btn");
-    const retryBtn   = document.getElementById("news-retry");
-    const lastUpdate = document.getElementById("news-last-update");
-
-    function fmtDate(str){
-      if(!str) return "";
-      try { return new Date(str).toLocaleDateString("ar-SA",{year:"numeric",month:"short",day:"numeric"}); }
-      catch { return ""; }
-    }
-    function trim(str,max){
-      if(!str) return "";
-      const t = str.replace(/<[^>]*>/g,"").trim();
-      return t.length>max ? t.slice(0,max)+"…" : t;
-    }
+    function fmtDate(s){if(!s)return"";try{return new Date(s).toLocaleDateString("ar-SA",{year:"numeric",month:"short",day:"numeric"});}catch{return"";}}
+    function trim(s,n){if(!s)return"";const t=s.replace(/<[^>]*>/g,"").trim();return t.length>n?t.slice(0,n)+"…":t;}
 
     function buildCard(item){
-      const s=TOPICS[currentSrc], col=s.color;
+      const s=SOURCES[currentSrc],col=s.color;
       const d=document.createElement("div");
       d.className="news-card";
-      d.innerHTML=`
-        <div class="nc-inner">
-          <div class="nc-top">
-            <span class="nc-badge" style="border-color:${col};color:${col};">${s.icon} ${s.label}</span>
-            <span class="small" style="opacity:.6;">${fmtDate(item.publishedAt)}</span>
-          </div>
-          <p class="nc-title">${trim(item.title,85)}</p>
-          ${item.description?`<p class="nc-desc small">${trim(item.description,115)}</p>`:""}
-          <a class="nc-link" href="${item.url}" target="_blank" rel="noopener">اقرأ التفاصيل ←</a>
-        </div>
-        <div class="nc-bar" style="background:${col};"></div>`;
+      d.innerHTML=`<div class="nc-inner"><div class="nc-top"><span class="nc-badge" style="border-color:${col};color:${col};">${s.icon} ${s.label}</span><span class="small" style="opacity:.6;">${fmtDate(item.date)}</span></div><p class="nc-title">${trim(item.title,85)}</p>${item.desc?`<p class="nc-desc small">${trim(item.desc,115)}</p>`:""}<a class="nc-link" href="${item.link}" target="_blank" rel="noopener">اقرأ التفاصيل ←</a></div><div class="nc-bar" style="background:${col};"></div>`;
       return d;
     }
 
@@ -299,42 +641,47 @@
       moreWrap.style.display=shown<allItems.length?"block":"none";
     }
 
-    async function loadNews(srcKey){
-      currentSrc=srcKey; allItems=[]; shown=0;
-      gridEl.innerHTML=""; gridEl.style.display="none";
-      moreWrap.style.display="none"; errorEl.style.display="none";
-      loadEl.style.display="block"; lastUpdate.textContent="جاري التحميل...";
+    function parseRSS(xml){
+      const doc=new DOMParser().parseFromString(xml,"text/xml");
+      return Array.from(doc.querySelectorAll("item")).map(it=>({
+        title:it.querySelector("title")?.textContent||"",
+        link:it.querySelector("link")?.textContent||"#",
+        desc:it.querySelector("description")?.textContent||"",
+        date:it.querySelector("pubDate")?.textContent||""
+      }));
+    }
 
-      const q=encodeURIComponent(TOPICS[srcKey].q);
-      const url=`https://gnews.io/api/v4/search?q=${q}&lang=en&max=30&token=${GNEWS_KEY}`;
-
+    async function loadNews(src){
+      currentSrc=src;allItems=[];shown=0;
+      gridEl.innerHTML="";gridEl.style.display="none";
+      moreWrap.style.display="none";errorEl.style.display="none";
+      loadEl.style.display="block";lastUpdate.textContent="جاري التحميل...";
       try{
-        const res=await fetch(url,{signal:AbortSignal.timeout(12000)});
-        const data=await res.json();
-        if(!data.articles?.length) throw new Error("empty");
-        allItems=data.articles;
-        loadEl.style.display="none"; gridEl.style.display="grid";
+        const res=await fetch(PROXY+encodeURIComponent(SOURCES[src].feed),{signal:AbortSignal.timeout(12000)});
+        if(!res.ok)throw new Error();
+        const parsed=parseRSS(await res.text());
+        if(!parsed.length)throw new Error();
+        allItems=parsed;
+        loadEl.style.display="none";gridEl.style.display="grid";
         lastUpdate.textContent="آخر تحديث: "+new Date().toLocaleTimeString("ar-SA");
         showBatch();
-      } catch(e){
-        loadEl.style.display="none"; errorEl.style.display="block";
+      }catch{
+        loadEl.style.display="none";errorEl.style.display="block";
         lastUpdate.textContent="فشل التحميل";
       }
     }
 
     document.querySelectorAll(".news-src-btn").forEach(btn=>{
       btn.addEventListener("click",()=>{
-        document.querySelectorAll(".news-src-btn").forEach(b=>{b.classList.remove("active-src","primary");b.classList.add("outline");});
-        btn.classList.add("active-src","primary"); btn.classList.remove("outline");
+        document.querySelectorAll(".news-src-btn").forEach(b=>b.classList.remove("active-src"));
+        btn.classList.add("active-src");
         loadNews(btn.dataset.src);
       });
     });
-
-    moreBtn.addEventListener("click",showBatch);
-    retryBtn.addEventListener("click",()=>loadNews(currentSrc));
+    document.getElementById("news-more-btn").addEventListener("click",showBatch);
+    document.getElementById("news-retry").addEventListener("click",()=>loadNews(currentSrc));
     loadNews("thn");
   })();
   </script>
-
 </body>
 </html>

@@ -5,37 +5,280 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>عن المشروع | سايف ديجيتال</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .page-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+    .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.14;}
+    .orb-a{width:500px;height:500px;background:#a78bfa;top:-100px;right:-120px;animation:of 16s ease-in-out infinite;}
+    .orb-b{width:400px;height:400px;background:#6aa6ff;bottom:-80px;left:-80px;animation:of 16s -7s ease-in-out infinite;}
+    @keyframes of{0%,100%{transform:translate(0,0)}50%{transform:translate(-25px,25px)}}
+
+    /* هيرو */
+    .about-hero{
+      text-align:center;padding:70px 22px 50px;
+      position:relative;animation:fadeUp .6s ease both;
+    }
+    .about-hero h1{
+      font-size:clamp(34px,5vw,62px);font-weight:900;margin:0 0 16px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent),#a78bfa);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .about-hero p{font-size:17px;color:var(--muted);max-width:540px;margin:0 auto;line-height:1.7;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    /* بطاقة المشروع */
+    .project-card{
+      background:rgba(16,26,51,.88);
+      border:1px solid rgba(167,139,250,.2);
+      border-radius:24px;padding:40px;margin-bottom:24px;
+      backdrop-filter:blur(12px);
+      position:relative;overflow:hidden;
+      animation:fadeUp .5s .1s ease both;
+    }
+    .project-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent2),#a78bfa,transparent);
+    }
+
+    /* إحصائيات المشروع */
+    .project-stats{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:14px;margin:28px 0;
+    }
+    .ps-item{
+      text-align:center;padding:20px 14px;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:16px;background:rgba(0,0,0,.2);
+      transition:.2s;
+    }
+    .ps-item:hover{border-color:rgba(167,139,250,.3);}
+    .ps-num{
+      font-family:'IBM Plex Mono',monospace;
+      font-size:34px;font-weight:700;line-height:1;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .ps-lbl{font-size:13px;color:var(--muted);margin-top:5px;}
+
+    /* الميزات */
+    .features-wrap{
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;
+    }
+    @media(max-width:600px){.features-wrap{grid-template-columns:1fr;}}
+    .feat-item{
+      display:flex;gap:12px;align-items:flex-start;
+      padding:16px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(0,0,0,.15);transition:.2s;
+    }
+    .feat-item:hover{border-color:rgba(124,240,214,.2);}
+    .feat-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+    .feat-item h4{margin:0 0 4px;font-size:14px;color:var(--text);}
+    .feat-item p{margin:0;font-size:13px;color:var(--muted);}
+
+    /* بطاقة المطوّر */
+    .dev-card{
+      background:rgba(16,26,51,.88);
+      border:1px solid rgba(106,166,255,.15);
+      border-radius:24px;padding:36px;margin-bottom:24px;
+      display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;
+      backdrop-filter:blur(12px);
+      animation:fadeUp .5s .2s ease both;
+      position:relative;overflow:hidden;
+    }
+    @media(max-width:580px){.dev-card{grid-template-columns:1fr;text-align:center;}}
+    .dev-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    }
+    .dev-avatar{
+      width:90px;height:90px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      font-size:36px;flex-shrink:0;border:3px solid rgba(106,166,255,.3);
+    }
+    .dev-name{font-size:22px;font-weight:800;color:var(--text);margin:0 0 5px;}
+    .dev-role{font-size:14px;color:var(--accent2);margin:0 0 12px;}
+    .dev-bio{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 16px;}
+    .dev-tags{display:flex;gap:8px;flex-wrap:wrap;}
+    .dev-tag{
+      padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;
+      border:1px solid rgba(106,166,255,.25);color:var(--accent);background:rgba(106,166,255,.08);
+    }
+
+    /* مراحل التطوير */
+    .timeline{
+      background:rgba(16,26,51,.88);
+      border:1px solid rgba(124,240,214,.12);
+      border-radius:24px;padding:36px;margin-bottom:24px;
+      backdrop-filter:blur(12px);
+      animation:fadeUp .5s .3s ease both;
+      position:relative;overflow:hidden;
+    }
+    .timeline::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent2),transparent);
+    }
+    .tl-title{font-size:20px;font-weight:800;color:var(--text);margin:0 0 24px;}
+    .tl-items{position:relative;}
+    .tl-items::before{
+      content:'';position:absolute;top:0;bottom:0;right:20px;width:2px;
+      background:linear-gradient(to bottom,var(--accent),var(--accent2));
+      opacity:.3;
+    }
+    .tl-item{
+      display:flex;gap:18px;align-items:flex-start;margin-bottom:20px;padding-right:8px;
+    }
+    .tl-dot{
+      width:24px;height:24px;border-radius:50%;flex-shrink:0;margin-top:2px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      border:3px solid rgba(16,26,51,1);
+      box-shadow:0 0 10px rgba(106,166,255,.4);
+    }
+    .tl-content h4{margin:0 0 4px;font-size:14px;color:var(--text);}
+    .tl-content p{margin:0;font-size:13px;color:var(--muted);}
+    .tl-phase{font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+
+    /* التقنيات */
+    .tech-wrap{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;
+    }
+    .tech-tag{
+      padding:7px 14px;border-radius:10px;font-size:13px;font-weight:600;
+      border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.2);color:var(--muted);
+      font-family:'IBM Plex Mono',monospace;transition:.2s;
+    }
+    .tech-tag:hover{border-color:rgba(124,240,214,.3);color:var(--accent2);}
+  </style>
 </head>
 <body>
-<header class="nav">
-  <div class="container nav-inner">
-    <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">About</span></div></div>
-    <button class="menu-toggle" id="menuToggle">☰</button>
-    <nav class="links" id="navLinks">
-     <a href="index.html">الرئيسية</a>
+  <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">About</span></div></div>
+        <button id="themeToggle" type="button"><span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span></button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
         <a href="quiz.html">اختبار</a>
         <a href="tools.html">أدوات</a>
         <a href="scenarios.html">سيناريوهات</a>
-        <a href="resources.html">مصادر</a>
-        <a href="policies.html">تلخيص سياسات الخصوصية</a>
+        <a href="resources.html">موارد</a>
+        <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html" class="active">عن المشروع</a>
-        <a href="contact.html">تواصل</a>    </nav>
-  </div>
-</header>
+        <a href="contact.html">تواصل</a>
+      </nav>
+      </nav>
+    </div>
+  </header>
 
-<main class="container">
-  <div class="card pad">
-    <h1>عن سايف ديجيتال</h1>
-    <p>مشروع توعوي هدفه بناء مجتمع واعٍ بالأمن السيبراني من خلال موقع بسيط وممتع للتعلّم.</p>
-    <ul class="small">
-      <li>📘 المحتوى مبسط ومجاني.</li>
-      <li>💡 التجاوب مع الجوال وجميع الأجهزة.</li>
-      <li>🌐 تطوير كجزء من مشروع تخرج.</li>
-    </ul>
-  </div>
-  <footer class="footer"><div class="small">💙 من أجل مجتمع رقمي أكثر أمانًا.</div></footer>
-</main>
-<script src="main.js"></script>
+  <main class="container">
+    <div class="about-hero">
+      <h1>سايف ديجيتال 🛡️</h1>
+      <p>منصة توعوية سيبرانية مجانية — مبنية بشغف لمجتمع رقمي أكثر أماناً ووعياً.</p>
+    </div>
+
+    <!-- بطاقة المشروع -->
+    <div class="project-card">
+      <h2 style="margin:0 0 12px;color:var(--accent2);">عن المشروع</h2>
+      <p style="font-size:15px;color:var(--muted);line-height:1.7;margin:0 0 20px;">
+        سايف ديجيتال مشروع تخرج يهدف إلى تبسيط مفاهيم الأمن السيبراني وتقديمها للمستخدم العربي
+        بطريقة تفاعلية وممتعة — بدون تعقيد تقني ومجاناً تماماً.
+      </p>
+
+      <div class="project-stats">
+        <div class="ps-item"><div class="ps-num">8</div><div class="ps-lbl">محاور تعليمية</div></div>
+        <div class="ps-item"><div class="ps-num">10</div><div class="ps-lbl">سؤال في الاختبار</div></div>
+        <div class="ps-item"><div class="ps-num">8</div><div class="ps-lbl">سيناريو واقعي</div></div>
+        <div class="ps-item"><div class="ps-num">AI</div><div class="ps-lbl">تحليل السياسات</div></div>
+        <div class="ps-item"><div class="ps-num">2</div><div class="ps-lbl">أداة أمان</div></div>
+        <div class="ps-item"><div class="ps-num">∞</div><div class="ps-lbl">مجاني للأبد</div></div>
+      </div>
+
+      <h3 style="margin:0 0 14px;color:var(--text);">ما يميّز المنصة</h3>
+      <div class="features-wrap">
+        <div class="feat-item"><span class="feat-icon">📱</span><div><h4>متجاوب مع الجوال</h4><p>يعمل بشكل مثالي على جميع الأجهزة والشاشات.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">🤖</span><div><h4>ذكاء اصطناعي</h4><p>تحليل سياسات الخصوصية بلحظات بدل الصفحات الطويلة.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">🌙</span><div><h4>وضع ليلي وصباحي</h4><p>يحفظ تفضيلك ويطبقه على كل الصفحات.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">🔒</span><div><h4>خصوصية كاملة</h4><p>لا تسجيل، لا كوكيز، لا جمع بيانات شخصية.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">🌐</span><div><h4>محتوى عربي</h4><p>مصمم خصيصاً للمستخدم العربي بلغة واضحة.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">⚡</span><div><h4>سريع وخفيف</h4><p>HTML/CSS/JS خالص — بدون مكتبات ثقيلة.</p></div></div>
+      </div>
+    </div>
+
+    <!-- مراحل التطوير -->
+    <div class="timeline">
+      <div class="tl-title">🗓️ مراحل تطوير المشروع</div>
+      <div class="tl-items">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-phase">المرحلة الأولى</div>
+            <h4>البنية الأساسية والتصميم</h4>
+            <p>HTML وCSS وJavaScript — بناء هيكل الموقع والتصميم المرئي الموحد.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-phase">المرحلة الثانية</div>
+            <h4>المحتوى التعليمي والتفاعلي</h4>
+            <p>صفحات التعلّم، الاختبار، السيناريوهات، وأدوات الأمان.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-phase">المرحلة الثالثة</div>
+            <h4>دمج الذكاء الاصطناعي</h4>
+            <p>تكامل Claude API لتحليل سياسات الخصوصية فورياً وبشكل ذكي.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-content">
+            <div class="tl-phase">المرحلة الرابعة</div>
+            <h4>التحسين والإطلاق</h4>
+            <p>تحسينات التصميم، الأخبار الحية، وضع ليلي/صباحي، والإطلاق النهائي.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin:24px 0 12px;color:var(--text);">💻 التقنيات المستخدمة</h3>
+      <div class="tech-wrap">
+        <span class="tech-tag">HTML5</span>
+        <span class="tech-tag">CSS3</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Claude API</span>
+        <span class="tech-tag">GNews RSS</span>
+        <span class="tech-tag">Crypto API</span>
+        <span class="tech-tag">IBM Plex Mono</span>
+        <span class="tech-tag">LocalStorage</span>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
+      <div class="footer-links"><a href="policies.html">سياسة الخصوصية</a><a href="contact.html">تواصل معنا</a></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+  </script>
 </body>
 </html>

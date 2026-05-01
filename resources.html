@@ -5,31 +5,372 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>الموارد | سايف ديجيتال</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .page-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+    .page-bg .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.15;}
+    .orb-a{width:500px;height:500px;background:#6aa6ff;top:-150px;left:-100px;animation:of1 14s ease-in-out infinite;}
+    .orb-b{width:400px;height:400px;background:#7cf0d6;bottom:-100px;right:-80px;animation:of1 14s -6s ease-in-out infinite;}
+    @keyframes of1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+
+    /* هيرو */
+    .res-hero{text-align:center;padding:60px 22px 40px;animation:fadeUp .6s ease both;}
+    .res-hero h1{
+      font-size:clamp(32px,5vw,58px);font-weight:900;margin:0 0 14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+    .res-hero p{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    /* تبويبات */
+    .res-tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px 0 36px;animation:fadeUp .6s .1s ease both;}
+    .res-tab{
+      padding:9px 18px;border-radius:999px;
+      border:1px solid var(--border);background:var(--item-bg);
+      color:var(--muted);font-family:var(--font);font-size:13px;
+      cursor:pointer;transition:.2s;
+    }
+    .res-tab:hover{border-color:var(--accent2);color:var(--text);}
+    .res-tab.on{border-color:rgba(106,166,255,.5);background:rgba(106,166,255,.14);color:var(--text);}
+
+    /* شبكة الموارد */
+    .res-grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:18px;margin-bottom:48px;
+    }
+
+    /* بطاقة مورد */
+    .res-card{
+      background:rgba(16,26,51,.88);
+      border:1px solid rgba(106,166,255,.12);
+      border-radius:20px;overflow:hidden;
+      text-decoration:none;display:flex;flex-direction:column;
+      backdrop-filter:blur(12px);
+      transition:border-color .3s,transform .3s,box-shadow .3s;
+      animation:fadeUp .5s ease both;
+      position:relative;
+    }
+    .res-card:hover{
+      border-color:rgba(106,166,255,.4);
+      transform:translateY(-5px);
+      box-shadow:0 20px 50px rgba(0,0,0,.35);
+    }
+    .res-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      opacity:0;transition:.3s;
+    }
+    .res-card:hover::before{opacity:1;}
+    .res-card[data-cat="حكومي"]::before{background:linear-gradient(90deg,transparent,#6aa6ff,transparent);}
+    .res-card[data-cat="دولي"]::before{background:linear-gradient(90deg,transparent,#7cf0d6,transparent);}
+    .res-card[data-cat="أدوات"]::before{background:linear-gradient(90deg,transparent,#ffb347,transparent);}
+    .res-card[data-cat="تعليمي"]::before{background:linear-gradient(90deg,transparent,#a78bfa,transparent);}
+
+    .rc-top{
+      padding:24px 24px 16px;
+      display:flex;gap:14px;align-items:flex-start;
+    }
+    .rc-icon-wrap{
+      width:52px;height:52px;border-radius:14px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:24px;
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .rc-body{flex:1;}
+    .rc-cat{
+      font-size:11px;font-weight:700;padding:2px 9px;
+      border-radius:999px;border:1px solid;
+      display:inline-block;margin-bottom:7px;
+    }
+    .rc-name{font-size:16px;font-weight:700;color:var(--text);margin:0 0 5px;}
+    .rc-desc{font-size:13px;color:var(--muted);line-height:1.6;margin:0;padding:0 24px 20px;}
+    .rc-footer{
+      margin-top:auto;padding:14px 24px;
+      border-top:1px solid rgba(255,255,255,.05);
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .rc-link-btn{
+      font-size:12px;font-weight:700;color:var(--accent);
+      display:flex;align-items:center;gap:5px;transition:.2s;
+    }
+    .res-card:hover .rc-link-btn{gap:8px;}
+    .rc-tag{font-size:11px;color:var(--muted);opacity:.7;}
+
+    /* بطاقة مميزة كبيرة */
+    .res-featured{
+      background:linear-gradient(135deg,rgba(106,166,255,.1),rgba(124,240,214,.07));
+      border:1px solid rgba(106,166,255,.2);
+      border-radius:24px;padding:36px;margin-bottom:36px;
+      display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+      animation:fadeUp .5s ease both;
+      position:relative;overflow:hidden;
+    }
+    @media(max-width:600px){.res-featured{grid-template-columns:1fr;}}
+    .res-featured::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+    }
+    .rf-label{font-size:11px;font-weight:700;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+    .rf-title{font-size:24px;font-weight:800;color:var(--text);margin:0 0 10px;}
+    .rf-desc{font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 20px;}
+    .rf-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:12px 22px;border-radius:14px;
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.18),rgba(124,240,214,.12));
+      color:var(--text);font-family:var(--font);font-size:14px;font-weight:600;
+      text-decoration:none;transition:.2s;white-space:nowrap;
+    }
+    .rf-btn:hover{background:linear-gradient(135deg,rgba(106,166,255,.28),rgba(124,240,214,.2));color:var(--text);transform:translateY(-2px);}
+
+    /* أداة فحص الاختراق */
+    .check-section{
+      background:rgba(16,26,51,.85);
+      border:1px solid rgba(255,106,106,.15);
+      border-radius:24px;padding:32px;margin-bottom:48px;
+      text-align:center;backdrop-filter:blur(10px);
+      position:relative;overflow:hidden;
+    }
+    .check-section::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,#ff6a6a,#ffb347,transparent);
+    }
+    .check-title{font-size:22px;font-weight:800;color:var(--text);margin:0 0 8px;}
+    .check-sub{font-size:14px;color:var(--muted);margin:0 0 20px;}
+    .check-input-wrap{
+      display:flex;gap:10px;max-width:480px;margin:0 auto 14px;
+    }
+    .check-input{
+      flex:1;padding:12px 16px;border-radius:12px;
+      border:1px solid rgba(255,106,106,.25);background:rgba(0,0,0,.3);
+      color:var(--text);font-family:var(--font);font-size:14px;
+      outline:none;transition:.2s;direction:ltr;
+    }
+    .check-input:focus{border-color:rgba(255,106,106,.55);box-shadow:0 0 0 3px rgba(255,106,106,.08);}
+    .check-input::placeholder{color:rgba(169,179,214,.4);}
+    .check-btn{
+      padding:12px 20px;border-radius:12px;
+      border:1px solid rgba(255,106,106,.3);
+      background:rgba(255,106,106,.12);
+      color:var(--text);font-family:var(--font);font-size:14px;font-weight:600;
+      cursor:pointer;transition:.2s;white-space:nowrap;
+    }
+    .check-btn:hover{background:rgba(255,106,106,.22);}
+    .check-result{font-size:14px;margin-top:10px;min-height:22px;}
+  </style>
 </head>
 <body>
-<header class="nav">
-  <div class="container nav-inner">
-    <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Resources</span></div></div>
-    <button class="menu-toggle" id="menuToggle">☰</button>
-    <nav class="links" id="navLinks">
-      <a href="index.html">الرئيسية</a><a href="learn.html">تعلّم</a><a href="quiz.html">اختبار</a><a href="tools.html">أدوات</a><a href="scenarios.html">سيناريوهات</a><a href="resources.html" class="active">موارد</a><a href="about.html">عن المشروع</a><a href="contact.html">تواصل</a>
-    </nav>
-  </div>
-</header>
+  <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
 
-<main class="container">
-  <div class="card pad">
-    <h1>🌍 مصادر ومرجعيات</h1>
-    <p>اطّلع على مواقع تعليمية ومراجع رسمية لزيادة معرفتك بالأمن السيبراني:</p>
-    <ul class="small">
-      <li><a href="https://www.cyberaware.gov.sa/" target="_blank">الهيئة الوطنية للأمن السيبراني</a></li>
-      <li><a href="https://staysafeonline.org/" target="_blank">Stay Safe Online</a></li>
-      <li><a href="https://www.cisa.gov/" target="_blank">CISA – USA</a></li>
-      <li><a href="https://haveibeenpwned.com/" target="_blank">هل تم اختراق حسابك؟</a></li>
-    </ul>
-  </div>
-  <footer class="footer"><div class="small">💻 تم تجميع الموارد لغرض التوعية فقط.</div></footer>
-</main>
-<script src="main.js"></script>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Resources</span></div></div>
+        <button id="themeToggle" type="button"><span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span></button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
+        <a href="learn.html">تعلّم</a>
+        <a href="quiz.html">اختبار</a>
+        <a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a>
+        <a href="resources.html" class="active">موارد</a>
+        <a href="policies.html">سياسات الخصوصية</a>
+        <a href="about.html">عن المشروع</a>
+        <a href="contact.html">تواصل</a>
+      </nav>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="res-hero">
+      <h1>🌍 الموارد والمراجع</h1>
+      <p>مصادر موثوقة ومنتقاة من أبرز الجهات الأمنية حول العالم — لتعمّق معرفتك السيبرانية.</p>
+    </div>
+
+    <!-- تبويبات -->
+    <div class="res-tabs">
+      <button class="res-tab on" data-filter="all">🌐 الكل</button>
+      <button class="res-tab" data-filter="حكومي">🏛️ حكومي</button>
+      <button class="res-tab" data-filter="دولي">🌍 دولي</button>
+      <button class="res-tab" data-filter="أدوات">🔧 أدوات</button>
+      <button class="res-tab" data-filter="تعليمي">📚 تعليمي</button>
+    </div>
+
+    <!-- مورد مميز -->
+    <div class="res-featured">
+      <div>
+        <div class="rf-label">⭐ المورد الأبرز</div>
+        <div class="rf-title">الهيئة الوطنية للأمن السيبراني</div>
+        <p class="rf-desc">المرجع الرسمي للأمن السيبراني في المملكة العربية السعودية — توجيهات، تنبيهات، وأطر حماية معتمدة.</p>
+        <a href="https://www.ncsc.gov.sa/" target="_blank" class="rf-btn">🔗 زيارة الموقع الرسمي</a>
+      </div>
+      <div style="font-size:72px;opacity:.15;font-family:'IBM Plex Mono',monospace;line-height:1;">NCA</div>
+    </div>
+
+    <!-- شبكة الموارد -->
+    <div class="res-grid" id="resGrid">
+
+      <a href="https://www.ncsc.gov.sa/" target="_blank" class="res-card" data-cat="حكومي">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(106,166,255,.1);">🏛️</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(106,166,255,.4);color:#6aa6ff;">حكومي</span>
+            <div class="rc-name">الهيئة الوطنية للأمن السيبراني</div>
+          </div>
+        </div>
+        <p class="rc-desc">الجهة الحكومية السعودية المختصة بالأمن السيبراني — تنبيهات، أطر، وإرشادات رسمية.</p>
+        <div class="rc-footer"><span class="rc-link-btn">زيارة →</span><span class="rc-tag">ncsc.gov.sa</span></div>
+      </a>
+
+      <a href="https://www.cisa.gov/" target="_blank" class="res-card" data-cat="دولي">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(124,240,214,.1);">🇺🇸</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(124,240,214,.4);color:#7cf0d6;">دولي</span>
+            <div class="rc-name">CISA – وكالة الأمن السيبراني الأمريكية</div>
+          </div>
+        </div>
+        <p class="rc-desc">أبرز وكالة أمن سيبراني عالمية — تنبيهات يومية عن التهديدات والثغرات الجديدة.</p>
+        <div class="rc-footer"><span class="rc-link-btn">زيارة →</span><span class="rc-tag">cisa.gov</span></div>
+      </a>
+
+      <a href="https://haveibeenpwned.com/" target="_blank" class="res-card" data-cat="أدوات">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);">🔓</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
+            <div class="rc-name">Have I Been Pwned</div>
+          </div>
+        </div>
+        <p class="rc-desc">تحقق هل بريدك الإلكتروني أو كلمة مرورك تسرّبت في اختراق سابق — أداة موثوقة عالمياً.</p>
+        <div class="rc-footer"><span class="rc-link-btn">تحقق →</span><span class="rc-tag">haveibeenpwned.com</span></div>
+      </a>
+
+      <a href="https://staysafeonline.org/" target="_blank" class="res-card" data-cat="تعليمي">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(167,139,250,.1);">📚</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(167,139,250,.4);color:#a78bfa;">تعليمي</span>
+            <div class="rc-name">Stay Safe Online</div>
+          </div>
+        </div>
+        <p class="rc-desc">مبادرة تعليمية من الرابطة الوطنية للأمن السيبراني — نصائح عملية للمستخدم العادي.</p>
+        <div class="rc-footer"><span class="rc-link-btn">زيارة →</span><span class="rc-tag">staysafeonline.org</span></div>
+      </a>
+
+      <a href="https://www.sans.org/security-awareness-training/" target="_blank" class="res-card" data-cat="تعليمي">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(167,139,250,.1);">🎓</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(167,139,250,.4);color:#a78bfa;">تعليمي</span>
+            <div class="rc-name">SANS Security Awareness</div>
+          </div>
+        </div>
+        <p class="rc-desc">من أقوى المعاهد الأمنية عالمياً — مواد تعليمية احترافية لتوعية الموظفين والأفراد.</p>
+        <div class="rc-footer"><span class="rc-link-btn">زيارة →</span><span class="rc-tag">sans.org</span></div>
+      </a>
+
+      <a href="https://www.virustotal.com/" target="_blank" class="res-card" data-cat="أدوات">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);">🦠</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
+            <div class="rc-name">VirusTotal</div>
+          </div>
+        </div>
+        <p class="rc-desc">افحص أي ملف أو رابط مشبوه بأكثر من 70 محرك مضاد فيروسات — مجاني وفوري.</p>
+        <div class="rc-footer"><span class="rc-link-btn">فحص →</span><span class="rc-tag">virustotal.com</span></div>
+      </a>
+
+      <a href="https://www.ncsc.gov.uk/cyberaware" target="_blank" class="res-card" data-cat="دولي">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(124,240,214,.1);">🇬🇧</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(124,240,214,.4);color:#7cf0d6;">دولي</span>
+            <div class="rc-name">NCSC UK – Cyber Aware</div>
+          </div>
+        </div>
+        <p class="rc-desc">الهيئة البريطانية للأمن السيبراني — إرشادات مبسّطة للأفراد والشركات الصغيرة.</p>
+        <div class="rc-footer"><span class="rc-link-btn">زيارة →</span><span class="rc-tag">ncsc.gov.uk</span></div>
+      </a>
+
+      <a href="https://bitwarden.com/" target="_blank" class="res-card" data-cat="أدوات">
+        <div class="rc-top">
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);">🔑</div>
+          <div class="rc-body">
+            <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
+            <div class="rc-name">Bitwarden – مدير كلمات المرور</div>
+          </div>
+        </div>
+        <p class="rc-desc">أفضل مدير كلمات مرور مجاني ومفتوح المصدر — يشفّر كلماتك ويولّد كلمات قوية.</p>
+        <div class="rc-footer"><span class="rc-link-btn">تجربة →</span><span class="rc-tag">bitwarden.com</span></div>
+      </a>
+
+    </div>
+
+    <!-- فحص الاختراق -->
+    <div class="check-section">
+      <h2 class="check-title">🔍 هل تسرّب بريدك الإلكتروني؟</h2>
+      <p class="check-sub">تحقق مباشرة من موقع Have I Been Pwned — أكبر قاعدة بيانات للاختراقات عالمياً.</p>
+      <div class="check-input-wrap">
+        <input class="check-input" id="pwnedInput" type="email" placeholder="email@example.com"/>
+        <button class="check-btn" id="pwnedBtn" type="button">فحص</button>
+      </div>
+      <div class="check-result" id="pwnedResult"></div>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px;">يتم إرسال hash جزئي فقط — بريدك الكامل لا يُرسل للخادم.</p>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
+      <div class="footer-links"><a href="policies.html">سياسة الخصوصية</a><a href="contact.html">تواصل معنا</a></div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  /* فلتر التبويبات */
+  document.querySelectorAll(".res-tab").forEach(tab=>{
+    tab.addEventListener("click",()=>{
+      document.querySelectorAll(".res-tab").forEach(t=>t.classList.remove("on"));
+      tab.classList.add("on");
+      const f=tab.dataset.filter;
+      document.querySelectorAll(".res-card").forEach(card=>{
+        card.style.display=(f==="all"||card.dataset.cat===f)?"flex":"none";
+      });
+    });
+  });
+
+  /* فحص HIBP */
+  document.getElementById("pwnedBtn").addEventListener("click",async()=>{
+    const email=document.getElementById("pwnedInput").value.trim();
+    const res=document.getElementById("pwnedResult");
+    if(!email||!email.includes("@")){res.textContent="⚠️ أدخل بريداً إلكترونياً صحيحاً.";res.style.color="var(--danger)";return;}
+    res.textContent="🔍 جاري الفحص...";res.style.color="var(--muted)";
+    try{
+      const enc=new TextEncoder(),hash=await crypto.subtle.digest("SHA-1",enc.encode(email));
+      const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("").toUpperCase();
+      const prefix=hex.slice(0,5),suffix=hex.slice(5);
+      const r=await fetch(`https://api.pwnedpasswords.com/range/${prefix}`,{headers:{"Add-Padding":"true"}});
+      const text=await r.text();
+      const found=text.split("\r\n").some(line=>line.split(":")[0]===suffix&&parseInt(line.split(":")[1])>0);
+      if(found){res.innerHTML="❌ <strong>تسرّب!</strong> بريدك موجود في قواعد بيانات الاختراقات. غيّر كلمة مرورك فوراً.";res.style.color="var(--danger)";}
+      else{res.innerHTML="✅ <strong>آمن!</strong> لم نجد بريدك في قواعد بيانات الاختراقات المعروفة.";res.style.color="var(--ok)";}
+    }catch{res.textContent="⚠️ تعذّر الفحص — تحقق من اتصالك.";res.style.color="var(--danger)";}
+  });
+  document.getElementById("pwnedInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("pwnedBtn").click();});
+  </script>
 </body>
 </html>

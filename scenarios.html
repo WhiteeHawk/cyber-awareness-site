@@ -5,43 +5,421 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>سيناريوهات | سايف ديجيتال</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══ خلفية ══ */
+    .sc-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+    .sc-bg::before{
+      content:'';position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 600px 400px at 15% 40%,rgba(124,240,214,.1),transparent 60%),
+        radial-gradient(ellipse 500px 400px at 85% 60%,rgba(106,166,255,.08),transparent 60%);
+    }
+
+    /* ══ هيرو ══ */
+    .sc-hero{text-align:center;padding:40px 0 24px;animation:fadeUp .5s ease both;}
+    .sc-hero h1{
+      font-size:38px;font-weight:800;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:6px;
+    }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    /* ══ شريط التقدم العلوي ══ */
+    .sc-progress-wrap{
+      max-width:720px;margin:0 auto 20px;
+      background:rgba(16,26,51,.8);
+      border:1px solid rgba(106,166,255,.12);
+      border-radius:16px;padding:16px 20px;
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+      backdrop-filter:blur(10px);
+      animation:fadeUp .5s .1s ease both;
+    }
+    .sc-dots{display:flex;gap:6px;flex:1;justify-content:center;flex-wrap:wrap;}
+    .sc-dot{
+      width:32px;height:6px;border-radius:999px;
+      background:rgba(255,255,255,.08);transition:background .4s,transform .2s;
+    }
+    .sc-dot.done    {background:var(--accent2);}
+    .sc-dot.current {background:var(--accent);transform:scaleY(1.8);}
+    .sc-stat{
+      font-family:'IBM Plex Mono',monospace;
+      font-size:13px;color:var(--muted);white-space:nowrap;
+    }
+    .sc-stat strong{color:var(--accent2);}
+
+    /* ══ بطاقة السيناريو ══ */
+    .sc-wrap{max-width:720px;margin:0 auto;}
+    .sc-card{
+      background:rgba(16,26,51,.9);
+      border:1px solid rgba(106,166,255,.15);
+      border-radius:24px;
+      backdrop-filter:blur(14px);
+      overflow:hidden;
+      animation:fadeUp .4s ease both;
+      position:relative;
+    }
+    .sc-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent2),var(--accent),transparent);
+    }
+
+    /* رأس السيناريو */
+    .sc-head{
+      padding:28px 28px 20px;
+      display:flex;gap:16px;align-items:flex-start;
+    }
+    .sc-icon-wrap{
+      width:64px;height:64px;border-radius:16px;flex-shrink:0;
+      background:rgba(106,166,255,.1);border:1px solid rgba(106,166,255,.15);
+      display:flex;align-items:center;justify-content:center;font-size:30px;
+    }
+    .sc-meta{flex:1;}
+    .sc-tag{
+      font-size:11px;padding:3px 10px;border-radius:999px;
+      border:1px solid var(--border);color:var(--muted);
+      display:inline-block;margin-bottom:8px;
+    }
+    .sc-title{font-size:18px;font-weight:700;color:var(--text);margin:0;line-height:1.4;}
+
+    /* محتوى السيناريو */
+    .sc-body{padding:0 28px 20px;}
+    .sc-desc{
+      font-size:15px;color:var(--muted);line-height:1.7;
+      padding:14px 16px;border-radius:14px;
+      background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.04);
+      margin-bottom:20px;
+    }
+
+    /* الخيارات */
+    .sc-options{display:grid;gap:10px;margin-bottom:20px;}
+    .sc-opt{
+      display:flex;align-items:center;gap:12px;
+      padding:14px 16px;border-radius:14px;
+      border:1px solid rgba(106,166,255,.12);
+      background:rgba(0,0,0,.2);
+      color:var(--text);font-family:var(--font);font-size:15px;
+      cursor:pointer;text-align:right;
+      transition:border-color .2s,background .2s,transform .15s;
+      animation:fadeUp .35s ease both;
+    }
+    .sc-opt:nth-child(2){animation-delay:.06s;}
+    .sc-opt:nth-child(3){animation-delay:.12s;}
+    .sc-opt:hover:not(:disabled){
+      border-color:rgba(124,240,214,.4);
+      background:rgba(124,240,214,.06);
+      transform:translateX(-3px);
+    }
+    .sc-opt:disabled{cursor:default;}
+    .sc-opt.correct{border-color:rgba(75,227,154,.6);background:rgba(75,227,154,.1);animation:correctPop .4s ease;}
+    .sc-opt.wrong  {border-color:rgba(255,106,106,.6);background:rgba(255,106,106,.08);animation:wrongShake .4s ease;}
+    @keyframes correctPop{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+    @keyframes wrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+    .sc-opt-num{
+      width:30px;height:30px;border-radius:8px;
+      border:1px solid rgba(106,166,255,.2);
+      background:rgba(106,166,255,.06);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:12px;font-weight:700;flex-shrink:0;transition:.2s;
+    }
+    .sc-opt.correct .sc-opt-num{background:rgba(75,227,154,.2);border-color:rgba(75,227,154,.5);}
+    .sc-opt.wrong   .sc-opt-num{background:rgba(255,106,106,.2);border-color:rgba(255,106,106,.5);}
+
+    /* نتيجة الإجابة */
+    .sc-result{
+      margin:0 28px 20px;padding:16px 18px;border-radius:16px;
+      display:none;animation:fadeUp .3s ease;
+    }
+    .sc-result.show{display:block;}
+    .sc-result.ok {border:1px solid rgba(75,227,154,.35);background:rgba(75,227,154,.07);}
+    .sc-result.ko {border:1px solid rgba(255,106,106,.35);background:rgba(255,106,106,.07);}
+    .sc-res-title{font-size:16px;font-weight:700;margin:0 0 8px;color:var(--text);}
+    .sc-res-lesson{
+      font-size:14px;color:var(--muted);line-height:1.6;
+      padding:10px 12px;border-radius:10px;
+      background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.04);
+      margin-top:8px;
+    }
+
+    /* أزرار تحكم */
+    .sc-actions{padding:0 28px 28px;display:flex;gap:10px;}
+    .btn-sc-next{
+      flex:1;padding:14px;border-radius:14px;
+      border:1px solid rgba(124,240,214,.35);
+      background:linear-gradient(135deg,rgba(124,240,214,.15),rgba(106,166,255,.12));
+      color:var(--text);font-family:var(--font);font-size:15px;font-weight:600;
+      cursor:pointer;transition:.2s;
+    }
+    .btn-sc-next:hover:not(:disabled){background:linear-gradient(135deg,rgba(124,240,214,.25),rgba(106,166,255,.2));}
+    .btn-sc-next:disabled{opacity:.35;cursor:default;}
+
+    /* ══ النهاية ══ */
+    .sc-final{
+      max-width:720px;margin:20px auto 0;
+      background:rgba(16,26,51,.9);
+      border:1px solid rgba(106,166,255,.15);
+      border-radius:24px;padding:40px 32px;
+      text-align:center;backdrop-filter:blur(14px);
+      display:none;animation:fadeUp .5s ease both;
+      position:relative;overflow:hidden;
+    }
+    .sc-final::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent2),var(--accent),transparent);
+    }
+    .sf-score{
+      font-family:'IBM Plex Mono',monospace;
+      font-size:72px;font-weight:700;line-height:1;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:4px;
+    }
+    .sf-total{font-size:18px;color:var(--muted);margin-bottom:16px;}
+    .sf-level{font-size:22px;font-weight:700;margin-bottom:6px;}
+    .sf-msg{font-size:15px;color:var(--muted);max-width:440px;margin:0 auto 24px;}
+    .sf-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+    .btn-sf{
+      padding:13px 20px;border-radius:14px;
+      border:1px solid rgba(106,166,255,.3);
+      background:linear-gradient(135deg,rgba(106,166,255,.15),rgba(124,240,214,.1));
+      color:var(--text);font-family:var(--font);font-size:14px;font-weight:600;
+      cursor:pointer;text-decoration:none;transition:.2s;
+      display:inline-flex;align-items:center;
+    }
+    .btn-sf:hover{background:linear-gradient(135deg,rgba(106,166,255,.25),rgba(124,240,214,.18));}
+    .btn-sf.outline{background:transparent;border-color:rgba(255,255,255,.1);color:var(--muted);}
+    .btn-sf.outline:hover{border-color:var(--border);color:var(--text);}
+  </style>
 </head>
 
 <body>
-<header class="nav">
-  <div class="container nav-inner">
-    <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Scenarios</span></div></div>
-    <button class="menu-toggle" id="menuToggle">☰</button>
-    <nav class="links" id="navLinks">
-     <a href="index.html">الرئيسية</a>
+  <div class="sc-bg"></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Scenarios</span></div>
+        </div>
+        <button id="themeToggle" type="button">
+          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
         <a href="quiz.html">اختبار</a>
         <a href="tools.html">أدوات</a>
         <a href="scenarios.html" class="active">سيناريوهات</a>
-        <a href="resources.html">مصادر</a>
-        <a href="policies.html">تلخيص سياسات الخصوصية</a>
+        <a href="resources.html">موارد</a>
+        <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
-        <a href="contact.html">تواصل</a>    </nav>
-  </div>
-</header>
+        <a href="contact.html">تواصل</a>
+      </nav>
+      </nav>
+    </div>
+  </header>
 
-<main class="container">
-  <div class="card pad">
-    <h1>📱 مواقف واقعية</h1>
-    <p>اختر التصرف الصحيح لكل موقف لتقوية وعيك الأمني 👇</p>
-  </div>
+  <main class="container">
+    <div class="sc-hero">
+      <h1>مواقف واقعية</h1>
+      <p style="color:var(--muted);font-size:15px;">اتخذ القرار الصحيح — تعلّم قبل أن تقع في الفخ</p>
+    </div>
 
-  <div class="card pad" id="scene">
-    <h2 id="sceneTitle">...</h2>
-    <p id="sceneDesc">...</p>
-    <div class="cta-row" id="sceneActions"></div>
-    <div class="note" id="sceneResult" style="margin-top:12px"></div>
-  </div>
+    <!-- شريط التقدم -->
+    <div class="sc-progress-wrap">
+      <span class="sc-stat">السيناريو <strong id="scNum">1</strong> / 8</span>
+      <div class="sc-dots" id="scDots"></div>
+      <span class="sc-stat">النقاط: <strong id="scScore">0</strong></span>
+    </div>
 
-  <footer class="footer"><div class="small">🎯 تعلّم من المواقف لتفادي الأخطاء الواقعية.</div></footer>
-</main>
+    <!-- السيناريو -->
+    <div class="sc-wrap">
+      <div class="sc-card" id="scCard">
+        <div class="sc-head">
+          <div class="sc-icon-wrap" id="scIcon">📱</div>
+          <div class="sc-meta">
+            <span class="sc-tag" id="scTag">—</span>
+            <p class="sc-title" id="scTitle">...</p>
+          </div>
+        </div>
+        <div class="sc-body">
+          <div class="sc-desc" id="scDesc">...</div>
+          <div class="sc-options" id="scOptions"></div>
+        </div>
+        <div class="sc-result" id="scResult">
+          <div class="sc-res-title" id="scResTitle">—</div>
+          <div class="sc-res-lesson" id="scResLesson">—</div>
+        </div>
+        <div class="sc-actions">
+          <button class="btn-sc-next" id="scNextBtn" type="button" disabled>التالي ←</button>
+        </div>
+      </div>
 
-<script src="main.js"></script>
-<script src="scenarios.js"></script>
+      <!-- النهاية -->
+      <div class="sc-final" id="scFinal">
+        <div class="sf-score" id="sfScore">0</div>
+        <div class="sf-total">نقاط من 8</div>
+        <div class="sf-level" id="sfLevel">—</div>
+        <p class="sf-msg" id="sfMsg">—</p>
+        <div class="sf-actions">
+          <a class="btn-sf outline" href="learn.html">📘 الدروس</a>
+          <a class="btn-sf outline" href="quiz.html">🔒 الاختبار</a>
+          <button class="btn-sf" id="sfRestart" type="button">🔄 أعد السيناريوهات</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer" style="max-width:720px;margin:0 auto;">
+      <div class="footer-content">
+        <div class="small">🎯 تعلّم من المواقف لتفادي الأخطاء الواقعية.</div>
+        <div class="footer-links">
+          <a href="policies.html">سياسة الخصوصية</a>
+          <a href="contact.html">تواصل معنا</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  const SCENES=[
+    {icon:"📱",tag:"🎯 التصيّد",title:"رسالة واتساب: ربحت جائزة من البنك!",
+     desc:"وصلتك رسالة من رقم مجهول تدّعي أنك ربحت جائزة مالية كبيرة من بنكك، مع رابط لاستلامها فوراً.",
+     opts:[{t:"أضغط الرابط فوراً لأنها فرصة",c:false},{t:"أتجاهل الرسالة وأحذفها",c:true},{t:"أرسل بياناتي عبر الرسالة",c:false}],
+     tip:"البنوك لا ترسل جوائز عبر واتساب. الروابط المجهولة قد تسرق بياناتك أو تنصب برامج خبيثة."},
+    {icon:"🧑‍💼",tag:"🎭 الهندسة الاجتماعية",title:"موظف الدعم الفني يطلب رمز OTP",
+     desc:"اتصل بك شخص يدّعي أنه من فريق دعم بنكك، وقال إن حسابك تعرّض لمحاولة اختراق ويحتاج رمز التحقق لتأكيد هويتك.",
+     opts:[{t:"أعطيه الرمز لأنه يقول بنك",c:false},{t:"أرفض وأغلق وأتصل بالبنك رسمياً",c:true}],
+     tip:"الموظف الحقيقي لا يطلب OTP أبداً. أغلق الخط واتصل بالرقم الرسمي على ظهر البطاقة."},
+    {icon:"📧",tag:"🎯 التصيّد",title:"إيميل من 'أمازون' يطلب تحديث بطاقتك",
+     desc:"وصلك إيميل يبدو أنه من Amazon يقول إن طلبك أُوقف وتحتاج تحديث بيانات بطاقتك عبر رابط مرفق.",
+     opts:[{t:"أضغط الرابط وأحدّث البطاقة",c:false},{t:"أفحص المُرسِل وأدخل أمازون يدوياً",c:true},{t:"أرسل بيانات البطاقة رداً",c:false}],
+     tip:"افحص عنوان المُرسِل دائماً. ادخل الموقع الرسمي يدوياً بدل الضغط على روابط الإيميل."},
+    {icon:"📶",tag:"📶 Wi-Fi",title:"شبكة Wi-Fi مجانية في المطار",
+     desc:"أنت في المطار وتحتاج ترسل إيميل عمل عاجل يحتوي بيانات حساسة. وجدت شبكة 'Airport_Free_WiFi' مفتوحة.",
+     opts:[{t:"أتصل وأرسل الإيميل عادي",c:false},{t:"أستخدم بيانات جوالي أو VPN أولاً",c:true},{t:"أتصل وأفتح حساب البنك بسرعة",c:false}],
+     tip:"الشبكات العامة قد تكون مراقبة أو مزيفة. بيانات جوالك أو VPN أكثر أماناً."},
+    {icon:"💻",tag:"🦠 البرمجيات الخبيثة",title:"زميلك أرسل ملف مضغوط 'عاجل'",
+     desc:"وصلك إيميل من زميلك يقول: 'افتح هذا الملف بسرعة — مهم جداً!' والملف بصيغة .zip غير متوقعة.",
+     opts:[{t:"أفتحه فوراً لأنه من زميل",c:false},{t:"أفحصه بمضاد الفيروسات أو أتصل بزميلي",c:true}],
+     tip:"حساب زميلك قد يكون مخترقاً. افحص دائماً الملفات غير المتوقعة حتى من معارفك."},
+    {icon:"🔐",tag:"🔐 كلمات المرور",title:"موقع يطلب كلمة مرور حساب Gmail مباشرة",
+     desc:"سجّلت في تطبيق جديد وظهر حقل يطلب منك كتابة كلمة مرور Gmail مباشرة في الموقع.",
+     opts:[{t:"أكتبها لأن التطبيق يطلبها",c:false},{t:"أرفض — التطبيقات الحقيقية تستخدم OAuth",c:true}],
+     tip:"لا تطبيق شرعي يطلب كلمة مرور حساب آخر مباشرة. استخدم دائماً 'تسجيل الدخول بـ Google'."},
+    {icon:"📱",tag:"🔒 الخصوصية",title:"تطبيق مصباح يطلب جهات الاتصال والموقع",
+     desc:"حمّلت تطبيق مصباح وعند فتحه طلب صلاحية جهات الاتصال والموقع والميكروفون.",
+     opts:[{t:"أوافق على الكل عشان يشتغل",c:false},{t:"أرفض الصلاحيات الزائدة أو أحذف التطبيق",c:true}],
+     tip:"تطبيق المصباح لا يحتاج هذه الصلاحيات. الطلبات الزائدة علامة تطبيق مشبوه."},
+    {icon:"🛒",tag:"🎯 التصيّد",title:"SMS: طردك بالجمارك — ادفع 15 ريال",
+     desc:"وصلتك رسالة SMS تقول إن طرداً باسمك محتجز في الجمارك ويحتاج دفع رسوم 15 ريال عبر رابط مرفق.",
+     opts:[{t:"أضغط الرابط وأدفع المبلغ الصغير",c:false},{t:"أتجاهل وأتحقق من الجمارك رسمياً",c:true},{t:"أرسل بيانات بطاقتي",c:false}],
+     tip:"هذا 'Smishing' — تصيّد عبر SMS. الجمارك لا تطلب مدفوعات عبر رسائل نصية."}
+  ];
+
+  const NUMS=["١","٢","٣"];
+  let idx=0,scScore=0,answered=false;
+  const $=id=>document.getElementById(id);
+
+  function buildDots(){
+    const w=$("scDots");w.innerHTML="";
+    SCENES.forEach((_,i)=>{
+      const d=document.createElement("div");
+      d.className="sc-dot"+(i===0?" current":"");
+      d.id="sd"+i; w.appendChild(d);
+    });
+  }
+  function updDots(){
+    SCENES.forEach((_,i)=>{
+      const d=$("sd"+i);if(!d)return;
+      d.className="sc-dot";
+      if(i<idx)d.classList.add("done");
+      else if(i===idx)d.classList.add("current");
+    });
+    $("scNum").textContent=Math.min(idx+1,SCENES.length);
+    $("scScore").textContent=scScore;
+  }
+
+  function render(){
+    if(idx>=SCENES.length){showFinal();return;}
+    const s=SCENES[idx];
+    $("scIcon").textContent=s.icon;
+    $("scTag").textContent=s.tag;
+    $("scTitle").textContent=s.title;
+    $("scDesc").textContent=s.desc;
+    $("scResult").className="sc-result";
+    $("scNextBtn").disabled=true;
+    answered=false;
+    updDots();
+
+    const opts=$("scOptions");opts.innerHTML="";
+    s.opts.forEach((op,i)=>{
+      const b=document.createElement("button");
+      b.className="sc-opt";b.type="button";
+      b.innerHTML=`<span class="sc-opt-num">${NUMS[i]||i+1}</span>${op.t}`;
+      b.addEventListener("click",()=>choose(i,op.c,s));
+      opts.appendChild(b);
+    });
+
+    // تأثير ظهور
+    $("scCard").style.animation="none";
+    requestAnimationFrame(()=>$("scCard").style.animation="fadeUp .4s ease both");
+  }
+
+  function choose(i,correct,s){
+    if(answered)return;
+    answered=true;$("scNextBtn").disabled=false;
+    Array.from($("scOptions").children).forEach((b,j)=>{
+      b.disabled=true;
+      if(s.opts[j].c)b.classList.add("correct");
+      if(j===i&&!correct)b.classList.add("wrong");
+    });
+    if(correct)scScore++;
+    const res=$("scResult");
+    res.classList.add("show",correct?"ok":"ko");
+    $("scResTitle").textContent=correct?"✅ تصرف صحيح! ممتاز.":"❌ تصرف خاطئ — تعلّم من هذا الموقف.";
+    $("scResLesson").textContent="💡 "+s.tip;
+    updDots();
+  }
+
+  function showFinal(){
+    $("scCard").style.display="none";
+    const f=$("scFinal");f.style.display="block";
+    $("sfScore").textContent=scScore;
+    const pct=Math.round(scScore/SCENES.length*100);
+    let lvl,msg,col;
+    if(pct>=88){lvl="وعيك الأمني ممتاز 👑";msg="أنت على دراية عالية بالتهديدات الرقمية — شارك الموقع!";col="var(--accent2)";}
+    else if(pct>=63){lvl="جيد جداً ✅";msg="وعيك جيد — راجع المواقف اللي أخطأت فيها.";col="#6aa6ff";}
+    else{lvl="تحتاج مزيداً من التعلّم 💪";msg="لا بأس — راجع صفحة تعلّم وأعد المحاولة!";col="#ffb347";}
+    $("sfLevel").textContent=lvl;$("sfLevel").style.color=col;
+    $("sfMsg").textContent=msg;
+    SCENES.forEach((_,i)=>{const d=$("sd"+i);if(d)d.className="sc-dot done";});
+    $("scNum").textContent=SCENES.length;
+  }
+
+  $("scNextBtn").addEventListener("click",()=>{idx++;render();});
+  $("sfRestart").addEventListener("click",()=>{
+    idx=0;scScore=0;answered=false;
+    $("scCard").style.display="block";
+    $("scFinal").style.display="none";
+    buildDots();render();
+  });
+
+  buildDots();render();
+  </script>
 </body>
 </html>
