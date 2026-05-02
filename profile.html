@@ -317,6 +317,7 @@
 
   /* ── Main ── */
   let sb;
+  let _currentUserId = null;
 
   async function init() {
     try {
@@ -458,8 +459,6 @@
   }
 
   /* ── تعديل الاسم ── */
-  let _currentUserId = null;
-
   function toggleEditName() {
     const row = document.getElementById("editNameRow");
     const input = document.getElementById("newNameInput");

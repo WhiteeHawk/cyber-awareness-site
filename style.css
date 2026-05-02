@@ -96,6 +96,8 @@ a:hover { color:var(--accent2); }
   height: 58px;
   max-width: var(--max);
   margin: 0 auto;
+  /* RTL: يمين = brand، وسط = روابط، يسار = دخول */
+  flex-direction: row;
 }
 
 /* ── الجانب الأيمن: brand + وضع ── */
@@ -104,6 +106,7 @@ a:hover { color:var(--accent2); }
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  order: 1; /* يمين في RTL */
 }
 
 /* للتوافق مع الصفحات القديمة اللي تستخدم nav-left */
@@ -112,6 +115,7 @@ a:hover { color:var(--accent2); }
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  order: 1; /* يمين في RTL — أول شي */
 }
 
 /* ── البراند (اسم الموقع) — قابل للنقر ── */
@@ -169,6 +173,7 @@ body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
   flex: 1;
   justify-content: center;
   flex-wrap: nowrap;
+  order: 2; /* وسط */
 }
 .links a {
   padding: 7px 11px;
@@ -205,6 +210,7 @@ body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
   text-decoration: none;
   transition: .2s;
   flex-shrink: 0;
+  order: 3; /* يسار — آخر شي */
 }
 .auth-nav-btn:hover {
   background: rgba(106,166,255,.2);
@@ -254,6 +260,7 @@ body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
   padding: 5px 10px;
   transition: .2s;
   flex-shrink: 0;
+  order: 3;
 }
 .menu-toggle:hover { border-color: var(--accent); }
 
