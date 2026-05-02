@@ -340,7 +340,34 @@
     </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="main.js"></script>
+  <script>
+  /* ── Supabase للحفظ ── */
+  let sbClient = null;
+  async function initSB(){
+    try{
+      const r = await fetch("/.netlify/functions/get-config");
+      const {url,key} = await r.json();
+      sbClient = supabase.createClient(url, key);
+    }catch(e){ console.log("sb init failed", e); }
+  }
+  initSB();
+
+  async function saveQuizResult(score, total, pct, missed){
+    if(!sbClient) return;
+    try{
+      const {data:{session}} = await sbClient.auth.getSession();
+      if(!session) return;
+      await sbClient.from("quiz_results").insert({
+        user_id: session.user.id,
+        score, total,
+        percentage: pct,
+        missed_tips: missed
+      });
+    }catch(e){ console.log("save failed", e); }
+  }
+  </script>
   <script>
   (function(){
     const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
@@ -421,6 +448,8 @@
     $("quizCard").style.display="none";
     $("resultCard").style.display="block";
     const pct=Math.round(score/Q.length*100);
+    /* حفظ النتيجة */
+    saveQuizResult(score, Q.length, pct, missed.slice(0,6));
     let lvl,sub,col;
     if(pct>=90){lvl="ممتاز 👑";sub="وعيك السيبراني عالٍ جداً!";col="#4be39a";}
     else if(pct>=70){lvl="جيد جداً ✅";sub="أنت على الطريق الصحيح.";col="#6aa6ff";}

@@ -247,16 +247,12 @@
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
 
-  /* ── Supabase — keys تجي من الـ function ── */
-  let sb;
-  async function initSupabase() {
-    const res = await fetch("/.netlify/functions/get-config");
-    const { url, key } = await res.json();
-    const { createClient } = supabase;
-    sb = createClient(url, key);
-    await loadProfile();
-  }
-  initSupabase();
+  /* ── Supabase ── */
+  const { createClient } = supabase;
+  const sb = createClient(
+    "https://qgsilbwwcqajzvysdbzi.supabase.co",
+    "sb_publishable_JPT2bktJ6n7vGEUSsCaaRA_gQAaq2yb"
+  );
 
   function fmtDate(str) {
     if(!str) return "";
@@ -282,13 +278,16 @@
 
     const user = session.user;
 
-    /* جلب البيانات */
-    const res = await fetch("/.netlify/functions/get-profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id: user.id })
-    });
-    const { quiz, scenarios, profile } = await res.json();
+    /* جلب البيانات مباشرة من Supabase */
+    const [quizRes, scenarioRes, profileRes] = await Promise.all([
+      sb.from("quiz_results").select("*").eq("user_id", user.id).order("created_at", {ascending:false}).limit(10),
+      sb.from("scenario_results").select("*").eq("user_id", user.id).order("created_at", {ascending:false}).limit(10),
+      sb.from("profiles").select("*").eq("id", user.id).single()
+    ]);
+
+    const quiz     = quizRes.data || [];
+    const scenarios = scenarioRes.data || [];
+    const profile  = profileRes.data || null;
 
     /* ── هيرو ── */
     const username = profile?.username || user.email.split("@")[0];
@@ -367,6 +366,7 @@
     window.location.href = "index.html";
   }
 
+  loadProfile();
   </script>
 </body>
 </html>

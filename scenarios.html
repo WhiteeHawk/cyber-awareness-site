@@ -287,7 +287,31 @@
     </footer>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="main.js"></script>
+  <script>
+  let sbClient = null;
+  async function initSB(){
+    try{
+      const r = await fetch("/.netlify/functions/get-config");
+      const {url,key} = await r.json();
+      sbClient = supabase.createClient(url, key);
+    }catch(e){}
+  }
+  initSB();
+
+  async function saveScenarioResult(score, total){
+    if(!sbClient) return;
+    try{
+      const {data:{session}} = await sbClient.auth.getSession();
+      if(!session) return;
+      await sbClient.from("scenario_results").insert({
+        user_id: session.user.id,
+        score, total
+      });
+    }catch(e){}
+  }
+  </script>
   <script>
   (function(){
     const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
@@ -400,6 +424,8 @@
     $("scCard").style.display="none";
     const f=$("scFinal");f.style.display="block";
     $("sfScore").textContent=scScore;
+    /* حفظ النتيجة */
+    saveScenarioResult(scScore, SCENES.length);
     const pct=Math.round(scScore/SCENES.length*100);
     let lvl,msg,col;
     if(pct>=88){lvl="وعيك الأمني ممتاز 👑";msg="أنت على دراية عالية بالتهديدات الرقمية — شارك الموقع!";col="var(--accent2)";}
