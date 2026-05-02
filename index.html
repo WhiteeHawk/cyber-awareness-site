@@ -398,6 +398,7 @@
         <a href="resources.html">موارد</a>
         <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
       </nav>
     </div>
@@ -582,6 +583,37 @@
 
   </main>
 
+  <!-- ══ قسم المراجعات في الرئيسية ══ -->
+  <section style="padding:0 0 80px;">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:36px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(106,166,255,.25);background:rgba(106,166,255,.08);font-size:13px;color:var(--accent);margin-bottom:14px;">⭐ آراء المستخدمين</div>
+        <h2 style="font-size:28px;font-weight:900;color:var(--text);margin:0 0 10px;">ماذا قالوا عن سايف ديجيتال؟</h2>
+        <p style="color:var(--muted);font-size:15px;max-width:480px;margin:0 auto;">تجارب حقيقية من مستخدمين تعلموا الأمن الرقمي معنا</p>
+      </div>
+      <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:32px;">
+        <div style="text-align:center;">
+          <div id="idx-avg" style="font-size:42px;font-weight:900;font-family:'IBM Plex Mono',monospace;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">—</div>
+          <div id="idx-avg-stars" style="font-size:20px;letter-spacing:2px;margin:6px 0 4px;">—</div>
+          <div style="font-size:13px;color:var(--muted);">متوسط التقييم</div>
+        </div>
+        <div style="text-align:center;">
+          <div id="idx-total" style="font-size:42px;font-weight:900;font-family:'IBM Plex Mono',monospace;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">—</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:34px;">مراجعة</div>
+        </div>
+      </div>
+      <div id="idx-reviews-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:28px;">
+        <div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;">
+          <div class="news-spinner" style="margin:0 auto 12px;"></div>
+          جاري التحميل...
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <a href="reviews.html" class="btn primary" style="padding:12px 28px;font-size:15px;font-weight:700;">عرض جميع المراجعات ←</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="main-footer">
     <div class="footer-inner">
@@ -681,6 +713,62 @@
     document.getElementById("news-more-btn").addEventListener("click",showBatch);
     document.getElementById("news-retry").addEventListener("click",()=>loadNews(currentSrc));
     loadNews("thn");
+  })();
+
+  /* ── مراجعات الرئيسية ── */
+  (function(){
+    function starsHTML(n){
+      return Array.from({length:5},(_,i)=>
+        `<span style="color:${i<n?"#fbbf24":"rgba(255,255,255,.2)"}">★</span>`
+      ).join("");
+    }
+    function fmtDate(str){
+      if(!str) return "";
+      return new Date(str).toLocaleDateString("ar-SA",{year:"numeric",month:"short",day:"numeric"});
+    }
+    function escHtml(str){
+      return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+
+    async function loadIndexReviews(){
+      const grid = document.getElementById("idx-reviews-grid");
+      if(!grid) return;
+      try{
+        const res = await fetch("/.netlify/functions/reviews");
+        const reviews = await res.json();
+        if(!Array.isArray(reviews) || reviews.length === 0){
+          grid.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;">💬 لا توجد مراجعات بعد — <a href="reviews.html" style="color:var(--accent);">كن أول من يراجع!</a></div>`;
+          document.getElementById("idx-avg").textContent   = "0";
+          document.getElementById("idx-total").textContent = "0";
+          document.getElementById("idx-avg-stars").innerHTML = starsHTML(0);
+          return;
+        }
+        const total = reviews.length;
+        const avg   = (reviews.reduce((s,r)=>s+r.rating,0)/total).toFixed(1);
+        document.getElementById("idx-avg").textContent     = avg;
+        document.getElementById("idx-total").textContent   = total;
+        document.getElementById("idx-avg-stars").innerHTML = starsHTML(Math.round(avg));
+
+        // أحدث 3 فقط
+        grid.innerHTML = reviews.slice(0,3).map(r=>`
+          <div style="background:rgba(16,26,51,.85);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:22px;backdrop-filter:blur(10px);transition:.25s;" onmouseover="this.style.borderColor='rgba(106,166,255,.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(255,255,255,.07)';this.style.transform='none'">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+              <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;">${escHtml(r.username?.[0]?.toUpperCase()||"؟")}</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);">${escHtml(r.username)}</div>
+                <div style="font-size:12px;color:var(--muted);">${fmtDate(r.created_at)}</div>
+              </div>
+            </div>
+            <div style="font-size:16px;letter-spacing:2px;margin-bottom:10px;">${starsHTML(r.rating)}</div>
+            <div style="font-size:14px;color:var(--muted);line-height:1.7;">${escHtml(r.comment)}</div>
+          </div>
+        `).join("");
+      }catch(e){
+        const grid = document.getElementById("idx-reviews-grid");
+        if(grid) grid.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;">⚠️ تعذّر تحميل المراجعات</div>`;
+      }
+    }
+    loadIndexReviews();
   })();
   </script>
 </body>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>المراجعات | سايف ديجيتال</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .page-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+    .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.13;}
+    .orb-a{width:500px;height:500px;background:#6aa6ff;top:-150px;right:-100px;animation:of 14s ease-in-out infinite;}
+    .orb-b{width:400px;height:400px;background:#7cf0d6;bottom:-100px;left:-80px;animation:of 14s -5s ease-in-out infinite;}
+    @keyframes of{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    /* ── هيرو ── */
+    .reviews-hero {
+      text-align: center;
+      padding: 48px 22px 36px;
+      animation: fadeUp .5s ease both;
+    }
+    .reviews-hero h1 { font-size: 32px; font-weight: 900; margin-bottom: 10px; }
+    .reviews-hero p  { font-size: 16px; color: var(--muted); max-width: 500px; margin: 0 auto; }
+
+    /* ── إحصائيات سريعة ── */
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      background: rgba(16,26,51,.7);
+      border: 1px solid rgba(106,166,255,.15);
+      border-radius: 20px;
+      padding: 20px 32px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+      animation: fadeUp .5s .1s ease both;
+    }
+    .stat-item { text-align: center; }
+    .stat-big {
+      font-size: 36px;
+      font-weight: 900;
+      font-family: 'IBM Plex Mono', monospace;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .stars-display { font-size: 22px; letter-spacing: 2px; }
+
+    /* ── فورم المراجعة ── */
+    .review-form-card {
+      background: rgba(16,26,51,.88);
+      border: 1px solid rgba(106,166,255,.2);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .5s .15s ease both;
+      backdrop-filter: blur(12px);
+    }
+    .review-form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    }
+    .form-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* نجوم التقييم */
+    .stars-input {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+    .stars-input input { display: none; }
+    .stars-input label {
+      font-size: 32px;
+      cursor: pointer;
+      color: rgba(255,255,255,.2);
+      transition: .15s;
+      line-height: 1;
+    }
+    .stars-input label:hover,
+    .stars-input label:hover ~ label,
+    .stars-input input:checked ~ label { color: #fbbf24; }
+
+    .review-textarea {
+      width: 100%;
+      min-height: 110px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(106,166,255,.2);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+      transition: .2s;
+      box-sizing: border-box;
+      margin-bottom: 14px;
+    }
+    .review-textarea:focus {
+      border-color: rgba(106,166,255,.5);
+      box-shadow: 0 0 0 3px rgba(106,166,255,.08);
+    }
+    .review-textarea::placeholder { color: rgba(169,179,214,.35); }
+
+    .char-count { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+
+    .submit-btn {
+      padding: 13px 28px;
+      border-radius: 14px;
+      border: 1px solid rgba(106,166,255,.4);
+      background: linear-gradient(135deg, rgba(106,166,255,.2), rgba(124,240,214,.12));
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .submit-btn:hover { transform: translateY(-1px); background: linear-gradient(135deg, rgba(106,166,255,.3), rgba(124,240,214,.2)); }
+    .submit-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .form-msg {
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+    .form-msg.error   { background: rgba(255,106,106,.1); border: 1px solid rgba(255,106,106,.3); color: #ff6a6a; display: block; }
+    .form-msg.success { background: rgba(75,227,154,.1);  border: 1px solid rgba(75,227,154,.3);  color: #4be39a;  display: block; }
+
+    /* لو ما مسجل */
+    .login-prompt {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .login-prompt a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    /* ── بطاقات المراجعات ── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      animation: fadeUp .5s .2s ease both;
+    }
+    .review-card {
+      background: rgba(16,26,51,.85);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(10px);
+      transition: .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .review-card:hover {
+      border-color: rgba(106,166,255,.25);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.3);
+    }
+    .review-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      font-size: 80px;
+      color: rgba(106,166,255,.06);
+      font-family: Georgia, serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .rc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .rc-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .rc-info { flex: 1; }
+    .rc-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .rc-date { font-size: 12px; color: var(--muted); }
+    .rc-stars { font-size: 16px; letter-spacing: 2px; margin-bottom: 10px; }
+    .rc-comment { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* لودينج */
+    .loading-state {
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(106,166,255,.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* فارغ */
+    .empty-reviews {
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+    .empty-reviews .ei { font-size: 48px; margin-bottom: 12px; opacity: .5; }
+
+    /* قسم العنوان */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .reviews-count {
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(106,166,255,.1);
+      border: 1px solid rgba(106,166,255,.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <a href="index.html" class="brand">
+          <span class="logo">🛡️</span>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Reviews</span></div>
+        </a>
+        <button id="themeToggle" type="button">
+          <span id="themeIcon">🌙</span>
+          <span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a>
+        <a href="learn.html">تعلّم</a>
+        <a href="quiz.html">اختبار</a>
+        <a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a>
+        <a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a>
+        <a href="reviews.html" class="active">المراجعات</a>
+        <a href="contact.html">تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding-bottom:60px;">
+
+    <!-- هيرو -->
+    <div class="reviews-hero">
+      <h1>⭐ آراء المستخدمين</h1>
+      <p>شاركنا تجربتك مع سايف ديجيتال وساعد غيرك يتعلم الأمان الرقمي</p>
+    </div>
+
+    <!-- إحصائيات -->
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-item">
+        <div class="stat-big" id="avgRating">—</div>
+        <div class="stars-display" id="avgStars">—</div>
+        <div class="stat-lbl">متوسط التقييم</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-big" id="totalReviews">—</div>
+        <div class="stat-lbl">مراجعة</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-big" id="fiveStarPct">—</div>
+        <div class="stat-lbl">نجوم 5 ⭐</div>
+      </div>
+    </div>
+
+    <!-- فورم المراجعة -->
+    <div class="review-form-card">
+      <div class="form-title">✍️ أضف مراجعتك</div>
+      <div id="formArea">
+        <!-- يتعبأ بالسكريبت حسب حالة الدخول -->
+        <div class="login-prompt">جاري التحقق...</div>
+      </div>
+    </div>
+
+    <!-- قائمة المراجعات -->
+    <div class="section-header">
+      <div class="section-title">💬 جميع المراجعات</div>
+      <span class="reviews-count" id="reviewsCountBadge">جاري التحميل...</span>
+    </div>
+
+    <div class="reviews-grid" id="reviewsGrid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <div>جاري تحميل المراجعات...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
+      <div class="footer-links">
+        <a href="policies.html">سياسة الخصوصية</a>
+        <a href="contact.html">تواصل معنا</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+  /* ── Theme ── */
+  (function(){
+    const btn=document.getElementById("themeToggle"),
+          icon=document.getElementById("themeIcon"),
+          lbl=document.getElementById("themeLabel");
+    function apply(dark){
+      document.body.classList.toggle("light-mode",!dark);
+      icon.textContent=dark?"🌙":"☀️";
+      lbl.textContent=dark?"ليلي":"صباحي";
+      localStorage.setItem("sd-theme",dark?"dark":"light");
+    }
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  /* ── Helpers ── */
+  function starsHTML(n, size="16px"){
+    return Array.from({length:5},(_,i)=>
+      `<span style="color:${i<n?"#fbbf24":"rgba(255,255,255,.2)"}; font-size:${size}">★</span>`
+    ).join("");
+  }
+  function fmtDate(str){
+    if(!str) return "";
+    return new Date(str).toLocaleDateString("ar-SA",{year:"numeric",month:"long",day:"numeric"});
+  }
+
+  /* ── Supabase ── */
+  let sb, currentUser=null, currentProfile=null;
+
+  async function init(){
+    try{
+      const res = await fetch("/.netlify/functions/get-config");
+      const {url,key} = await res.json();
+      sb = supabase.createClient(url,key);
+      const {data:{session}} = await sb.auth.getSession();
+      if(session){
+        currentUser = session.user;
+        const {data:p} = await sb.from("profiles").select("username").eq("id",currentUser.id).limit(1);
+        currentProfile = p?.[0] || null;
+      }
+    }catch(e){ console.error(e); }
+    renderForm();
+    loadReviews();
+  }
+
+  /* ── فورم حسب حالة الدخول ── */
+  function renderForm(){
+    const area = document.getElementById("formArea");
+    if(!currentUser){
+      area.innerHTML = `
+        <div class="login-prompt">
+          🔒 يجب <a href="auth.html">تسجيل الدخول</a> لإضافة مراجعة
+        </div>`;
+      return;
+    }
+    area.innerHTML = `
+      <div style="margin-bottom:12px;">
+        <label style="font-size:13px;color:var(--muted);display:block;margin-bottom:8px;">تقييمك للمنصة</label>
+        <div class="stars-input" id="starsInput">
+          <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
+          <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
+          <input type="radio" name="rating" id="s3" value="3"><label for="s3">★</label>
+          <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
+          <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
+        </div>
+      </div>
+      <label style="font-size:13px;color:var(--muted);display:block;margin-bottom:8px;">تعليقك (10 أحرف على الأقل)</label>
+      <textarea class="review-textarea" id="reviewComment" maxlength="500"
+        placeholder="شاركنا رأيك في المنصة، ماذا استفدت؟ ما الذي أعجبك؟"
+        oninput="updateChar()"></textarea>
+      <div class="char-count"><span id="charCount">0</span> / 500</div>
+      <button class="submit-btn" id="submitBtn" onclick="submitReview()">نشر المراجعة ✨</button>
+      <div class="form-msg" id="formMsg"></div>
+    `;
+  }
+
+  function updateChar(){
+    const v = document.getElementById("reviewComment")?.value.length || 0;
+    const el = document.getElementById("charCount");
+    if(el) el.textContent = v;
+  }
+
+  /* ── إرسال المراجعة ── */
+  async function submitReview(){
+    const ratingEl = document.querySelector('input[name="rating"]:checked');
+    const comment  = document.getElementById("reviewComment")?.value.trim();
+    const msgEl    = document.getElementById("formMsg");
+    const btn      = document.getElementById("submitBtn");
+
+    if(!ratingEl){ showFormMsg("اختر تقييماً بالنجوم أولاً","error"); return; }
+    if(!comment || comment.length < 10){ showFormMsg("التعليق قصير جداً (10 أحرف على الأقل)","error"); return; }
+
+    btn.disabled=true; btn.textContent="جاري النشر...";
+
+    try{
+      const res = await fetch("/.netlify/functions/reviews",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+          user_id: currentUser.id,
+          username: currentProfile?.username || currentUser.email.split("@")[0],
+          rating: parseInt(ratingEl.value),
+          comment
+        })
+      });
+      const data = await res.json();
+      if(!res.ok){
+        showFormMsg(data.error || "حدث خطأ","error");
+        btn.disabled=false; btn.textContent="نشر المراجعة ✨";
+        return;
+      }
+      showFormMsg("✅ تم نشر مراجعتك بنجاح! شكراً لك 🎉","success");
+      btn.disabled=true; btn.textContent="تم النشر ✓";
+      loadReviews();
+    }catch(e){
+      showFormMsg("خطأ في الاتصال","error");
+      btn.disabled=false; btn.textContent="نشر المراجعة ✨";
+    }
+  }
+
+  function showFormMsg(txt,type){
+    const el=document.getElementById("formMsg");
+    if(!el) return;
+    el.textContent=txt; el.className=`form-msg ${type}`;
+  }
+
+  /* ── تحميل المراجعات ── */
+  async function loadReviews(){
+    const grid = document.getElementById("reviewsGrid");
+    try{
+      const res  = await fetch("/.netlify/functions/reviews");
+      const data = await res.json();
+      const reviews = Array.isArray(data) ? data : [];
+
+      /* إحصائيات */
+      const total   = reviews.length;
+      const avgR    = total ? (reviews.reduce((s,r)=>s+r.rating,0)/total).toFixed(1) : "0";
+      const fivePct = total ? Math.round(reviews.filter(r=>r.rating===5).length/total*100) : 0;
+
+      document.getElementById("avgRating").textContent      = avgR;
+      document.getElementById("avgStars").innerHTML         = starsHTML(Math.round(avgR),"20px");
+      document.getElementById("totalReviews").textContent   = total;
+      document.getElementById("fiveStarPct").textContent    = fivePct + "%";
+      document.getElementById("reviewsCountBadge").textContent = total + " مراجعة";
+
+      if(total === 0){
+        grid.innerHTML = `
+          <div class="empty-reviews">
+            <div class="ei">💬</div>
+            <p>لا توجد مراجعات بعد — كن أول من يراجع!</p>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = reviews.map(r => `
+        <div class="review-card">
+          <div class="rc-header">
+            <div class="rc-avatar">${r.username?.[0]?.toUpperCase()||"؟"}</div>
+            <div class="rc-info">
+              <div class="rc-name">${escHtml(r.username)}</div>
+              <div class="rc-date">${fmtDate(r.created_at)}</div>
+            </div>
+          </div>
+          <div class="rc-stars">${starsHTML(r.rating,"18px")}</div>
+          <div class="rc-comment">${escHtml(r.comment)}</div>
+        </div>
+      `).join("");
+
+    }catch(e){
+      grid.innerHTML=`<div class="empty-reviews"><div class="ei">⚠️</div><p>فشل تحميل المراجعات</p></div>`;
+    }
+  }
+
+  function escHtml(str){
+    return String(str)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;");
+  }
+
+  init();
+  </script>
+</body>
+</html>
