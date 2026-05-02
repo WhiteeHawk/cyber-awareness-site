@@ -264,9 +264,10 @@
     }
 
     if (data.user) {
-      // الـ trigger يحفظ الاسم تلقائياً — نحاول أيضاً upsert كضمان إضافي
-      await sb.from("profiles").upsert({ id: data.user.id, username }, { onConflict: "id" });
-      showMsg("✅ تم إنشاء حسابك! تحقق من بريدك لتأكيد الحساب.", "success");
+      showMsg("✅ تم إنشاء حسابك بنجاح! جاري تسجيل الدخول...", "success");
+      setTimeout(() => { window.location.href = "profile.html"; }, 1500);
+    } else {
+      showMsg("✅ تم إنشاء حسابك! يمكنك تسجيل الدخول الآن.", "success");
       btn.disabled = false; btn.textContent = "إنشاء حساب 🚀";
     }
   }
