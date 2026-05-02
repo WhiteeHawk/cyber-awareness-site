@@ -4,13 +4,13 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { user_id, score, total, percentage, missed_tips } = JSON.parse(event.body);
+    const { user_id, score, total } = JSON.parse(event.body);
 
-    if (!user_id || score === undefined || !total || percentage === undefined) {
+    if (!user_id || score === undefined || !total) {
       return { statusCode: 400, body: JSON.stringify({ error: "بيانات ناقصة" }) };
     }
 
-    const res = await fetch(`${process.env.SUPABASE_URL}/rest/v1/quiz_results`, {
+    const res = await fetch(`${process.env.SUPABASE_URL}/rest/v1/scenario_results`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,13 +18,7 @@ exports.handler = async (event) => {
         "Authorization": `Bearer ${process.env.SUPABASE_SECRET_KEY}`,
         "Prefer": "return=minimal"
       },
-      body: JSON.stringify({
-        user_id,
-        score,
-        total,
-        percentage,
-        missed_tips: missed_tips || []
-      })
+      body: JSON.stringify({ user_id, score, total })
     });
 
     if (!res.ok) {

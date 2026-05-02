@@ -16,14 +16,11 @@
     @keyframes of{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
     @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-    /* هيرو الملف الشخصي */
     .profile-hero{
       background:linear-gradient(135deg,rgba(106,166,255,.1),rgba(124,240,214,.07));
-      border:1px solid rgba(106,166,255,.18);
-      border-radius:24px;padding:36px;margin-bottom:22px;
-      display:flex;align-items:center;gap:24px;flex-wrap:wrap;
-      position:relative;overflow:hidden;
-      animation:fadeUp .5s ease both;
+      border:1px solid rgba(106,166,255,.18);border-radius:24px;padding:36px;
+      margin-bottom:22px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+      position:relative;overflow:hidden;animation:fadeUp .5s ease both;
     }
     .profile-hero::before{
       content:'';position:absolute;top:0;right:0;left:0;height:2px;
@@ -33,50 +30,43 @@
       width:80px;height:80px;border-radius:50%;flex-shrink:0;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
       display:flex;align-items:center;justify-content:center;
-      font-size:32px;border:3px solid rgba(106,166,255,.3);
+      font-size:32px;font-weight:800;color:#fff;
+      border:3px solid rgba(106,166,255,.3);
     }
     .profile-info{flex:1;}
     .profile-name{font-size:24px;font-weight:800;color:var(--text);margin:0 0 4px;}
-    .profile-email{font-size:14px;color:var(--muted);margin:0 0 12px;font-family:'IBM Plex Mono',monospace;}
+    .profile-email{font-size:14px;color:var(--muted);margin:0 0 8px;font-family:'IBM Plex Mono',monospace;}
     .profile-joined{font-size:12px;color:var(--muted);opacity:.7;}
     .logout-btn{
       padding:10px 18px;border-radius:12px;
       border:1px solid rgba(255,106,106,.25);
-      background:rgba(255,106,106,.08);
-      color:#ff6a6a;font-family:var(--font);font-size:13px;
-      cursor:pointer;transition:.2s;
+      background:rgba(255,106,106,.08);color:#ff6a6a;
+      font-family:var(--font);font-size:13px;cursor:pointer;transition:.2s;
     }
-    .logout-btn:hover{background:rgba(255,106,106,.15);}
+    .logout-btn:hover{background:rgba(255,106,106,.18);}
 
-    /* بطاقات الإحصائيات */
     .stats-grid{
       display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:14px;margin-bottom:22px;
-      animation:fadeUp .5s .1s ease both;
+      gap:14px;margin-bottom:22px;animation:fadeUp .5s .1s ease both;
     }
     .stat-card{
-      background:rgba(16,26,51,.88);
-      border:1px solid rgba(106,166,255,.12);
+      background:rgba(16,26,51,.88);border:1px solid rgba(106,166,255,.12);
       border-radius:18px;padding:20px;text-align:center;
       backdrop-filter:blur(10px);transition:.2s;
     }
     .stat-card:hover{border-color:rgba(124,240,214,.3);transform:translateY(-2px);}
     .stat-icon{font-size:26px;margin-bottom:8px;}
     .stat-num{
-      font-family:'IBM Plex Mono',monospace;
-      font-size:30px;font-weight:700;line-height:1;
+      font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:700;line-height:1;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
     }
     .stat-lbl{font-size:12px;color:var(--muted);margin-top:5px;}
 
-    /* سجل الاختبارات */
     .history-section{
-      background:rgba(16,26,51,.88);
-      border:1px solid rgba(106,166,255,.12);
+      background:rgba(16,26,51,.88);border:1px solid rgba(106,166,255,.12);
       border-radius:24px;padding:28px;margin-bottom:22px;
-      backdrop-filter:blur(10px);
-      animation:fadeUp .5s .2s ease both;
+      backdrop-filter:blur(10px);animation:fadeUp .5s .2s ease both;
       position:relative;overflow:hidden;
     }
     .history-section::before{
@@ -85,55 +75,46 @@
     }
     .hs-title{font-size:18px;font-weight:800;color:var(--text);margin:0 0 18px;display:flex;align-items:center;gap:8px;}
 
-    .quiz-history-item{
+    .history-item{
       display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
       padding:14px 16px;border-radius:14px;
       border:1px solid rgba(255,255,255,.06);
-      background:rgba(0,0,0,.18);margin-bottom:10px;
-      transition:.2s;
+      background:rgba(0,0,0,.18);margin-bottom:10px;transition:.2s;
     }
-    .quiz-history-item:hover{border-color:rgba(106,166,255,.2);}
-    .qhi-left{display:flex;align-items:center;gap:12px;}
-    .qhi-score{
-      width:44px;height:44px;border-radius:12px;
+    .history-item:last-child{margin-bottom:0;}
+    .history-item:hover{border-color:rgba(106,166,255,.2);}
+    .hi-left{display:flex;align-items:center;gap:12px;}
+    .hi-score{
+      width:48px;height:48px;border-radius:12px;
       display:flex;align-items:center;justify-content:center;
-      font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;
+      font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;
     }
-    .qhi-info h4{margin:0 0 3px;font-size:14px;color:var(--text);}
-    .qhi-info p{margin:0;font-size:12px;color:var(--muted);}
-    .qhi-badge{
-      padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid;
-    }
+    .hi-info h4{margin:0 0 3px;font-size:14px;color:var(--text);}
+    .hi-info p{margin:0;font-size:12px;color:var(--muted);}
+    .hi-badge{padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid;}
 
-    /* شريط التقدم العام */
-    .overall-bar{
-      background:rgba(0,0,0,.2);border-radius:10px;overflow:hidden;
-      height:8px;margin-top:8px;
-    }
-    .overall-fill{height:100%;border-radius:10px;transition:width 1s ease;}
-
-    /* فارغ */
-    .empty-state{
-      text-align:center;padding:32px;color:var(--muted);
-    }
+    .empty-state{text-align:center;padding:32px;color:var(--muted);}
     .empty-state .es-icon{font-size:40px;margin-bottom:10px;opacity:.5;}
     .empty-state p{font-size:14px;margin:0 0 14px;}
 
-    /* شارات الإنجازات */
     .badges-grid{
       display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-      gap:12px;margin-top:16px;
+      gap:12px;margin-top:4px;
     }
     .badge-item{
       text-align:center;padding:16px 10px;
-      border:1px solid var(--border);border-radius:16px;
-      background:var(--item-bg);transition:.2s;
+      border:1px solid rgba(255,255,255,.08);border-radius:16px;
+      background:rgba(0,0,0,.15);transition:.2s;
     }
-    .badge-item.earned{border-color:rgba(124,240,214,.3);background:rgba(124,240,214,.05);}
-    .badge-item:not(.earned){opacity:.4;filter:grayscale(1);}
+    .badge-item.earned{border-color:rgba(124,240,214,.35);background:rgba(124,240,214,.06);}
+    .badge-item:not(.earned){opacity:.35;filter:grayscale(1);}
     .badge-icon{font-size:28px;margin-bottom:6px;}
     .badge-name{font-size:12px;color:var(--text);font-weight:600;}
     .badge-desc{font-size:11px;color:var(--muted);margin-top:3px;}
+
+    .loading-spinner{
+      text-align:center;padding:40px;color:var(--muted);font-size:14px;
+    }
   </style>
 </head>
 <body>
@@ -142,22 +123,32 @@
   <header class="nav">
     <div class="container nav-inner">
       <div class="nav-left">
-        <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Profile</span></div></div>
-        <button id="themeToggle" type="button"><span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span></button>
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Profile</span></div>
+        </div>
+        <button id="themeToggle" type="button">
+          <span id="themeIcon">🌙</span>
+          <span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
       </div>
       <button class="menu-toggle" id="menuToggle" type="button">☰</button>
       <nav class="links" id="navLinks">
-        <a href="index.html">الرئيسية</a><a href="learn.html">تعلّم</a>
-        <a href="quiz.html">اختبار</a><a href="tools.html">أدوات</a>
-        <a href="scenarios.html">سيناريوهات</a><a href="resources.html">موارد</a>
-        <a href="about.html">عن المشروع</a><a href="contact.html">تواصل</a>
+        <a href="index.html">الرئيسية</a>
+        <a href="learn.html">تعلّم</a>
+        <a href="quiz.html">اختبار</a>
+        <a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a>
+        <a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a>
+        <a href="contact.html">تواصل</a>
       </nav>
     </div>
   </header>
 
-  <main class="container" style="padding-top:24px;">
+  <main class="container" style="padding-top:24px;padding-bottom:48px;">
 
-    <!-- هيرو الملف الشخصي -->
+    <!-- هيرو -->
     <div class="profile-hero" id="profileHero">
       <div class="profile-avatar" id="profileAvatar">👤</div>
       <div class="profile-info">
@@ -172,22 +163,22 @@
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">🎯</div>
-        <div class="stat-num" id="totalQuizzes">0</div>
+        <div class="stat-num" id="totalQuizzes">—</div>
         <div class="stat-lbl">اختبارات أجريتها</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">⭐</div>
-        <div class="stat-num" id="bestScore">0%</div>
+        <div class="stat-num" id="bestScore">—</div>
         <div class="stat-lbl">أفضل نتيجة</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📊</div>
-        <div class="stat-num" id="avgScore">0%</div>
+        <div class="stat-num" id="avgScore">—</div>
         <div class="stat-lbl">متوسط النتائج</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🎭</div>
-        <div class="stat-num" id="totalScenarios">0</div>
+        <div class="stat-num" id="totalScenarios">—</div>
         <div class="stat-lbl">سيناريوهات أكملتها</div>
       </div>
     </div>
@@ -196,11 +187,7 @@
     <div class="history-section">
       <div class="hs-title">🎯 سجل الاختبارات</div>
       <div id="quizHistory">
-        <div class="empty-state">
-          <div class="es-icon">📝</div>
-          <p>ما أجريت أي اختبار بعد</p>
-          <a href="quiz.html" class="btn primary" style="font-size:13px;padding:10px 18px;">ابدأ الاختبار الآن</a>
-        </div>
+        <div class="loading-spinner">⏳ جاري التحميل...</div>
       </div>
     </div>
 
@@ -208,23 +195,39 @@
     <div class="history-section">
       <div class="hs-title">🎭 سجل السيناريوهات</div>
       <div id="scenarioHistory">
-        <div class="empty-state">
-          <div class="es-icon">🎭</div>
-          <p>ما جربت السيناريوهات بعد</p>
-          <a href="scenarios.html" class="btn primary" style="font-size:13px;padding:10px 18px;">جرّب السيناريوهات</a>
-        </div>
+        <div class="loading-spinner">⏳ جاري التحميل...</div>
       </div>
     </div>
 
     <!-- الإنجازات -->
     <div class="history-section">
       <div class="hs-title">🏆 الإنجازات</div>
-      <div class="badges-grid" id="badgesGrid">
-        <div class="badge-item" id="badge-first"><div class="badge-icon">🎯</div><div class="badge-name">أول اختبار</div><div class="badge-desc">أجري اختبارك الأول</div></div>
-        <div class="badge-item" id="badge-perfect"><div class="badge-icon">👑</div><div class="badge-name">مثالي</div><div class="badge-desc">100% في اختبار</div></div>
-        <div class="badge-item" id="badge-five"><div class="badge-icon">🔥</div><div class="badge-name">مثابر</div><div class="badge-desc">5 اختبارات</div></div>
-        <div class="badge-item" id="badge-scenario"><div class="badge-icon">🎭</div><div class="badge-name">محترف</div><div class="badge-desc">أكمل السيناريوهات</div></div>
-        <div class="badge-item" id="badge-expert"><div class="badge-icon">🛡️</div><div class="badge-name">خبير أمني</div><div class="badge-desc">متوسط 90%+</div></div>
+      <div class="badges-grid">
+        <div class="badge-item" id="badge-first">
+          <div class="badge-icon">🎯</div>
+          <div class="badge-name">أول اختبار</div>
+          <div class="badge-desc">أجري اختبارك الأول</div>
+        </div>
+        <div class="badge-item" id="badge-perfect">
+          <div class="badge-icon">👑</div>
+          <div class="badge-name">مثالي</div>
+          <div class="badge-desc">100% في اختبار</div>
+        </div>
+        <div class="badge-item" id="badge-five">
+          <div class="badge-icon">🔥</div>
+          <div class="badge-name">مثابر</div>
+          <div class="badge-desc">5 اختبارات</div>
+        </div>
+        <div class="badge-item" id="badge-scenario">
+          <div class="badge-icon">🎭</div>
+          <div class="badge-name">محترف</div>
+          <div class="badge-desc">أكمل السيناريوهات</div>
+        </div>
+        <div class="badge-item" id="badge-expert">
+          <div class="badge-icon">🛡️</div>
+          <div class="badge-name">خبير أمني</div>
+          <div class="badge-desc">متوسط 90%+</div>
+        </div>
       </div>
     </div>
 
@@ -233,7 +236,10 @@
   <footer class="footer">
     <div class="container footer-content">
       <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
-      <div class="footer-links"><a href="policies.html">سياسة الخصوصية</a><a href="contact.html">تواصل معنا</a></div>
+      <div class="footer-links">
+        <a href="policies.html">سياسة الخصوصية</a>
+        <a href="contact.html">تواصل معنا</a>
+      </div>
     </div>
   </footer>
 
@@ -241,129 +247,181 @@
   <script>
   /* ── Theme ── */
   (function(){
-    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
-    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    const btn=document.getElementById("themeToggle"),
+          icon=document.getElementById("themeIcon"),
+          lbl=document.getElementById("themeLabel");
+    function apply(dark){
+      document.body.classList.toggle("light-mode",!dark);
+      icon.textContent=dark?"🌙":"☀️";
+      lbl.textContent=dark?"ليلي":"صباحي";
+      localStorage.setItem("sd-theme",dark?"dark":"light");
+    }
     apply(localStorage.getItem("sd-theme")!=="light");
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
 
-  /* ── Supabase ── */
-  const { createClient } = supabase;
-  const sb = createClient(
-    "https://srxmfwkrpdxrbiubxwuj.supabase.co",
-    "sb_publishable_f6MtwgiULeEMu2qANFi_lg_pMGec9g2"
-  );
-
+  /* ── Helpers ── */
   function fmtDate(str) {
-    if(!str) return "";
-    return new Date(str).toLocaleDateString("ar-SA",{year:"numeric",month:"long",day:"numeric"});
+    if (!str) return "—";
+    try {
+      return new Date(str).toLocaleDateString("ar-SA",{year:"numeric",month:"long",day:"numeric"});
+    } catch { return "—"; }
   }
-
   function scoreColor(pct) {
-    if(pct>=90) return "#4be39a";
-    if(pct>=70) return "#6aa6ff";
-    if(pct>=50) return "#ffb347";
+    if (pct >= 90) return "#4be39a";
+    if (pct >= 70) return "#6aa6ff";
+    if (pct >= 50) return "#ffb347";
     return "#ff6a6a";
   }
   function scoreLabel(pct) {
-    if(pct>=90) return "ممتاز 👑";
-    if(pct>=70) return "جيد جداً ✅";
-    if(pct>=50) return "جيد 👌";
+    if (pct >= 90) return "ممتاز 👑";
+    if (pct >= 70) return "جيد جداً ✅";
+    if (pct >= 50) return "جيد 👌";
     return "يحتاج تقوية 💪";
   }
 
-  async function loadProfile() {
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) { window.location.href = "auth.html"; return; }
+  /* ── Main ── */
+  let sb;
 
-    const user = session.user;
+  async function init() {
+    try {
+      const res = await fetch("/.netlify/functions/get-config");
+      if (!res.ok) throw new Error("فشل جلب الإعدادات");
+      const { url, key } = await res.json();
+      sb = supabase.createClient(url, key);
 
-    /* جلب البيانات */
-    const res = await fetch("/.netlify/functions/get-profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id: user.id })
-    });
-    const { quiz, scenarios, profile } = await res.json();
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        window.location.href = "auth.html";
+        return;
+      }
+      loadProfile(session.user);
+    } catch (e) {
+      console.error("init error:", e);
+      window.location.href = "auth.html";
+    }
+  }
 
-    /* ── هيرو ── */
-    const username = profile?.username || user.email.split("@")[0];
-    document.getElementById("profileName").textContent = username;
-    document.getElementById("profileEmail").textContent = user.email;
+  async function loadProfile(user) {
+    // ── هيرو ──
+    document.getElementById("profileEmail").textContent  = user.email;
     document.getElementById("profileJoined").textContent = "انضم في " + fmtDate(user.created_at);
-    document.getElementById("profileAvatar").textContent = username[0]?.toUpperCase() || "👤";
 
-    /* ── إحصائيات ── */
-    const quizCount = quiz?.length || 0;
-    const bestPct   = quizCount ? Math.max(...quiz.map(q=>q.percentage)) : 0;
-    const avgPct    = quizCount ? Math.round(quiz.reduce((s,q)=>s+q.percentage,0)/quizCount) : 0;
-    const scCount   = scenarios?.length || 0;
+    try {
+      const res = await fetch("/.netlify/functions/get-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: user.id })
+      });
+      if (!res.ok) throw new Error("فشل جلب البيانات");
+      const { quiz, scenarios, profile } = await res.json();
 
-    document.getElementById("totalQuizzes").textContent  = quizCount;
-    document.getElementById("bestScore").textContent     = bestPct + "%";
-    document.getElementById("avgScore").textContent      = avgPct + "%";
-    document.getElementById("totalScenarios").textContent = scCount;
+      // اسم المستخدم
+      const username = profile?.username || user.email.split("@")[0];
+      document.getElementById("profileName").textContent   = username;
+      document.getElementById("profileAvatar").textContent = username[0]?.toUpperCase() || "؟";
 
-    /* ── سجل الاختبارات ── */
-    const qEl = document.getElementById("quizHistory");
-    if(quizCount > 0) {
-      qEl.innerHTML = "";
-      quiz.forEach((q,i) => {
-        const col = scoreColor(q.percentage);
-        const lbl = scoreLabel(q.percentage);
-        qEl.innerHTML += `
-          <div class="quiz-history-item">
-            <div class="qhi-left">
-              <div class="qhi-score" style="background:${col}22;border:1px solid ${col}44;color:${col};">
+      // ── إحصائيات ──
+      const quizCount = Array.isArray(quiz) ? quiz.length : 0;
+      const scCount   = Array.isArray(scenarios) ? scenarios.length : 0;
+      const bestPct   = quizCount ? Math.max(...quiz.map(q => q.percentage)) : 0;
+      const avgPct    = quizCount ? Math.round(quiz.reduce((s,q) => s+q.percentage, 0) / quizCount) : 0;
+
+      document.getElementById("totalQuizzes").textContent   = quizCount;
+      document.getElementById("bestScore").textContent      = quizCount ? bestPct + "%" : "0%";
+      document.getElementById("avgScore").textContent       = quizCount ? avgPct  + "%" : "0%";
+      document.getElementById("totalScenarios").textContent = scCount;
+
+      // ── سجل الاختبارات ──
+      const qEl = document.getElementById("quizHistory");
+      if (quizCount > 0) {
+        qEl.innerHTML = "";
+        quiz.forEach((q, i) => {
+          const col = scoreColor(q.percentage);
+          const lbl = scoreLabel(q.percentage);
+          const div = document.createElement("div");
+          div.className = "history-item";
+          div.innerHTML = `
+            <div class="hi-left">
+              <div class="hi-score" style="background:${col}22;border:1px solid ${col}55;color:${col};">
                 ${q.percentage}%
               </div>
-              <div class="qhi-info">
+              <div class="hi-info">
                 <h4>اختبار رقم ${quizCount - i}</h4>
-                <p>${q.score} / ${q.total} إجابة صحيحة · ${fmtDate(q.created_at)}</p>
+                <p>${q.score} / ${q.total} إجابة صحيحة &nbsp;·&nbsp; ${fmtDate(q.created_at)}</p>
               </div>
             </div>
-            <span class="qhi-badge" style="border-color:${col}44;color:${col};background:${col}11;">${lbl}</span>
+            <span class="hi-badge" style="border-color:${col}55;color:${col};background:${col}11;">${lbl}</span>
+          `;
+          qEl.appendChild(div);
+        });
+      } else {
+        qEl.innerHTML = `
+          <div class="empty-state">
+            <div class="es-icon">📝</div>
+            <p>ما أجريت أي اختبار بعد</p>
+            <a href="quiz.html" class="btn primary" style="font-size:13px;padding:10px 18px;">ابدأ الاختبار الآن</a>
           </div>`;
-      });
-    }
+      }
 
-    /* ── سجل السيناريوهات ── */
-    const sEl = document.getElementById("scenarioHistory");
-    if(scCount > 0) {
-      sEl.innerHTML = "";
-      scenarios.forEach((s,i) => {
-        const pct = Math.round((s.score/s.total)*100);
-        const col = scoreColor(pct);
-        sEl.innerHTML += `
-          <div class="quiz-history-item">
-            <div class="qhi-left">
-              <div class="qhi-score" style="background:${col}22;border:1px solid ${col}44;color:${col};">
+      // ── سجل السيناريوهات ──
+      const sEl = document.getElementById("scenarioHistory");
+      if (scCount > 0) {
+        sEl.innerHTML = "";
+        scenarios.forEach((s, i) => {
+          const pct = s.total > 0 ? Math.round((s.score / s.total) * 100) : 0;
+          const col = scoreColor(pct);
+          const div = document.createElement("div");
+          div.className = "history-item";
+          div.innerHTML = `
+            <div class="hi-left">
+              <div class="hi-score" style="background:${col}22;border:1px solid ${col}55;color:${col};">
                 ${s.score}/${s.total}
               </div>
-              <div class="qhi-info">
+              <div class="hi-info">
                 <h4>جلسة سيناريوهات رقم ${scCount - i}</h4>
                 <p>${fmtDate(s.created_at)}</p>
               </div>
             </div>
-            <span class="qhi-badge" style="border-color:${col}44;color:${col};background:${col}11;">${pct}%</span>
+            <span class="hi-badge" style="border-color:${col}55;color:${col};background:${col}11;">${pct}%</span>
+          `;
+          sEl.appendChild(div);
+        });
+      } else {
+        sEl.innerHTML = `
+          <div class="empty-state">
+            <div class="es-icon">🎭</div>
+            <p>ما جربت السيناريوهات بعد</p>
+            <a href="scenarios.html" class="btn primary" style="font-size:13px;padding:10px 18px;">جرّب السيناريوهات</a>
           </div>`;
-      });
-    }
+      }
 
-    /* ── الإنجازات ── */
-    if(quizCount >= 1) document.getElementById("badge-first").classList.add("earned");
-    if(bestPct === 100) document.getElementById("badge-perfect").classList.add("earned");
-    if(quizCount >= 5) document.getElementById("badge-five").classList.add("earned");
-    if(scCount >= 1)   document.getElementById("badge-scenario").classList.add("earned");
-    if(avgPct >= 90)   document.getElementById("badge-expert").classList.add("earned");
+      // ── الإنجازات ──
+      if (quizCount >= 1)  document.getElementById("badge-first").classList.add("earned");
+      if (bestPct === 100) document.getElementById("badge-perfect").classList.add("earned");
+      if (quizCount >= 5)  document.getElementById("badge-five").classList.add("earned");
+      if (scCount >= 1)    document.getElementById("badge-scenario").classList.add("earned");
+      if (avgPct >= 90)    document.getElementById("badge-expert").classList.add("earned");
+
+    } catch (e) {
+      console.error("loadProfile error:", e);
+      document.getElementById("profileName").textContent = user.email.split("@")[0];
+      document.getElementById("profileAvatar").textContent = "؟";
+      document.getElementById("totalQuizzes").textContent  = "0";
+      document.getElementById("bestScore").textContent     = "0%";
+      document.getElementById("avgScore").textContent      = "0%";
+      document.getElementById("totalScenarios").textContent = "0";
+      document.getElementById("quizHistory").innerHTML = `<div class="empty-state"><div class="es-icon">📝</div><p>ما أجريت أي اختبار بعد</p><a href="quiz.html" class="btn primary" style="font-size:13px;padding:10px 18px;">ابدأ الاختبار الآن</a></div>`;
+      document.getElementById("scenarioHistory").innerHTML = `<div class="empty-state"><div class="es-icon">🎭</div><p>ما جربت السيناريوهات بعد</p><a href="scenarios.html" class="btn primary" style="font-size:13px;padding:10px 18px;">جرّب السيناريوهات</a></div>`;
+    }
   }
 
   async function logout() {
-    await sb.auth.signOut();
+    if (sb) await sb.auth.signOut();
     window.location.href = "index.html";
   }
 
-  loadProfile();
+  init();
   </script>
 </body>
 </html>

@@ -1,13 +1,17 @@
-
- exports.handler = async (event) => {
+exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
     const { user_id } = JSON.parse(event.body);
+
+    if (!user_id) {
+      return { statusCode: 400, body: JSON.stringify({ error: "user_id مطلوب" }) };
+    }
+
     const base = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SECRET_KEY;
+    const key  = process.env.SUPABASE_SECRET_KEY;
     const headers = {
       "apikey": key,
       "Authorization": `Bearer ${key}`,
@@ -21,13 +25,19 @@
     ]);
 
     const [quiz, scenarios, profile] = await Promise.all([
-      quizRes.json(), scenarioRes.json(), profileRes.json()
+      quizRes.json(),
+      scenarioRes.json(),
+      profileRes.json()
     ]);
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quiz, scenarios, profile: profile[0] || null })
+      body: JSON.stringify({
+        quiz: Array.isArray(quiz) ? quiz : [],
+        scenarios: Array.isArray(scenarios) ? scenarios : [],
+        profile: Array.isArray(profile) ? (profile[0] || null) : null
+      })
     };
   } catch (e) {
     return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
