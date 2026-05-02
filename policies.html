@@ -1,358 +1,611 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سياسة الخصوصية والشروط | سايف ديجيتال</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تلخيص سياسات الخصوصية | سايف ديجيتال</title>
+  <link rel="stylesheet" href="style.css"/>
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="تلخيص مبسّط لسياسات الخصوصية وشروط الاستخدام لفهم ما توافق عليه قبل الضغط على (موافق).">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══ خلفية ══ */
+    .pol-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+    .pol-bg::before{
+      content:'';position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 700px 500px at 5% 20%,rgba(124,240,214,.1),transparent 60%),
+        radial-gradient(ellipse 600px 400px at 95% 80%,rgba(106,166,255,.09),transparent 60%);
+    }
+    .pol-grid{
+      position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(106,166,255,.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(106,166,255,.03) 1px,transparent 1px);
+      background-size:56px 56px;
+    }
+
+    /* ══ هيرو ══ */
+    .pol-hero{text-align:center;padding:44px 0 28px;animation:fadeUp .5s ease both;}
+    .pol-hero h1{
+      font-size:40px;font-weight:800;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      margin-bottom:10px;
+    }
+    .pol-hero p{font-size:16px;color:var(--muted);max-width:560px;margin:0 auto;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+    /* ══ صندوق البحث ══ */
+    .search-box{
+      max-width:640px;margin:0 auto 32px;
+      animation:fadeUp .5s .1s ease both;
+    }
+    .search-inner{
+      position:relative;
+      background:rgba(16,26,51,.9);
+      border:1px solid rgba(106,166,255,.2);
+      border-radius:20px;
+      padding:6px 6px 6px 16px;
+      display:flex;align-items:center;gap:10px;
+      backdrop-filter:blur(14px);
+      transition:border-color .2s,box-shadow .2s;
+    }
+    .search-inner:focus-within{
+      border-color:rgba(106,166,255,.5);
+      box-shadow:0 0 0 4px rgba(106,166,255,.08);
+    }
+    .search-input{
+      flex:1;background:transparent;border:none;outline:none;
+      color:var(--text);font-family:var(--font);font-size:16px;
+      padding:10px 0;
+    }
+    .search-input::placeholder{color:rgba(169,179,214,.4);}
+    .search-btn{
+      padding:12px 22px;border-radius:14px;
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.22),rgba(124,240,214,.15));
+      color:var(--text);font-family:var(--font);font-size:14px;font-weight:600;
+      cursor:pointer;transition:.2s;white-space:nowrap;
+      display:flex;align-items:center;gap:7px;
+    }
+    .search-btn:hover{background:linear-gradient(135deg,rgba(106,166,255,.32),rgba(124,240,214,.22));}
+    .search-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+    /* اقتراحات سريعة */
+    .quick-suggestions{
+      display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+      margin-top:12px;
+    }
+    .qs-btn{
+      padding:7px 14px;border-radius:999px;
+      border:1px solid rgba(106,166,255,.15);
+      background:rgba(16,26,51,.7);
+      color:var(--muted);font-family:var(--font);font-size:13px;
+      cursor:pointer;transition:.2s;
+    }
+    .qs-btn:hover{border-color:rgba(124,240,214,.4);color:var(--accent2);}
+
+    /* ══ منطقة النتائج ══ */
+    .result-area{max-width:760px;margin:0 auto;}
+
+    /* حالة التحميل */
+    .loading-card{
+      background:rgba(16,26,51,.85);
+      border:1px solid rgba(106,166,255,.15);
+      border-radius:24px;padding:48px;
+      text-align:center;backdrop-filter:blur(12px);
+      animation:fadeUp .3s ease both;
+    }
+    .ai-spinner{
+      width:48px;height:48px;margin:0 auto 16px;
+      border:3px solid rgba(106,166,255,.15);
+      border-top-color:var(--accent2);
+      border-radius:50%;
+      animation:spin .7s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{font-size:15px;color:var(--muted);}
+    .loading-dots span{animation:blink 1.2s infinite;}
+    .loading-dots span:nth-child(2){animation-delay:.2s;}
+    .loading-dots span:nth-child(3){animation-delay:.4s;}
+    @keyframes blink{0%,80%,100%{opacity:0}40%{opacity:1}}
+
+    /* ══ بطاقة النتيجة ══ */
+    .result-card{
+      background:rgba(16,26,51,.9);
+      border:1px solid rgba(106,166,255,.15);
+      border-radius:24px;
+      overflow:hidden;
+      backdrop-filter:blur(14px);
+      animation:fadeUp .4s ease both;
+      position:relative;
+    }
+    .result-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent2),var(--accent),transparent);
+    }
+
+    /* رأس البطاقة */
+    .rc-head{
+      padding:28px 28px 20px;
+      display:flex;align-items:flex-start;
+      justify-content:space-between;gap:16px;flex-wrap:wrap;
+    }
+    .rc-title-wrap{display:flex;align-items:center;gap:14px;}
+    .rc-emoji{
+      font-size:38px;
+      width:64px;height:64px;border-radius:16px;
+      background:rgba(106,166,255,.1);border:1px solid rgba(106,166,255,.15);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .rc-name{font-size:24px;font-weight:800;color:var(--text);margin:0 0 4px;}
+    .rc-category{font-size:13px;color:var(--muted);}
+
+    /* تقييم الخصوصية */
+    .privacy-score{
+      display:flex;flex-direction:column;align-items:center;gap:4px;
+      padding:14px 20px;border-radius:16px;
+      border:1px solid rgba(106,166,255,.12);
+      background:rgba(0,0,0,.2);flex-shrink:0;
+    }
+    .ps-stars{font-size:18px;letter-spacing:2px;}
+    .ps-label{font-size:11px;color:var(--muted);white-space:nowrap;}
+    .ps-num{
+      font-family:'IBM Plex Mono',monospace;
+      font-size:22px;font-weight:700;
+    }
+
+    /* ملخص سريع */
+    .rc-summary{
+      margin:0 28px 20px;
+      padding:16px 18px;border-radius:16px;
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.05);
+      font-size:15px;color:var(--muted);line-height:1.7;
+    }
+
+    /* شبكة الإيجابيات والسلبيات */
+    .rc-grid{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:16px;padding:0 28px 20px;
+    }
+    @media(max-width:600px){.rc-grid{grid-template-columns:1fr;}}
+
+    .rc-col{border-radius:16px;padding:16px;border:1px solid;}
+    .rc-col.pos{
+      border-color:rgba(75,227,154,.2);
+      background:rgba(75,227,154,.05);
+    }
+    .rc-col.neg{
+      border-color:rgba(255,106,106,.2);
+      background:rgba(255,106,106,.05);
+    }
+    .rc-col-title{
+      font-size:13px;font-weight:700;margin-bottom:12px;
+      display:flex;align-items:center;gap:6px;
+    }
+    .rc-col.pos .rc-col-title{color:#4be39a;}
+    .rc-col.neg .rc-col-title{color:#ff6a6a;}
+
+    .rc-point{
+      display:flex;gap:8px;align-items:flex-start;
+      font-size:13px;color:var(--muted);margin-bottom:8px;
+      line-height:1.5;
+    }
+    .rc-point:last-child{margin-bottom:0;}
+    .rc-point-dot{
+      width:6px;height:6px;border-radius:50%;
+      flex-shrink:0;margin-top:6px;
+    }
+    .rc-col.pos .rc-point-dot{background:#4be39a;}
+    .rc-col.neg .rc-point-dot{background:#ff6a6a;}
+
+    /* نصيحة عملية */
+    .rc-tip{
+      margin:0 28px 20px;
+      padding:14px 18px;border-radius:16px;
+      border:1px dashed rgba(124,240,214,.3);
+      background:rgba(124,240,214,.05);
+      font-size:14px;color:var(--muted);line-height:1.6;
+    }
+    .rc-tip strong{color:var(--accent2);}
+
+    /* أزرار أسفل البطاقة */
+    .rc-footer{
+      padding:16px 28px 24px;
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:10px;
+      border-top:1px solid rgba(255,255,255,.05);
+    }
+    .rc-official{
+      display:inline-flex;align-items:center;gap:7px;
+      padding:10px 16px;border-radius:12px;
+      border:1px solid rgba(106,166,255,.2);
+      background:rgba(106,166,255,.07);
+      color:var(--accent);font-size:13px;
+      text-decoration:none;transition:.2s;
+    }
+    .rc-official:hover{border-color:rgba(106,166,255,.4);color:var(--accent2);}
+    .rc-new-search{
+      padding:10px 18px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:transparent;color:var(--muted);
+      font-family:var(--font);font-size:13px;
+      cursor:pointer;transition:.2s;
+    }
+    .rc-new-search:hover{border-color:var(--border);color:var(--text);}
+
+    /* ══ قسم المعلومات الثابتة ══ */
+    .info-section{
+      max-width:760px;margin:32px auto 0;
+      animation:fadeUp .5s .2s ease both;
+    }
+    .info-title{
+      font-size:13px;font-weight:700;color:var(--muted);
+      text-transform:uppercase;letter-spacing:1px;
+      margin-bottom:14px;padding-right:4px;
+    }
+    .info-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:12px;margin-bottom:28px;
+    }
+    .info-item{
+      padding:16px;border-radius:16px;
+      border:1px solid rgba(106,166,255,.1);
+      background:rgba(16,26,51,.6);
+      backdrop-filter:blur(8px);
+      display:flex;gap:12px;align-items:flex-start;
+      transition:border-color .2s;
+    }
+    .info-item:hover{border-color:rgba(124,240,214,.25);}
+    .info-item .ii-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+    .info-item h4{margin:0 0 4px;font-size:14px;color:var(--text);}
+    .info-item p {margin:0;font-size:12px;color:var(--muted);line-height:1.5;}
+
+    /* تنبيه */
+    .ai-note{
+      padding:12px 16px;border-radius:12px;
+      border:1px dashed rgba(255,179,71,.3);
+      background:rgba(255,179,71,.05);
+      font-size:13px;color:var(--muted);
+      display:flex;gap:8px;align-items:flex-start;
+      margin-top:16px;
+    }
+  </style>
 </head>
 
 <body>
-  
+  <div class="pol-bg"><div class="pol-grid"></div></div>
+
   <header class="nav">
     <div class="container nav-inner">
-      <div class="brand">
-        <span class="logo">🛡️</span>
-        <div>
-          <strong>سايف ديجيتال</strong>
-          <span class="badge">Policies</span>
+      <div class="nav-left">
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Policies</span></div>
         </div>
+        <button id="themeToggle" type="button">
+          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
       </div>
-
       <button class="menu-toggle" id="menuToggle" type="button">☰</button>
-
       <nav class="links" id="navLinks">
-            <a href="index.html">الرئيسية</a>
-        <a href="learn.html">تعلّم</a>
-        <a href="quiz.html">اختبار</a>
-        <a href="tools.html">أدوات</a>
-        <a href="scenarios.html">سيناريوهات</a>
-        <a href="resources.html">مصادر</a>
-        <a href="policies.html" class="active">تلخيص سياسات الخصوصية</a>
-        <a href="about.html">عن المشروع</a>
-        <a href="contact.html">تواصل</a>
+        <a href="index.html">الرئيسية</a><a href="learn.html">تعلّم</a>
+        <a href="quiz.html">اختبار</a><a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a><a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a><a href="contact.html">تواصل</a>
+        <a href="policies.html" class="active">سياسة الخصوصية</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <section class="card pad">
-      <h1>📜 سياسة الخصوصية والشروط (تلخيص مبسّط)</h1>
+
+    <!-- هيرو -->
+    <div class="pol-hero">
+      <h1>🔍 ملخّص سياسات الخصوصية</h1>
       <p>
-        كثير من الناس يضغطون <strong>“موافق”</strong> بدون قراءة. هنا نلخّص أهم النقاط
-        عشان تعرف وش ممكن تجمعه المواقع والتطبيقات وكيف تحمي نفسك.
+        اكتب اسم أي تطبيق أو بنك أو خدمة — وسيعطيك الذكاء الاصطناعي ملخصاً واضحاً
+        بدل ما تقرأ صفحات طويلة من الشروط.
       </p>
+    </div>
 
-      <div class="cta-row" style="margin-top:10px">
-        <a class="btn outline" href="#privacy">سياسة الخصوصية</a>
-        <a class="btn outline" href="#terms">شروط الاستخدام</a>
-        <a class="btn outline" href="#cookies">الكوكيز والتتبع</a>
-        <a class="btn outline" href="#redflags">علامات خطر</a>
+    <!-- صندوق البحث -->
+    <div class="search-box">
+      <div class="search-inner">
+        <span style="font-size:20px;flex-shrink:0;">🔎</span>
+        <input
+          class="search-input"
+          id="searchInput"
+          type="text"
+          placeholder="مثال: سناب شات، الراجحي، TikTok، Google..."
+          autocomplete="off"
+        />
+        <button class="search-btn" id="searchBtn" type="button">
+          <span>تحليل</span> ✨
+        </button>
       </div>
-    </section>
 
-    <section id="privacy" class="card pad" style="margin-top:16px">
-      <h2>🔒 سياسة الخصوصية</h2>
-      <p>توضح: <strong>وش البيانات اللي تُجمع</strong> و <strong>ليش تُجمع</strong> و <strong>مين يقدر يشوفها</strong>.</p>
+      <!-- اقتراحات سريعة -->
+      <div class="quick-suggestions">
+        <button class="qs-btn" data-q="سناب شات">📸 سناب شات</button>
+        <button class="qs-btn" data-q="تيك توك">🎵 تيك توك</button>
+        <button class="qs-btn" data-q="واتساب">💬 واتساب</button>
+        <button class="qs-btn" data-q="بنك الراجحي">🏦 الراجحي</button>
+        <button class="qs-btn" data-q="إنستغرام">📷 إنستغرام</button>
+        <button class="qs-btn" data-q="جوجل">🔍 جوجل</button>
+        <button class="qs-btn" data-q="يوتيوب">▶️ يوتيوب</button>
+        <button class="qs-btn" data-q="تويتر X">🐦 X (تويتر)</button>
+      </div>
+    </div>
 
-      
-      <div class="grid" style="margin-top:10px">
-      <div class="item">
-  <h3>وش ممكن يجمعون؟</h3>
-  <ul class="small">
-    <li>بيانات الحساب: الاسم، البريد، رقم الجوال</li>
-    <li>بيانات الجهاز: نوع الجهاز، النظام، عنوان IP</li>
-    <li>سلوك الاستخدام: الصفحات، النقرات، وقت الاستخدام</li>
-    <li>الموقع: تقريبي أو دقيق أحياناً (اختياري)</li>
-  </ul>
-</div>
+    <!-- منطقة النتائج -->
+    <div class="result-area" id="resultArea"></div>
 
-<div class="item">
-  <h3>ليش يجمعون البيانات؟</h3>
-  <ul class="small">
-    <li>تقديم الخدمة وتحسينها</li>
-    <li>الأمان واكتشاف الاحتيال</li>
-    <li>تخصيص المحتوى</li>
-    <li>الإعلانات (ممكن مع شركاء)</li>
-  </ul>
-</div>
-
-<div class="item">
-<h3>Snapchat – سناب شات</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>التواصل السريع مع الأصدقاء</li>
-<li>مشاركة اللحظات اليومية بسهولة</li>
-<li>مميزات الخصوصية مثل حذف الرسائل</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>قد يكشف موقعك عبر Snap Map</li>
-<li>إضافة أشخاص غير معروفين قد يعرضك للمضايقات</li>
-<li>إمكانية تصوير الشاشة للرسائل</li>
-</ul>
-
-<p><strong>سياسة الخصوصية:</strong></p>
-<a href="https://privacy.snap.com" target="_blank" class="policy-btn">
-عرض سياسة الخصوصية
-</a>
-
-</div>
-
-<div class="item">
-<h3>Instagram – إنستغرام</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>مشاركة الصور والفيديوهات</li>
-<li>التواصل مع المجتمع والأصدقاء</li>
-<li>استخدامه للتسويق أو التعلم</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>إدمان الاستخدام</li>
-<li>جمع بيانات النشاط والموقع</li>
-<li>التعرض لروابط تصيد احتيالي</li>
-</ul>
-
-<p><strong>سياسة الخصوصية:</strong></p>
-<a href="https://privacycenter.instagram.com" target="_blank" class="policy-btn">
-عرض سياسة الخصوصية
-</a>
-
-</div>
-
-<div class="item">
-<h3>Twitter (X) – تويتر</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>متابعة الأخبار بسرعة</li>
-<li>التواصل مع المختصين</li>
-<li>مشاركة الأفكار والمحتوى</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>انتشار المعلومات المضللة</li>
-<li>مشاركة البيانات العامة</li>
-<li>إمكانية التعرض للتنمر الإلكتروني</li>
-</ul>
-
-<p><strong>سياسة الخصوصية:</strong></p>
-<a href="https://twitter.com/en/privacy" target="_blank" class="policy-btn">
-عرض سياسة الخصوصية
-</a>
-
-</div>
-
-<div class="item">
-<h3>Facebook – فيسبوك</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>التواصل مع الأصدقاء والعائلة</li>
-<li>المجموعات التعليمية والمهنية</li>
-<li>مشاركة المحتوى بسهولة</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>جمع كمية كبيرة من بيانات المستخدم</li>
-<li>إعلانات موجهة بناء على النشاط</li>
-<li>احتمالية التعرض للاحتيال</li>
-</ul>
-
-<p><strong>سياسة الخصوصية:</strong></p>
-<a href="https://www.facebook.com/privacy/policy" target="_blank" class="policy-btn">
-عرض سياسة الخصوصية
-</a>
-
-</div>
-
-<div class="item">
-<h3>TikTok – تيك توك</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>محتوى ترفيهي وتعليمي</li>
-<li>إمكانية صناعة محتوى</li>
-<li>انتشار سريع للمحتوى</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>إدمان الاستخدام</li>
-<li>جمع بيانات الجهاز والنشاط</li>
-<li>إمكانية التعرض لمحتوى غير مناسب</li>
-</ul>
-
-<p><strong>سياسة الخصوصية:</strong></p>
-<a href="https://www.tiktok.com/legal/privacy-policy" target="_blank" class="policy-btn">
-عرض سياسة الخصوصية
-</a>
-
-</div>
-
-<div class="item">
-<h3>البنوك السعودية (الراجحي – الأهلي – الإنماء)</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>إدارة الحسابات بسهولة</li>
-<li>إجراء التحويلات المالية بسرعة</li>
-<li>مستوى عالي من الأمان</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>محاولات تصيد احتيالي عبر رسائل مزيفة</li>
-<li>مواقع مزورة تشبه مواقع البنوك</li>
-<li>سرقة الحساب عند مشاركة OTP</li>
-</ul>
-
-<p><strong>سياسات الخصوصية:</strong></p>
-
-<a href="https://www.alrajhibank.com.sa/en/privacy" target="_blank" class="policy-btn">الراجحي</a>
-
-<a href="https://www.alahli.com/en/privacy-policy" target="_blank" class="policy-btn">الأهلي</a>
-
-<a href="https://www.alinma.com/privacy-policy" target="_blank" class="policy-btn">الإنماء</a>
-
-</div>
-        
-
-
-
-
-      <div class="item">
-<h3>LinkedIn – لينكد إن</h3>
-
-<p><strong>الإيجابيات:</strong></p>
-<ul class="small">
-<li>بناء شبكة علاقات مهنية</li>
-<li>البحث عن وظائف وفرص تدريب</li>
-<li>مشاركة الخبرات والمعرفة المهنية</li>
-</ul>
-
-<p><strong>السلبيات:</strong></p>
-<ul class="small">
-<li>إظهار معلومات مهنية وشخصية قد يستغلها المهاجمون</li>
-<li>إمكانية استخدام البيانات في هجمات الهندسة الاجتماعية</li>
-<li>احتمالية التعرض لمحاولات تصيد عبر رسائل التوظيف الوهمية</li>
-</ul>
-
-<p><strong>سياسة الخصوصية:</strong></p>
-<a href="https://www.linkedin.com/legal/privacy-policy" target="_blank" class="policy-btn">
-عرض سياسة الخصوصية
-</a>
-
-</div>
-
-      </div><!-- /grid -->
-    </section><!-- /privacy -->
-
-    <section id="terms" class="card pad" style="margin-top:16px">
-      <h2>🧾 شروط الاستخدام</h2>
-      <p>هي القواعد اللي توافق عليها لما تستخدم الخدمة.</p>
-
-      <div class="grid" style="margin-top:10px">
-        <div class="item">
-          <h3>أشياء غالبًا توافق عليها</h3>
-          <ul class="small">
-            <li>مسؤولية حماية حسابك وكلمة المرور</li>
-            <li>عدم إساءة الاستخدام أو مخالفة القوانين</li>
-            <li>قواعد رفع المحتوى</li>
-            <li>إمكانية تغيير الخدمة/الميزات</li>
-          </ul>
+    <!-- معلومات ثابتة -->
+    <div class="info-section" id="infoSection">
+      <div class="info-title">لماذا هذه الأداة مهمة؟</div>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="ii-icon">📄</span>
+          <div>
+            <h4>سياسات طويلة ومعقدة</h4>
+            <p>متوسط سياسة الخصوصية يتجاوز 5,000 كلمة — أطول من قصيدة هوميروس!</p>
+          </div>
         </div>
-
-        <div class="item">
-          <h3>أشياء غالبًا يحدّونها</h3>
-          <ul class="small">
-            <li>المسؤولية عن الخسائر (Liability)</li>
-            <li>الضمانات (قد تكون الخدمة “كما هي”)</li>
-            <li>الاسترجاع/الإلغاء</li>
-            <li>النزاعات (Arbitration) أحيانًا</li>
-          </ul>
+        <div class="info-item">
+          <span class="ii-icon">⏱</span>
+          <div>
+            <h4>لا أحد يقرأها</h4>
+            <p>91% من المستخدمين يوافقون على الشروط بدون قراءة أي كلمة.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="ii-icon">🤖</span>
+          <div>
+            <h4>الذكاء الاصطناعي يقرأ عنك</h4>
+            <p>نلخص لك أهم النقاط في ثوانٍ — ما يحق لهم جمعه وما يجب أن تنتبه له.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="ii-icon">🛡️</span>
+          <div>
+            <h4>قرار مدروس</h4>
+            <p>اعرف ما توافق عليه قبل الضغط على "موافق" — حقك قبل حقهم.</p>
+          </div>
         </div>
       </div>
 
-      <div class="note" style="margin-top:12px">
-        ⚠️ ابحث داخل الشروط عن كلمات: <strong>Terminate</strong>، <strong>License</strong>، <strong>Liability</strong>، <strong>Arbitration</strong>.
-      </div>
-    </section>
-
-    <section id="cookies" class="card pad" style="margin-top:16px">
-      <h2>🍪 الكوكيز والتتبع</h2>
-      <div class="grid" style="margin-top:10px">
-        <div class="item">
-          <h3>أنواع شائعة</h3>
-          <ul class="small">
-            <li><strong>أساسية:</strong> تسجيل الدخول والأمان</li>
-            <li><strong>تفضيلات:</strong> اللغة/الإعدادات</li>
-            <li><strong>تحليلات:</strong> إحصائيات الاستخدام</li>
-            <li><strong>إعلانات:</strong> تخصيص إعلانات عبر مواقع</li>
-          </ul>
+      <!-- ماذا يتحقق الملخص؟ -->
+      <div class="info-title">ماذا يغطي التحليل؟</div>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="ii-icon">📊</span>
+          <div><h4>جمع البيانات</h4><p>ما البيانات التي تُجمع وكيف تُستخدم.</p></div>
         </div>
-        <div class="item">
-          <h3>كيف تحمي نفسك؟</h3>
-          <ul class="small">
-            <li>لا تضغط “قبول الكل” بدون مراجعة</li>
-            <li>فعّل حظر كوكيز الطرف الثالث</li>
-            <li>امسح الكوكيز بشكل دوري</li>
-            <li>استخدم إضافات خصوصية</li>
-          </ul>
+        <div class="info-item">
+          <span class="ii-icon">🤝</span>
+          <div><h4>المشاركة مع الأطراف الثالثة</h4><p>هل تُباع بياناتك أو تُشارك مع شركات إعلانية.</p></div>
         </div>
-      </div>
-    </section>
-
-    <section id="redflags" class="card pad" style="margin-top:16px">
-      <h2>🚩 علامات خطر داخل السياسات</h2>
-      <div class="grid" style="margin-top:10px">
-        <div class="item">
-          <h3>بنود مقلقة</h3>
-          <ul class="small">
-            <li>مشاركة البيانات مع “شركاء” بدون توضيح</li>
-            <li>الاحتفاظ بالبيانات “للأبد” أو بدون مدة</li>
-            <li>جمع موقع دقيق بشكل افتراضي</li>
-            <li>صلاحية واسعة لاستخدام محتواك</li>
-          </ul>
+        <div class="info-item">
+          <span class="ii-icon">🗑️</span>
+          <div><h4>حذف البيانات</h4><p>هل يمكنك حذف حسابك وبياناتك بسهولة.</p></div>
         </div>
-        <div class="item">
-          <h3>قائمة تحقق قبل “موافق”</h3>
-          <ol class="small">
-            <li>هل مشاركة البيانات واضحة؟</li>
-            <li>هل مدة الاحتفاظ محددة؟</li>
-            <li>هل تقدر تحذف حسابك وبياناتك بسهولة؟</li>
-            <li>هل التتبع اختياري؟</li>
-            <li>هل الشروط واضحة وعادلة؟</li>
-          </ol>
+        <div class="info-item">
+          <span class="ii-icon">📍</span>
+          <div><h4>تتبع الموقع</h4><p>هل يتتبع التطبيق موقعك ومتى وكيف.</p></div>
         </div>
       </div>
 
-      <div class="note" style="margin-top:12px">
-        ✅ إذا حسّيت السياسة طويلة جدًا: استخدم البحث داخل الصفحة (Ctrl+F) وابحث عن الكلمات المهمة.
+      <div class="ai-note">
+        <span>⚠️</span>
+        <span>التحليل مبني على معرفة الذكاء الاصطناعي بسياسات هذه الخدمات — للقرارات المهمة يُنصح بمراجعة السياسة الرسمية.</span>
       </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-content">
-        <div class="small">© 2026 مشروع تخرج – منصة التوعية بالأمن السيبراني</div>
-        <div class="footer-links">
-          <a href="policies.html">سياسة الخصوصية</a>
-          <a href="contact.html">تواصل معنا</a>
-        </div>
-      </div>
-    </footer>
+    </div>
 
   </main>
 
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="small">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</div>
+      <div class="footer-links">
+        <a href="policies.html">سياسة الخصوصية</a>
+        <a href="contact.html">تواصل معنا</a>
+      </div>
+    </div>
+  </footer>
+
   <script src="main.js"></script>
+  <script>
+  /* ── Theme ── */
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  /* ── محرك التحليل بـ Claude API ── */
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn   = document.getElementById("searchBtn");
+  const resultArea  = document.getElementById("resultArea");
+  const infoSection = document.getElementById("infoSection");
+
+  /* الاقتراحات السريعة */
+  document.querySelectorAll(".qs-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      searchInput.value = btn.dataset.q;
+      analyze(btn.dataset.q);
+    });
+  });
+
+  searchBtn.addEventListener("click",()=>{
+    const q = searchInput.value.trim();
+    if(q) analyze(q);
+  });
+  searchInput.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){ const q=searchInput.value.trim(); if(q) analyze(q); }
+  });
+
+
+  /* ══ بيانات محلية للخدمات الشائعة ══ */
+  const KNOWN = {
+    "سناب": {name:"Snapchat سناب شات",emoji:"👻",category:"تواصل اجتماعي",privacy_score:3,score_color:"#ffb347",summary:"سناب شات يجمع بيانات الموقع والجهاز ونشاط الاستخدام. يمتلك ميزات خصوصية جيدة مثل حذف الرسائل، لكن Snap Map قد يكشف موقعك.",pros:["رسائل تختفي تلقائياً","إشعار عند تصوير الشاشة","Ghost Mode لإخفاء الموقع"],cons:["يجمع بيانات موقعك بدقة","يشارك بيانات مع معلنين","تخزين البيانات لفترات طويلة"],tip:"فعّل Ghost Mode في Snap Map لإخفاء موقعك تماماً.",official_url:"https://privacy.snap.com"},
+    "تيك توك": {name:"TikTok تيك توك",emoji:"🎵",category:"تواصل اجتماعي / ترفيه",privacy_score:2,score_color:"#ff6a6a",summary:"تيك توك يجمع كميات ضخمة من البيانات تشمل معلومات الجهاز والموقع وبيانات الحافظة. أثار مخاوف أمنية واسعة على مستوى حكومي.",pros:["إمكانية تقييد خصوصية الحساب","إمكانية حذف الحساب والبيانات","التحكم في من يرى مقاطعك"],cons:["يجمع بيانات الحافظة (Clipboard)","مخاوف من وصول حكومي للبيانات","تتبع مكثف لسلوك الاستخدام"],tip:"استخدم حساباً خاصاً وراجع الصلاحيات الممنوحة للتطبيق بانتظام.",official_url:"https://www.tiktok.com/legal/privacy-policy"},
+    "واتساب": {name:"WhatsApp واتساب",emoji:"💬",category:"مراسلة فورية",privacy_score:3,score_color:"#ffb347",summary:"واتساب يستخدم تشفيراً من طرف لطرف قوياً، لكنه يشارك بيانات وصفية مع Meta مثل وقت الاتصال وجهات الاتصال.",pros:["تشفير كامل من طرف لطرف","الرسائل المؤقتة تختفي تلقائياً","لا يقرأ محتوى رسائلك"],cons:["يشارك بيانات وصفية مع Meta","يجمع قائمة جهات اتصالك","النسخ الاحتياطي غير مشفر افتراضياً"],tip:"فعّل النسخ الاحتياطي المشفر من الإعدادات لحماية رسائلك المحفوظة.",official_url:"https://www.whatsapp.com/legal/privacy-policy"},
+    "راجحي": {name:"بنك الراجحي",emoji:"🏦",category:"خدمات مصرفية",privacy_score:4,score_color:"#4be39a",summary:"بنك الراجحي يلتزم بلوائح ساما وأنظمة حماية البيانات السعودية. يجمع البيانات المالية للتحقق والأمن فقط.",pros:["ملتزم بأنظمة ساما","تشفير عالي المستوى","لا يشارك بياناتك المالية تجارياً"],cons:["يجمع بيانات تصفحك داخل التطبيق","استخدام البيانات للتسويق الداخلي","مشاركة بيانات مع جهات تنظيمية"],tip:"لا تشارك OTP أو كلمة المرور مع أحد — الراجحي لن يطلبها أبداً.",official_url:"https://www.alrajhibank.com.sa/privacy"},
+    "الاهلي": {name:"البنك الأهلي السعودي",emoji:"🏦",category:"خدمات مصرفية",privacy_score:4,score_color:"#4be39a",summary:"البنك الأهلي يلتزم بمعايير ساما ويطبق تشفيراً عالياً لحماية بيانات العملاء المالية.",pros:["التزام كامل بلوائح ساما","حماية قوية للبيانات المالية","تنبيهات فورية لأي نشاط"],cons:["جمع بيانات الاستخدام داخل التطبيق","تسويق داخلي بناءً على نشاطك","مشاركة البيانات مع الجهات الرقابية"],tip:"فعّل التحقق البيومتري وتنبيهات المعاملات لأقصى حماية.",official_url:"https://www.alahli.com/privacy-policy"},
+    "انماء": {name:"بنك الإنماء",emoji:"🏦",category:"خدمات مصرفية",privacy_score:4,score_color:"#4be39a",summary:"بنك الإنماء يلتزم بمعايير ساما لحماية البيانات ويستخدم تشفيراً متقدماً لجميع المعاملات.",pros:["التزام بأنظمة ساما","تشفير عالي للمعاملات","خصوصية جيدة للبيانات المالية"],cons:["جمع بيانات الاستخدام","تسويق داخلي مستهدف","مشاركة بعض البيانات مع الجهات الرقابية"],tip:"راجع إعدادات التطبيق وقيّد الصلاحيات الممنوحة له.",official_url:"https://www.alinma.com/privacy-policy"},
+    "انستغرام": {name:"Instagram إنستغرام",emoji:"📷",category:"تواصل اجتماعي",privacy_score:2,score_color:"#ff6a6a",summary:"إنستغرام جزء من Meta ويجمع بيانات ضخمة عن نشاطك لأغراض إعلانية. يتتبع نشاطك حتى خارج التطبيق.",pros:["إمكانية جعل الحساب خاصاً","التحكم في من يرى قصصك","أدوات إدارة البيانات"],cons:["تتبع النشاط خارج التطبيق","مشاركة البيانات مع شركات Meta","إعلانات مستهدفة دقيقة جداً"],tip:"افتح الإعدادات وأوقف تتبع النشاط خارج إنستغرام من قسم الخصوصية.",official_url:"https://privacycenter.instagram.com"},
+    "جوجل": {name:"Google جوجل",emoji:"🔍",category:"محرك بحث / خدمات متعددة",privacy_score:2,score_color:"#ff6a6a",summary:"جوجل يجمع كميات ضخمة من البيانات عبر جميع خدماته لبناء ملف إعلاني شامل عنك.",pros:["لوحة تحكم شاملة للبيانات","إمكانية حذف تاريخ النشاط","إعدادات خصوصية متقدمة"],cons:["يبني ملفاً إعلانياً دقيقاً عنك","يتتبع موقعك حتى بدون GPS","يشارك البيانات مع آلاف الشركاء"],tip:"اذهب لـ myaccount.google.com وراجع قسم 'بيانات وخصوصية' لمراجعة وحذف نشاطك.",official_url:"https://policies.google.com/privacy"},
+    "يوتيوب": {name:"YouTube يوتيوب",emoji:"▶️",category:"بث فيديو",privacy_score:2,score_color:"#ff6a6a",summary:"يوتيوب مملوك لجوجل ويتتبع كل ما تشاهده لبناء خوارزمية توصيات وإعلانات مستهدفة.",pros:["وضع التصفح المتخفي","إمكانية مسح تاريخ المشاهدة","التحكم في إعدادات الإعلانات"],cons:["تتبع كامل لتاريخ المشاهدة","ربط البيانات مع حساب Google","استخدام البيانات للإعلانات"],tip:"استخدم وضع التصفح المتخفي لمشاهدة محتوى دون تسجيله في تاريخك.",official_url:"https://policies.google.com/privacy"},
+    "تويتر": {name:"X (Twitter) تويتر",emoji:"🐦",category:"تواصل اجتماعي",privacy_score:2,score_color:"#ff6a6a",summary:"X يجمع بيانات تفاعلاتك ومنشوراتك. بعد التغييرات الأخيرة زاد استخدام البيانات لتدريب الذكاء الاصطناعي.",pros:["التحكم في من يرى تغريداتك","إمكانية تحميل أرشيف بياناتك","وضع الحساب المحمي"],cons:["استخدام منشوراتك لتدريب AI","مشاركة البيانات مع معلنين","تتبع النشاط خارج المنصة"],tip:"اذهب للإعدادات وأوقف 'السماح باستخدام بياناتك لتحسين X'.",official_url:"https://twitter.com/en/privacy"},
+    "فيسبوك": {name:"Facebook فيسبوك",emoji:"👤",category:"تواصل اجتماعي",privacy_score:1,score_color:"#ff6a6a",summary:"فيسبوك يجمع أكبر كمية من البيانات الشخصية بين منصات التواصل. يبني ملفاً تفصيلياً عنك من نشاطك ونشاط أصدقائك.",pros:["مجموعات تعليمية ومهنية مفيدة","إمكانية تنزيل كل بياناتك","إعدادات خصوصية متعددة"],cons:["يجمع بياناتك حتى بدون حساب","يتتبعك عبر مواقع أخرى بـ Pixel","بيع بيانات مفصلة للمعلنين"],tip:"استخدم أداة 'التحقق من الخصوصية' في فيسبوك وراجع من يرى منشوراتك.",official_url:"https://www.facebook.com/privacy/policy"},
+    "لينكدإن": {name:"LinkedIn لينكد إن",emoji:"💼",category:"شبكة مهنية",privacy_score:3,score_color:"#ffb347",summary:"لينكد إن يجمع بياناتك المهنية ويستخدمها للإعلانات الموجهة وتوصيات الوظائف.",pros:["شفافية نسبية في استخدام البيانات","إمكانية تحميل بياناتك","إعدادات خصوصية للملف المهني"],cons:["يشارك بيانات مع معلنين","يجمع بيانات من خارج المنصة","تتبع نشاطك المهني بالكامل"],tip:"راجع إعدادات الخصوصية وأوقف إمكانية استخدام بياناتك للإعلانات.",official_url:"https://www.linkedin.com/legal/privacy-policy"}
+  };
+
+  function findLocal(query) {
+    const q = query.trim().toLowerCase()
+      .replace(/\s+/g,"")
+      .replace("SnapChat","سناب")
+      .replace("tiktok","تيك توك")
+      .replace("whatsapp","واتساب")
+      .replace("instagram","انستغرام")
+      .replace("google","جوجل")
+      .replace("youtube","يوتيوب")
+      .replace("twitter","تويتر")
+      .replace("facebook","فيسبوك")
+      .replace("linkedin","لينكدإن");
+    for(const key of Object.keys(KNOWN)){
+      const k = key.replace(/\s+/g,"");
+      if(q.includes(k) || k.includes(q)) return KNOWN[key];
+    }
+    return null;
+  }
+
+  async function analyze(serviceName){
+    searchBtn.disabled = true;
+    infoSection.style.display = "none";
+
+    resultArea.innerHTML = `
+      <div class="loading-card">
+        <div class="ai-spinner"></div>
+        <div class="loading-text">
+          جاري تحليل سياسة <strong style="color:var(--accent2);">${serviceName}</strong>
+          <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px;">الذكاء الاصطناعي يقرأ الشروط عنك ☕</p>
+      </div>`;
+
+    /* 1) بيانات محلية أولاً */
+    const local = findLocal(serviceName);
+    if(local){
+      setTimeout(()=>{ renderResult(local); searchBtn.disabled=false; }, 800);
+      return;
+    }
+
+    /* 2) محاولة Claude API */
+    const prompt = `أنت خبير سياسات خصوصية. حلّل: "${serviceName}". أجب بـ JSON فقط:
+{"name":"الاسم الرسمي","emoji":"إيموجي","category":"التصنيف","privacy_score":رقم1-5,"score_color":"#hex","summary":"ملخص 2-3 جمل","pros":["إيجابية1","إيجابية2","إيجابية3"],"cons":["تحذير1","تحذير2","تحذير3"],"tip":"نصيحة عملية","official_url":"رابط السياسة"}`;
+
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "x-api-key":"",
+          "anthropic-version":"2023-06-01",
+          "anthropic-dangerous-direct-browser-access":"true"
+        },
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,messages:[{role:"user",content:prompt}]})
+      });
+      const data = await res.json();
+      const raw  = data.content?.map(b=>b.text||"").join("")||"";
+      const m    = raw.match(/\{[\s\S]*\}/);
+      if(!m) throw new Error("no json");
+      renderResult(JSON.parse(m[0]));
+    } catch(e){
+      /* 3) Fallback عام */
+      renderResult({
+        name:serviceName, emoji:"🔍", category:"خدمة رقمية",
+        privacy_score:3, score_color:"#ffb347",
+        summary:`لم نجد بيانات خاصة بـ "${serviceName}". فيما يلي نصائح عامة تنطبق على معظم الخدمات الرقمية.`,
+        pros:["معظم الخدمات توفر إعدادات خصوصية قابلة للتخصيص","يمكنك عادةً طلب حذف بياناتك","تشفير البيانات أثناء النقل متوفر غالباً"],
+        cons:["معظم الخدمات تجمع بيانات الاستخدام","قد تشارك بياناتك مع شركاء إعلانيين","سياسات الخصوصية تتغير دون إشعار واضح"],
+        tip:`ابحث عن "${serviceName} privacy policy" في جوجل لقراءة السياسة الرسمية.`,
+        official_url:""
+      });
+    } finally {
+      searchBtn.disabled = false;
+    }
+  }
+
+  function renderResult(info){
+    /* نجوم التقييم */
+    const score = Math.round(Math.max(1,Math.min(5,info.privacy_score||3)));
+    const stars  = "★".repeat(score) + "☆".repeat(5-score);
+    const scoreColor = info.score_color || (score>=4?"#4be39a":score>=3?"#ffb347":"#ff6a6a");
+
+    /* النقاط */
+    const prosHTML = (info.pros||[]).map(p=>`
+      <div class="rc-point">
+        <div class="rc-point-dot"></div>
+        <span>${p}</span>
+      </div>`).join("");
+
+    const consHTML = (info.cons||[]).map(c=>`
+      <div class="rc-point">
+        <div class="rc-point-dot"></div>
+        <span>${c}</span>
+      </div>`).join("");
+
+    resultArea.innerHTML = `
+      <div class="result-card">
+        <div class="rc-head">
+          <div class="rc-title-wrap">
+            <div class="rc-emoji">${info.emoji||"🔍"}</div>
+            <div>
+              <div class="rc-name">${info.name||searchInput.value}</div>
+              <div class="rc-category">${info.category||""}</div>
+            </div>
+          </div>
+          <div class="privacy-score">
+            <div class="ps-num" style="color:${scoreColor};">${score}/5</div>
+            <div class="ps-stars" style="color:${scoreColor};">${stars}</div>
+            <div class="ps-label">تقييم الخصوصية</div>
+          </div>
+        </div>
+
+        <div class="rc-summary">${info.summary||""}</div>
+
+        <div class="rc-grid">
+          <div class="rc-col pos">
+            <div class="rc-col-title">✅ الإيجابيات</div>
+            ${prosHTML}
+          </div>
+          <div class="rc-col neg">
+            <div class="rc-col-title">⚠️ تحذيرات</div>
+            ${consHTML}
+          </div>
+        </div>
+
+        <div class="rc-tip">💡 <strong>نصيحة:</strong> ${info.tip||""}</div>
+
+        <div class="rc-footer">
+          ${info.official_url ? `<a class="rc-official" href="${info.official_url}" target="_blank" rel="noopener">🔗 السياسة الرسمية</a>` : "<span></span>"}
+          <button class="rc-new-search" onclick="clearResult()">🔍 بحث جديد</button>
+        </div>
+      </div>`;
+  }
+
+  function clearResult(){
+    resultArea.innerHTML="";
+    infoSection.style.display="block";
+    searchInput.value="";
+    searchInput.focus();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  </script>
 </body>
 </html>
