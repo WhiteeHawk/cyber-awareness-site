@@ -247,12 +247,16 @@
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
 
-  /* ── Supabase ── */
-  const { createClient } = supabase;
-  const sb = createClient(
-    "https://qgsilbwwcqajzvysdbzi.supabase.co",
-    "sb_publishable_JPT2bktJ6n7vGEUSsCaaRA_gQAaq2yb"
-  );
+  /* ── Supabase — keys تجي من الـ function ── */
+  let sb;
+  async function initSupabase() {
+    const res = await fetch("/.netlify/functions/get-config");
+    const { url, key } = await res.json();
+    const { createClient } = supabase;
+    sb = createClient(url, key);
+    await loadProfile();
+  }
+  initSupabase();
 
   function fmtDate(str) {
     if(!str) return "";
@@ -363,7 +367,6 @@
     window.location.href = "index.html";
   }
 
-  loadProfile();
   </script>
 </body>
 </html>

@@ -186,17 +186,18 @@
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
 
-  /* ── Supabase ── */
-  const { createClient } = supabase;
-  const sb = createClient(
-    "https://qgsilbwwcqajzvysdbzi.supabase.co",
-    "sb_publishable_JPT2bktJ6n7vGEUSsCaaRA_gQAaq2yb"
-  );
-
-  /* تحقق لو المستخدم مسجل دخوله */
-  sb.auth.getSession().then(({ data }) => {
+  /* ── Supabase — keys تجي من الـ function ── */
+  let sb;
+  async function initSupabase() {
+    const res = await fetch("/.netlify/functions/get-config");
+    const { url, key } = await res.json();
+    const { createClient } = supabase;
+    sb = createClient(url, key);
+    // تحقق لو المستخدم مسجل
+    const { data } = await sb.auth.getSession();
     if (data.session) window.location.href = "profile.html";
-  });
+  }
+  initSupabase();
 
   function switchTab(tab) {
     document.getElementById("loginForm").style.display = tab==="login" ? "block" : "none";
