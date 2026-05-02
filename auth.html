@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تسجيل الدخول | سايف ديجيتال</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .page-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+    .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.15;}
+    .orb-a{width:500px;height:500px;background:#6aa6ff;top:-150px;right:-100px;animation:of 14s ease-in-out infinite;}
+    .orb-b{width:400px;height:400px;background:#7cf0d6;bottom:-100px;left:-80px;animation:of 14s -6s ease-in-out infinite;}
+    @keyframes of{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-25px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    .auth-wrap{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      padding:80px 22px 40px;
+    }
+    .auth-card{
+      width:100%;max-width:440px;
+      background:rgba(16,26,51,.92);
+      border:1px solid rgba(106,166,255,.18);
+      border-radius:24px;padding:36px;
+      backdrop-filter:blur(14px);
+      position:relative;overflow:hidden;
+      animation:fadeUp .5s ease both;
+    }
+    .auth-card::before{
+      content:'';position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+    }
+
+    .auth-logo{text-align:center;margin-bottom:24px;}
+    .auth-logo .logo-icon{font-size:42px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 16px rgba(106,166,255,.5));}
+    .auth-logo h1{font-size:22px;font-weight:800;margin:0 0 4px;color:var(--text);}
+    .auth-logo p{font-size:14px;color:var(--muted);margin:0;}
+
+    /* تبويبات */
+    .auth-tabs{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:6px;margin-bottom:24px;
+      background:rgba(0,0,0,.2);border-radius:12px;padding:4px;
+    }
+    .auth-tab{
+      padding:10px;border-radius:10px;border:none;
+      background:transparent;color:var(--muted);
+      font-family:var(--font);font-size:14px;font-weight:600;
+      cursor:pointer;transition:.2s;
+    }
+    .auth-tab.active{
+      background:rgba(106,166,255,.18);
+      border:1px solid rgba(106,166,255,.35);
+      color:var(--text);
+    }
+
+    /* حقول الإدخال */
+    .auth-field{margin-bottom:14px;}
+    .auth-label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px;}
+    .auth-input{
+      width:100%;padding:12px 14px;border-radius:12px;
+      border:1px solid rgba(106,166,255,.18);
+      background:rgba(0,0,0,.25);color:var(--text);
+      font-family:var(--font);font-size:14px;
+      outline:none;transition:.2s;box-sizing:border-box;
+    }
+    .auth-input:focus{border-color:rgba(106,166,255,.5);box-shadow:0 0 0 3px rgba(106,166,255,.08);}
+    .auth-input::placeholder{color:rgba(169,179,214,.35);}
+
+    /* زر */
+    .auth-btn{
+      width:100%;padding:14px;border-radius:14px;
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.22),rgba(124,240,214,.15));
+      color:var(--text);font-family:var(--font);font-size:15px;font-weight:700;
+      cursor:pointer;transition:.2s;margin-top:6px;
+    }
+    .auth-btn:hover{background:linear-gradient(135deg,rgba(106,166,255,.32),rgba(124,240,214,.22));transform:translateY(-1px);}
+    .auth-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+    /* رسائل */
+    .auth-msg{
+      padding:10px 14px;border-radius:10px;font-size:13px;
+      margin-bottom:14px;display:none;
+    }
+    .auth-msg.error{background:rgba(255,106,106,.1);border:1px solid rgba(255,106,106,.3);color:#ff6a6a;}
+    .auth-msg.success{background:rgba(75,227,154,.1);border:1px solid rgba(75,227,154,.3);color:#4be39a;}
+    .auth-msg.show{display:block;}
+
+    .auth-divider{
+      text-align:center;font-size:12px;color:var(--muted);
+      margin:16px 0;position:relative;
+    }
+    .auth-divider::before,.auth-divider::after{
+      content:'';position:absolute;top:50%;width:42%;height:1px;
+      background:rgba(255,255,255,.08);
+    }
+    .auth-divider::before{right:0;} .auth-divider::after{left:0;}
+
+    .forgot-link{
+      text-align:center;font-size:13px;color:var(--muted);margin-top:12px;
+    }
+    .forgot-link a{color:var(--accent);cursor:pointer;text-decoration:none;}
+    .forgot-link a:hover{color:var(--accent2);}
+  </style>
+</head>
+<body>
+  <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="nav-left">
+        <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Auth</span></div></div>
+        <button id="themeToggle" type="button"><span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span></button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a><a href="learn.html">تعلّم</a>
+        <a href="quiz.html">اختبار</a><a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a><a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a><a href="contact.html">تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <span class="logo-icon">🛡️</span>
+        <h1>سايف ديجيتال</h1>
+        <p>سجّل حسابك وتابع تقدمك الأمني</p>
+      </div>
+
+      <!-- تبويبات -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">تسجيل الدخول</button>
+        <button class="auth-tab" id="registerTab" onclick="switchTab('register')">حساب جديد</button>
+      </div>
+
+      <!-- رسائل -->
+      <div class="auth-msg" id="authMsg"></div>
+
+      <!-- فورم تسجيل الدخول -->
+      <div id="loginForm">
+        <div class="auth-field">
+          <label class="auth-label">البريد الإلكتروني</label>
+          <input class="auth-input" id="loginEmail" type="email" placeholder="email@example.com"/>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">كلمة المرور</label>
+          <input class="auth-input" id="loginPassword" type="password" placeholder="••••••••"/>
+        </div>
+        <button class="auth-btn" id="loginBtn" onclick="login()">دخول ←</button>
+        <div class="forgot-link"><a onclick="forgotPassword()">نسيت كلمة المرور؟</a></div>
+      </div>
+
+      <!-- فورم التسجيل -->
+      <div id="registerForm" style="display:none;">
+        <div class="auth-field">
+          <label class="auth-label">اسم المستخدم</label>
+          <input class="auth-input" id="regUsername" type="text" placeholder="اسمك في المنصة"/>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">البريد الإلكتروني</label>
+          <input class="auth-input" id="regEmail" type="email" placeholder="email@example.com"/>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">كلمة المرور</label>
+          <input class="auth-input" id="regPassword" type="password" placeholder="8 أحرف على الأقل"/>
+        </div>
+        <button class="auth-btn" id="registerBtn" onclick="register()">إنشاء حساب 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+  /* ── Theme ── */
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  /* ── Supabase ── */
+  const { createClient } = supabase;
+  const sb = createClient(
+    "https://qgsilbwwcqajzvysdbzi.supabase.co",
+    "sb_publishable_JPT2bktJ6n7vGEUSsCaaRA_gQAaq2yb"
+  );
+
+  /* تحقق لو المستخدم مسجل دخوله */
+  sb.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = "profile.html";
+  });
+
+  function switchTab(tab) {
+    document.getElementById("loginForm").style.display = tab==="login" ? "block" : "none";
+    document.getElementById("registerForm").style.display = tab==="register" ? "block" : "none";
+    document.getElementById("loginTab").classList.toggle("active", tab==="login");
+    document.getElementById("registerTab").classList.toggle("active", tab==="register");
+    hideMsg();
+  }
+
+  function showMsg(text, type) {
+    const el = document.getElementById("authMsg");
+    el.textContent = text; el.className = `auth-msg ${type} show`;
+  }
+  function hideMsg() {
+    document.getElementById("authMsg").className = "auth-msg";
+  }
+
+  async function login() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    if (!email || !password) { showMsg("يرجى تعبئة جميع الحقول", "error"); return; }
+    const btn = document.getElementById("loginBtn");
+    btn.disabled = true; btn.textContent = "جاري الدخول...";
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) { showMsg("بيانات خاطئة — تحقق من البريد وكلمة المرور", "error"); btn.disabled=false; btn.textContent="دخول ←"; }
+    else window.location.href = "profile.html";
+  }
+
+  async function register() {
+    const username = document.getElementById("regUsername").value.trim();
+    const email = document.getElementById("regEmail").value.trim();
+    const password = document.getElementById("regPassword").value;
+    if (!username || !email || !password) { showMsg("يرجى تعبئة جميع الحقول", "error"); return; }
+    if (password.length < 8) { showMsg("كلمة المرور يجب أن تكون 8 أحرف على الأقل", "error"); return; }
+    const btn = document.getElementById("registerBtn");
+    btn.disabled = true; btn.textContent = "جاري الإنشاء...";
+    const { data, error } = await sb.auth.signUp({ email, password });
+    if (error) { showMsg(error.message, "error"); btn.disabled=false; btn.textContent="إنشاء حساب 🚀"; return; }
+    if (data.user) {
+      await sb.from("profiles").insert({ id: data.user.id, username });
+      showMsg("✅ تم إنشاء حسابك! تحقق من بريدك لتأكيد الحساب.", "success");
+      btn.disabled=false; btn.textContent="إنشاء حساب 🚀";
+    }
+  }
+
+  async function forgotPassword() {
+    const email = document.getElementById("loginEmail").value.trim();
+    if (!email) { showMsg("أدخل بريدك الإلكتروني أولاً", "error"); return; }
+    await sb.auth.resetPasswordForEmail(email);
+    showMsg("✅ تم إرسال رابط إعادة تعيين كلمة المرور لبريدك", "success");
+  }
+
+  /* Enter للإرسال */
+  document.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      const loginVisible = document.getElementById("loginForm").style.display !== "none";
+      if (loginVisible) login(); else register();
+    }
+  });
+  </script>
+</body>
+</html>

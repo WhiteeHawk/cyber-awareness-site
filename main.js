@@ -1,4 +1,3 @@
-
 (function () {
   "use strict";
 
@@ -98,5 +97,60 @@
     document.getElementById("workMessage").style.display = "block";
 }
 
+  });
+})();
+
+
+/* ── Auth Nav Button ── */
+(function(){
+  const SUPA_URL = "https://qgsilbwwcqajzvysdbzi.supabase.co";
+  const SUPA_KEY = "sb_publishable_JPT2bktJ6n7vGEUSsCaaRA_gQAaq2yb";
+
+  async function getSession(){
+    try {
+      const r = await fetch(`${SUPA_URL}/auth/v1/user`, {
+        headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + (localStorage.getItem("sb-session") || "") }
+      });
+      return r.ok ? await r.json() : null;
+    } catch { return null; }
+  }
+
+  function updateAuthBtn(user){
+    const btns = document.querySelectorAll(".auth-nav-btn");
+    btns.forEach(btn => {
+      if(user){
+        btn.textContent = "👤 ملفي";
+        btn.href = "profile.html";
+        btn.style.borderColor = "rgba(124,240,214,.45)";
+        btn.style.background  = "rgba(124,240,214,.12)";
+        btn.style.color       = "var(--accent2)";
+      } else {
+        btn.textContent = "🔑 دخول";
+        btn.href = "auth.html";
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    // أضف الزر لكل navbar
+    document.querySelectorAll("nav.links").forEach(nav => {
+      const existing = nav.querySelector(".auth-nav-btn");
+      if(existing) return;
+      const a = document.createElement("a");
+      a.className = "auth-nav-btn";
+      a.href = "auth.html";
+      a.textContent = "🔑 دخول";
+      a.style.cssText = "padding:8px 14px;border-radius:999px;border:1px solid rgba(106,166,255,.35);background:rgba(106,166,255,.1);color:var(--accent);font-weight:600;font-size:13px;transition:.2s;";
+      nav.appendChild(a);
+    });
+
+    // تحقق من الجلسة عبر Supabase
+    const sbSession = localStorage.getItem("sb-qgsilbwwcqajzvysdbzi-auth-token");
+    if(sbSession){
+      try {
+        const parsed = JSON.parse(sbSession);
+        if(parsed?.user) updateAuthBtn(parsed.user);
+      } catch {}
+    }
   });
 })();
