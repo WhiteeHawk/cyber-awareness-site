@@ -1,8 +1,12 @@
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
   try {
-    const { user_id, score, total, percentage, missed_tips } = JSON.parse(event.body);
-    const res = await fetch(`${process.env.SUPABASE_URL}/rest/v1/quiz_results`, {
+    const { name, email, subject, message, type } = JSON.parse(event.body);
+
+    const res = await fetch(`${process.env.SUPABASE_URL}/rest/v1/contact_messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -10,9 +14,11 @@ exports.handler = async (event) => {
         "Authorization": `Bearer ${process.env.SUPABASE_SECRET_KEY}`,
         "Prefer": "return=minimal"
       },
-      body: JSON.stringify({ user_id, score, total, percentage, missed_tips })
+      body: JSON.stringify({ name, email, subject, message, type })
     });
-    if (!res.ok) throw new Error(await res.text());
+
+    if (!res.ok) throw new Error("فشل الإرسال");
+
     return { statusCode: 200, body: JSON.stringify({ success: true }) };
   } catch (e) {
     return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
