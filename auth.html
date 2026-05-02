@@ -221,9 +221,21 @@
     if (!email || !password) { showMsg("يرجى تعبئة جميع الحقول", "error"); return; }
     const btn = document.getElementById("loginBtn");
     btn.disabled = true; btn.textContent = "جاري الدخول...";
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) { showMsg("بيانات خاطئة — تحقق من البريد وكلمة المرور", "error"); btn.disabled=false; btn.textContent="دخول ←"; }
-    else window.location.href = "profile.html";
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      showMsg("بيانات خاطئة — تحقق من البريد وكلمة المرور", "error");
+      btn.disabled=false; btn.textContent="دخول ←";
+      return;
+    }
+    /* تأكد إن عنده سجل في profiles — لو ما عنده أضفه */
+    if (data.user) {
+      const { data: existing } = await sb.from("profiles").select("id").eq("id", data.user.id).single();
+      if (!existing) {
+        const username = email.split("@")[0];
+        await sb.from("profiles").insert({ id: data.user.id, username });
+      }
+    }
+    window.location.href = "profile.html";
   }
 
   async function register() {
@@ -234,13 +246,32 @@
     if (password.length < 8) { showMsg("كلمة المرور يجب أن تكون 8 أحرف على الأقل", "error"); return; }
     const btn = document.getElementById("registerBtn");
     btn.disabled = true; btn.textContent = "جاري الإنشاء...";
-    const { data, error } = await sb.auth.signUp({ email, password });
-    if (error) { showMsg(error.message, "error"); btn.disabled=false; btn.textContent="إنشاء حساب 🚀"; return; }
-    if (data.user) {
-      await sb.from("profiles").insert({ id: data.user.id, username });
-      showMsg("✅ تم إنشاء حسابك! تحقق من بريدك لتأكيد الحساب.", "success");
-      btn.disabled=false; btn.textContent="إنشاء حساب 🚀";
+    
+    /* حفظ الاسم مؤقتاً عشان نستخدمه بعد التأكيد */
+    localStorage.setItem("pending_username", username);
+    
+    const { data, error } = await sb.auth.signUp({ 
+      email, password,
+      options: { data: { username } }
+    });
+    if (error) { 
+      showMsg(error.message, "error"); 
+      btn.disabled=false; btn.textContent="إنشاء حساب 🚀"; 
+      return; 
     }
+    
+    /* لو ما يحتاج تأكيد إيميل — أضف مباشرة */
+    if (data.user && data.session) {
+      await sb.from("profiles").upsert({ id: data.user.id, username });
+      window.location.href = "profile.html";
+      return;
+    }
+    
+    showMsg("✅ تم إنشاء حسابك! تحقق من بريدك لتأكيد الحساب، ثم سجّل دخولك.", "success");
+    btn.disabled=false; btn.textContent="إنشاء حساب 🚀";
+    
+    /* التبديل لتسجيل الدخول بعد ثانيتين */
+    setTimeout(() => switchTab("login"), 2000);
   }
 
   async function forgotPassword() {
