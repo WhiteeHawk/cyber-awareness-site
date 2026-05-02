@@ -1,85 +1,454 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>اختبار الوعي الأمني | سايف ديجيتال</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="description" content="اختبر مستوى وعيك بالأمن السيبراني في سايف ديجيتال عبر 10 أسئلة سريعة تمنحك ملاحظات ونصائح فورية لتحسين أمانك.">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══ خلفية ══ */
+    .quiz-bg { position:fixed;inset:0;z-index:-1;pointer-events:none; }
+    .quiz-bg::before {
+      content:'';position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 700px 500px at 10% 30%, rgba(106,166,255,.1), transparent 60%),
+        radial-gradient(ellipse 500px 400px at 90% 70%, rgba(124,240,214,.09), transparent 60%);
+    }
+
+    /* ══ هيرو ══ */
+    .quiz-hero {
+      text-align:center;
+      padding: 40px 0 24px;
+      animation: fadeUp .5s ease both;
+    }
+    .quiz-hero h1 {
+      font-size: 38px; font-weight:800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:6px;
+    }
+    @keyframes fadeUp {
+      from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none}
+    }
+
+    /* ══ بطاقة الاختبار ══ */
+    .quiz-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .quiz-card {
+      background: rgba(16,26,51,.9);
+      border: 1px solid rgba(106,166,255,.15);
+      border-radius: 24px;
+      padding: 32px;
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .5s .1s ease both;
+    }
+    .quiz-card::before {
+      content:'';
+      position:absolute;top:0;right:0;left:0;height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+    }
+
+    /* ══ شريط التقدم ══ */
+    .qp-header {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:20px; gap:12px;
+    }
+    .qp-info { display:flex; flex-direction:column; gap:2px; }
+    .qp-num {
+      font-family:'IBM Plex Mono',monospace;
+      font-size:13px; color:var(--muted);
+    }
+    .qp-num strong { color:var(--accent2); font-size:18px; }
+    .qp-cat {
+      font-size:11px; padding:3px 10px; border-radius:999px;
+      border:1px solid var(--border); color:var(--muted);
+      display:inline-block; width:fit-content;
+    }
+
+    /* مؤقت دائري */
+    .timer-circle {
+      position:relative; width:52px; height:52px; flex-shrink:0;
+    }
+    .timer-circle svg { transform:rotate(-90deg); }
+    .tc-bg  { fill:none; stroke:rgba(255,255,255,.07); stroke-width:4; }
+    .tc-fg  { fill:none; stroke:var(--accent2); stroke-width:4; stroke-linecap:round; transition:stroke-dashoffset .9s linear, stroke .3s; }
+    .tc-num {
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:15px; font-weight:700; color:var(--text);
+    }
+
+    /* شريط تقدم سفلي */
+    .qp-bar {
+      height:3px; background:rgba(255,255,255,.07); border-radius:999px;
+      overflow:hidden; margin-bottom:24px;
+    }
+    .qp-fill {
+      height:100%;
+      background:linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius:999px; transition:width .5s ease;
+    }
+
+    /* ══ السؤال ══ */
+    .q-text {
+      font-size:19px; font-weight:700; color:var(--text);
+      line-height:1.5; margin-bottom:20px;
+      animation: fadeUp .3s ease both;
+    }
+
+    /* ══ الخيارات ══ */
+    .q-choices { display:grid; gap:10px; margin-bottom:20px; }
+    .q-choice {
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px; border-radius:14px;
+      border:1px solid rgba(106,166,255,.12);
+      background:rgba(0,0,0,.2);
+      color:var(--text); font-family:var(--font); font-size:15px;
+      cursor:pointer; text-align:right;
+      transition: border-color .2s, background .2s, transform .15s;
+      animation: fadeUp .3s ease both;
+    }
+    .q-choice:nth-child(2){animation-delay:.05s}
+    .q-choice:nth-child(3){animation-delay:.1s}
+    .q-choice:hover:not(:disabled){
+      border-color:rgba(106,166,255,.4);
+      background:rgba(106,166,255,.07);
+      transform:translateX(-3px);
+    }
+    .q-choice:disabled { cursor:default; }
+    .q-choice.correct {
+      border-color:rgba(75,227,154,.6);
+      background:rgba(75,227,154,.1);
+      animation: correctPop .4s ease;
+    }
+    .q-choice.wrong {
+      border-color:rgba(255,106,106,.6);
+      background:rgba(255,106,106,.08);
+      animation: wrongShake .4s ease;
+    }
+    @keyframes correctPop {
+      0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)}
+    }
+    @keyframes wrongShake {
+      0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
+    }
+
+    .q-letter {
+      width:30px; height:30px; border-radius:8px;
+      border:1px solid rgba(106,166,255,.2);
+      background:rgba(106,166,255,.06);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:12px; font-weight:700; flex-shrink:0;
+      transition:.2s;
+    }
+    .q-choice.correct .q-letter { background:rgba(75,227,154,.2); border-color:rgba(75,227,154,.5); }
+    .q-choice.wrong   .q-letter { background:rgba(255,106,106,.2); border-color:rgba(255,106,106,.5); }
+
+    /* ══ تلميح الإجابة ══ */
+    .a-tip {
+      display:none; padding:14px 16px; border-radius:14px;
+      font-size:14px; color:var(--muted); margin-bottom:18px;
+      animation: fadeUp .3s ease;
+    }
+    .a-tip.show { display:block; }
+    .a-tip.correct-tip { border:1px solid rgba(75,227,154,.3); background:rgba(75,227,154,.06); }
+    .a-tip.wrong-tip   { border:1px solid rgba(255,106,106,.3); background:rgba(255,106,106,.06); }
+
+    /* ══ أزرار التحكم ══ */
+    .q-actions { display:flex; gap:10px; }
+    .btn-skip {
+      padding:11px 20px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.1); background:transparent;
+      color:var(--muted); font-family:var(--font); font-size:14px;
+      cursor:pointer; transition:.2s;
+    }
+    .btn-skip:hover { border-color:var(--border); color:var(--text); }
+    .btn-next {
+      flex:1; padding:13px;
+      border-radius:12px;
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.2),rgba(124,240,214,.15));
+      color:var(--text); font-family:var(--font); font-size:15px; font-weight:600;
+      cursor:pointer; transition:.2s;
+    }
+    .btn-next:hover:not(:disabled) { background:linear-gradient(135deg,rgba(106,166,255,.3),rgba(124,240,214,.22)); }
+    .btn-next:disabled { opacity:.4; cursor:default; }
+
+    /* ══ صفحة النتيجة ══ */
+    .result-wrap { animation: fadeUp .5s ease both; }
+    .result-header {
+      text-align:center; padding:28px 0 20px;
+    }
+    .result-score-ring {
+      width:130px; height:130px; margin:0 auto 16px;
+      position:relative;
+    }
+    .result-score-ring svg { transform:rotate(-90deg); }
+    .rsr-bg { fill:none; stroke:rgba(255,255,255,.06); stroke-width:8; }
+    .rsr-fg { fill:none; stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 1s ease; }
+    .rsr-num {
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+    }
+    .rsr-pct { font-size:34px; font-weight:900; line-height:1; }
+    .rsr-lbl { font-size:12px; color:var(--muted); margin-top:2px; }
+    .result-level { font-size:22px; font-weight:700; margin:0 0 6px; }
+    .result-sub   { font-size:15px; color:var(--muted); }
+
+    .result-tips { margin:20px 0; }
+    .rtip {
+      display:flex;gap:10px;align-items:flex-start;
+      padding:11px 14px; border-radius:12px;
+      border:1px solid rgba(106,166,255,.1);
+      background:rgba(0,0,0,.2); margin-bottom:8px;
+      font-size:14px; color:var(--muted);
+      animation: fadeUp .4s ease both;
+    }
+
+    .result-actions { display:flex;gap:10px;flex-wrap:wrap; }
+    .btn-restart {
+      flex:1;padding:13px;border-radius:12px;
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.2),rgba(124,240,214,.15));
+      color:var(--text);font-family:var(--font);font-size:15px;font-weight:600;
+      cursor:pointer;transition:.2s;
+    }
+    .btn-restart:hover { background:linear-gradient(135deg,rgba(106,166,255,.3),rgba(124,240,214,.22)); }
+    .btn-link {
+      padding:13px 18px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.1);
+      background:transparent;color:var(--muted);
+      font-family:var(--font);font-size:14px;
+      cursor:pointer;text-decoration:none;
+      display:inline-flex;align-items:center;
+      transition:.2s;
+    }
+    .btn-link:hover { border-color:var(--border); color:var(--text); }
+  </style>
 </head>
 
 <body>
-  <!-- ===== رأس الصفحة ===== -->
+  <div class="quiz-bg"></div>
+
   <header class="nav">
     <div class="container nav-inner">
-      <div class="brand">
-        <span class="logo">🛡️</span>
-        <div>
-          <strong>سايف ديجيتال</strong>
-          <span class="badge">Quiz</span>
+      <div class="nav-left">
+        <div class="brand">
+          <span class="logo">🛡️</span>
+          <div><strong>سايف ديجيتال</strong><span class="badge">Quiz</span></div>
         </div>
+        <button id="themeToggle" type="button">
+          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+        </button>
       </div>
-
-      <nav class="links">
-            <a href="index.html">الرئيسية</a>
-        <a href="learn.html">تعلّم</a>
-        <a href="quiz.html" class="active">اختبار</a>
-        <a href="tools.html">أدوات</a>
-        <a href="scenarios.html">سيناريوهات</a>
-        <a href="resources.html">مصادر</a>
-        <a href="policies.html">تلخيص سياسات الخصوصية</a>
-        <a href="about.html">عن المشروع</a>
-        <a href="contact.html">تواصل</a>
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="index.html">الرئيسية</a><a href="learn.html">تعلّم</a>
+        <a href="quiz.html" class="active">اختبار</a><a href="tools.html">أدوات</a>
+        <a href="scenarios.html">سيناريوهات</a><a href="resources.html">موارد</a>
+        <a href="about.html">عن المشروع</a><a href="contact.html">تواصل</a>
       </nav>
     </div>
   </header>
 
-  
   <main class="container">
-    <section class="card pad">
-      <h1>اختبار الوعي الأمني 🔒</h1>
-      <p>يتكون الاختبار من <strong>10 أسئلة</strong> سريعة، وفي النهاية سنظهر لك نصائح مخصصة حسب إجاباتك.</p>
+    <div class="quiz-hero">
+      <h1>اختبار الوعي الأمني</h1>
+      <p style="color:var(--muted);font-size:15px;">10 أسئلة — اكتشف مستوى حمايتك الرقمية</p>
+    </div>
 
-      <div class="pill" id="progressPill">السؤال 1 / 10</div>
-      <hr class="sep" />
+    <div class="quiz-wrap">
 
-      <div id="quizBox">
-        <div class="quiz-q" id="qText">...</div>
-        <div class="choices" id="choices"></div>
+      <!-- ══ بطاقة الاختبار ══ -->
+      <div class="quiz-card" id="quizCard">
+        <div class="qp-header">
+          <div class="qp-info">
+            <span class="qp-num">السؤال <strong id="qNum">1</strong><span style="color:var(--muted);font-size:14px;"> / 10</span></span>
+            <span class="qp-cat" id="qCat">—</span>
+          </div>
+          <div class="timer-circle">
+            <svg viewBox="0 0 52 52" width="52" height="52">
+              <circle class="tc-bg" cx="26" cy="26" r="22"/>
+              <circle class="tc-fg" id="tcFg" cx="26" cy="26" r="22"
+                stroke-dasharray="138.2" stroke-dashoffset="0"/>
+            </svg>
+            <div class="tc-num" id="timerNum">30</div>
+          </div>
+        </div>
 
-        <div class="cta-row" style="margin-top:12px">
-          <button class="btn outline" id="skipBtn" type="button">تخطي</button>
-          <button class="btn primary" id="nextBtn" type="button" disabled>التالي</button>
+        <div class="qp-bar"><div class="qp-fill" id="qpFill" style="width:0%"></div></div>
+
+        <div class="q-text" id="qText">...</div>
+        <div class="q-choices" id="choices"></div>
+        <div class="a-tip" id="aTip"></div>
+
+        <div class="q-actions">
+          <button class="btn-skip" id="skipBtn" type="button">تخطي</button>
+          <button class="btn-next" id="nextBtn" type="button" disabled>التالي ←</button>
         </div>
       </div>
-    </section>
 
-    <!-- ===== صندوق النتيجة ===== -->
-    <section class="card pad" id="resultBox" style="display:none; margin-top:18px">
-      <h2>نتيجتك 🎯</h2>
-      <p id="scoreText"></p>
-      <div class="note" id="adviceBox"></div>
+      <!-- ══ النتيجة ══ -->
+      <div class="quiz-card result-wrap" id="resultCard" style="display:none;">
+        <div class="result-header">
+          <div class="result-score-ring">
+            <svg viewBox="0 0 130 130" width="130" height="130">
+              <circle class="rsr-bg" cx="65" cy="65" r="57"/>
+              <circle class="rsr-fg" id="rsrFg" cx="65" cy="65" r="57"
+                stroke-dasharray="358" stroke-dashoffset="358"/>
+            </svg>
+            <div class="rsr-num">
+              <span class="rsr-pct" id="rsrPct">0%</span>
+              <span class="rsr-lbl" id="rsrLbl">0/10</span>
+            </div>
+          </div>
+          <div class="result-level" id="resLevel">—</div>
+          <div class="result-sub"  id="resSub">—</div>
+        </div>
 
-      <div class="cta-row" style="margin-top:14px">
-        <a class="btn outline" href="learn.html">راجع الدروس</a>
-        <a class="btn outline" href="tools.html">جرّب الأدوات</a>
-        <button class="btn primary" id="restartBtn" type="button">أعد الاختبار</button>
+        <div class="result-tips" id="resTips"></div>
+
+        <div class="result-actions">
+          <a class="btn-link" href="learn.html">📘 الدروس</a>
+          <a class="btn-link" href="scenarios.html">🎭 السيناريوهات</a>
+          <button class="btn-restart" id="restartBtn" type="button">🔄 أعد الاختبار</button>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <!-- ===== التذييل ===== -->
-    <footer class="footer">
+    <footer class="footer" style="max-width:680px;margin:0 auto;">
       <div class="footer-content">
-        <div class="small">
-          📘 هذا الاختبار لأغراض التوعية فقط، وليس تشخيصًا أمنياً احترافيًا.
+        <div class="small">📘 لأغراض التوعية فقط.</div>
+        <div class="footer-links">
+          <a href="policies.html">سياسة الخصوصية</a>
+          <a href="contact.html">تواصل معنا</a>
         </div>
       </div>
     </footer>
   </main>
 
-
   <script src="main.js"></script>
-  <script src="quiz.js"></script>
+  <script>
+  (function(){
+    const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    apply(localStorage.getItem("sd-theme")!=="light");
+    btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
+  })();
+
+  const Q=[
+    {q:"وصلك إيميل: حسابك بيتقفل خلال ساعة، مع رابط. وش أفضل تصرف؟",a:["أضغط الرابط بسرعة","أدخل الموقع الرسمي يدوياً","أرسل بياناتي للدعم"],c:1,cat:"🎯 التصيّد",tip:"رسائل الاستعجال = تصيّد. ادخل الموقع الرسمي يدوياً دائماً."},
+    {q:"أفضل كلمة مرور؟",a:["12345678","A1b2!","جملة طويلة وفريدة لكل حساب"],c:2,cat:"🔐 كلمات المرور",tip:"الأطول + الفريد أفضل. استخدم مدير كلمات مرور."},
+    {q:"التحقق الثنائي (MFA) يفيد لأنه:",a:["يزيد سرعة الدخول","يحمي حتى لو انسرقت كلمة المرور","يمنع التحديثات"],c:1,cat:"🔐 كلمات المرور",tip:"MFA يحميك حتى لو كلمة المرور تسربت."},
+    {q:"شبكة Wi-Fi عامة بدون كلمة مرور. التصرف الصحيح؟",a:["أسجل دخول البنك عادي","أتجنب الحساسات وأستخدم VPN","أرسل ملفات مهمة"],c:1,cat:"📶 Wi-Fi",tip:"الشبكات العامة مراقبة — استخدم VPN إذا اضطررت."},
+    {q:"أي علامة تدل على رابط مشبوه؟",a:["دومين غريب مثل paypa1.com","وجود https فقط","فيه اسم الشركة"],c:0,cat:"🎯 التصيّد",tip:"الدومين هو الأهم — لا تعتمد على https أو التصميم وحده."},
+    {q:"أفضل سياسة للتحديثات؟",a:["أحدّث أول بأول","ما أحدّث أبداً","أحدّث كل سنتين"],c:0,cat:"⏫ التحديثات",tip:"التحديثات تسد الثغرات قبل أن تُستغل."},
+    {q:"وش معنى Password Reuse؟",a:["تغيير كلمة المرور كثير","نفس كلمة المرور في أكثر من موقع","نسيان كلمة المرور"],c:1,cat:"🔐 كلمات المرور",tip:"إعادة استخدام كلمة المرور يعرض كل حساباتك للخطر."},
+    {q:"برنامج طلب صلاحية موقع وصور بدون سبب:",a:["أعطيه كل شيء","أرفض أو أقلل الصلاحيات","أرسلها لصديقي"],c:1,cat:"🔒 الخصوصية",tip:"قلل الصلاحيات لأقل حد ممكن دائماً."},
+    {q:"وصلك OTP من البنك، وشخص يطلبه للتأكيد:",a:["أعطيه لأنه يقول بنك","أرفض — OTP سري لا يُطلب","أرسله ثم أغير كلمة المرور"],c:1,cat:"🎯 التصيّد",tip:"OTP لا تشاركه أبداً — حتى لو ادّعى أنه من البنك."},
+    {q:"أفضل طريقة لتخزين كلمات المرور؟",a:["ملاحظات الجوال","Password Manager + MFA","ورقة تحت الكيبورد"],c:1,cat:"🔐 كلمات المرور",tip:"مدير كلمات المرور + MFA = الأكثر أماناً وسهولة."}
+  ];
+
+  const LETTERS=["أ","ب","ج"],TIMER=30,CIRC=138.2;
+  let idx=0,score=0,answered=false,missed=[],timerInt=null,timeLeft=TIMER;
+
+  const $=id=>document.getElementById(id);
+  function startTimer(){
+    clearInterval(timerInt);timeLeft=TIMER;updTimer();
+    timerInt=setInterval(()=>{timeLeft--;updTimer();if(timeLeft<=0){clearInterval(timerInt);if(!answered)skipQ();}},1000);
+  }
+  function updTimer(){
+    $("timerNum").textContent=timeLeft;
+    const offset=CIRC*(1-timeLeft/TIMER);
+    $("tcFg").style.strokeDashoffset=offset;
+    const hot=timeLeft<=10;
+    $("tcFg").style.stroke=hot?"#ff6a6a":"var(--accent2)";
+    $("timerNum").style.color=hot?"#ff6a6a":"var(--text)";
+  }
+  function render(){
+    const cur=Q[idx];
+    $("qNum").textContent=idx+1;
+    $("qCat").textContent=cur.cat;
+    $("qpFill").style.width=(idx/Q.length*100)+"%";
+    $("qText").textContent=cur.q;
+    $("qText").style.animation="none";
+    requestAnimationFrame(()=>$("qText").style.animation="");
+    $("choices").innerHTML="";
+    $("aTip").className="a-tip"; $("aTip").textContent="";
+    answered=false; $("nextBtn").disabled=true;
+    cur.a.forEach((txt,i)=>{
+      const b=document.createElement("button");
+      b.className="q-choice";b.type="button";
+      b.innerHTML=`<span class="q-letter">${LETTERS[i]}</span>${txt}`;
+      b.addEventListener("click",()=>pick(i));
+      $("choices").appendChild(b);
+    });
+    startTimer();
+  }
+  function pick(i){
+    if(answered)return;
+    answered=true;clearInterval(timerInt);$("nextBtn").disabled=false;
+    const cur=Q[idx];
+    Array.from($("choices").children).forEach((b,j)=>{
+      b.disabled=true;
+      if(j===cur.c)b.classList.add("correct");
+      if(j===i&&i!==cur.c)b.classList.add("wrong");
+    });
+    const tip=$("aTip");
+    if(i===cur.c){
+      score++;tip.className="a-tip show correct-tip";tip.textContent="✅ "+cur.tip;
+    } else {
+      missed.push(cur.tip);tip.className="a-tip show wrong-tip";tip.textContent="❌ "+cur.tip;
+    }
+  }
+  function nextQ(){idx++;idx<Q.length?render():finish();}
+  function skipQ(){clearInterval(timerInt);missed.push(Q[idx].tip);nextQ();}
+  function finish(){
+    clearInterval(timerInt);
+    $("quizCard").style.display="none";
+    $("resultCard").style.display="block";
+    const pct=Math.round(score/Q.length*100);
+    let lvl,sub,col;
+    if(pct>=90){lvl="ممتاز 👑";sub="وعيك السيبراني عالٍ جداً!";col="#4be39a";}
+    else if(pct>=70){lvl="جيد جداً ✅";sub="أنت على الطريق الصحيح.";col="#6aa6ff";}
+    else if(pct>=50){lvl="جيد 👌";sub="راجع النقاط أدناه لتتحسن.";col="#ffb347";}
+    else{lvl="يحتاج تقوية 💪";sub="لا بأس — التعلّم يبدأ من هنا!";col="#ff6a6a";}
+    $("rsrPct").textContent=pct+"%";$("rsrPct").style.color=col;
+    $("rsrLbl").textContent=score+"/"+Q.length;
+    $("rsrFg").style.stroke=col;
+    setTimeout(()=>{ $("rsrFg").style.strokeDashoffset=358*(1-pct/100); },100);
+    $("resLevel").textContent=lvl;$("resLevel").style.color=col;
+    $("resSub").textContent=sub;
+    const box=$("resTips");box.innerHTML="";
+    if(!missed.length){
+      box.innerHTML=`<div class="rtip"><span>🏆</span><span>إجاباتك كلها صحيحة — شارك الموقع مع أصدقائك!</span></div>`;
+    } else {
+      missed.slice(0,5).forEach((t,i)=>{
+        const d=document.createElement("div");
+        d.className="rtip";d.style.animationDelay=(i*.08)+"s";
+        d.innerHTML=`<span>💡</span><span>${t}</span>`;
+        box.appendChild(d);
+      });
+    }
+  }
+  function restart(){
+    idx=0;score=0;missed=[];answered=false;
+    $("quizCard").style.display="block";
+    $("resultCard").style.display="none";
+    render();
+  }
+  $("nextBtn").addEventListener("click",nextQ);
+  $("skipBtn").addEventListener("click",skipQ);
+  $("restartBtn").addEventListener("click",restart);
+  render();
+  </script>
 </body>
 </html>
