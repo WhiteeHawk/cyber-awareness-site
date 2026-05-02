@@ -18,7 +18,7 @@
   --radius:  16px;
   --max:     1080px;
   --font:    "Segoe UI","Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif;
-  --nav-bg:  rgba(11,18,32,0.88);
+  --nav-bg:  rgba(11,18,32,0.92);
   --item-bg: rgba(255,255,255,.03);
 }
 
@@ -32,7 +32,7 @@ body.light-mode {
   --accent2: #0d9488;
   --border:  rgba(0,0,0,.1);
   --shadow:  0 8px 28px rgba(0,0,0,.1);
-  --nav-bg:  rgba(240,244,255,0.94);
+  --nav-bg:  rgba(240,244,255,0.96);
   --item-bg: rgba(0,0,0,.025);
 }
 
@@ -56,6 +56,9 @@ body {
   color: var(--text);
   line-height: 1.6;
   direction: rtl;
+  /* لا backdrop-filter على الـ body حتى لا تظهر الضبابية داخل الصفحات */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   transition: background .4s, color .25s;
 }
 
@@ -68,14 +71,17 @@ a:hover { color:var(--accent2); }
   padding: 22px;
 }
 
-/* ── شريط التنقل ── */
+/* ══════════════════════════════════════════
+   شريط التنقل — مُعاد تصميمه بالكامل
+══════════════════════════════════════════ */
 .nav {
   position: sticky;
   top: 0;
   z-index: 100;
   background: var(--nav-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* backdrop-filter فقط على الـ nav وليس الصفحة */
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
   border-bottom: 1px solid var(--border);
   transition: background .3s;
 }
@@ -84,14 +90,23 @@ a:hover { color:var(--accent2); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: nowrap;
-  padding: 10px 22px;
+  padding: 0 22px;
+  height: 58px;
   max-width: var(--max);
   margin: 0 auto;
 }
 
-/* الجانب الأيسر: brand + زر الوضع */
+/* ── الجانب الأيمن: brand + وضع ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* للتوافق مع الصفحات القديمة اللي تستخدم nav-left */
 .nav-left {
   display: flex;
   align-items: center;
@@ -99,8 +114,24 @@ a:hover { color:var(--accent2); }
   flex-shrink: 0;
 }
 
-.brand { display:flex; align-items:center; gap:8px; font-weight:800; }
-.logo  { font-size:22px; }
+/* ── البراند (اسم الموقع) — قابل للنقر ── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 12px;
+  transition: background .2s;
+}
+.brand:hover {
+  background: rgba(106,166,255,.1);
+  color: var(--text);
+}
+.logo { font-size:22px; }
 
 .badge {
   font-size: 11px;
@@ -130,32 +161,23 @@ a:hover { color:var(--accent2); }
 body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
 #themeToggle:hover { border-color:var(--accent2); transform:translateY(-1px); }
 
-/* ── زر الجوال ── */
-.menu-toggle {
-  display: none;
-  font-size: 26px;
-  background: none;
-  border: none;
-  color: var(--text);
-  cursor: pointer;
-  padding: 4px 8px;
-}
-
-/* ── الروابط ── */
+/* ── الروابط (وسط) ── */
 .links {
   display: flex;
   align-items: center;
-  gap: 4px;
-  flex-wrap: wrap;
-  transition: .3s;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 .links a {
-  padding: 8px 12px;
+  padding: 7px 11px;
   border-radius: 999px;
   border: 1px solid transparent;
   color: var(--muted);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13.5px;
+  white-space: nowrap;
   transition: .2s;
 }
 .links a:hover { border-color:var(--border); color:var(--text); }
@@ -164,6 +186,80 @@ body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
   background: rgba(106,166,255,.12);
   color: var(--text);
 }
+
+/* ── زر الدخول / المستخدم ── */
+.auth-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(106,166,255,.35);
+  background: rgba(106,166,255,.1);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+  font-family: var(--font);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: .2s;
+  flex-shrink: 0;
+}
+.auth-nav-btn:hover {
+  background: rgba(106,166,255,.2);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.auth-nav-btn.logged-in {
+  border-color: rgba(124,240,214,.45);
+  background: rgba(124,240,214,.1);
+  color: var(--accent2);
+}
+.auth-nav-btn.logged-in:hover {
+  background: rgba(124,240,214,.2);
+  color: var(--accent2);
+}
+
+/* أفاتار المستخدم الصغير */
+.auth-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.auth-uname {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── زر الجوال ── */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: .2s;
+  flex-shrink: 0;
+}
+.menu-toggle:hover { border-color: var(--accent); }
+
+/* ══════════════════════════════════════════
+   باقي الستايلات
+══════════════════════════════════════════ */
 
 /* ── البطاقات ── */
 .card {
@@ -396,26 +492,70 @@ body.light-mode .news-card:hover { box-shadow:0 10px 28px rgba(0,0,0,.12); }
 }
 .policy-btn:hover { background:rgba(75,227,154,.25); color:var(--ok); }
 
-/* ── استجابة الجوال ── */
+/* ══════════════════════════════════════════
+   استجابة الجوال — محسّنة
+══════════════════════════════════════════ */
 @media (max-width:860px) {
-  .menu-toggle { display:block; }
+
+  /* إظهار زر الهامبرغر */
+  .menu-toggle { display:flex; align-items:center; justify-content:center; }
+
+  /* الـ nav-inner في الجوال */
+  .nav-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  /* الصف الأول: brand + theme + hamburger */
+  .nav-left,
+  .nav-right {
+    order: 0;
+  }
+  .menu-toggle {
+    order: 1;
+    margin-right: auto; /* يدفع الهامبرغر لليسار */
+  }
+
+  /* الروابط تنزل للصف التاني */
   .links {
     display: none;
     flex-direction: column;
     width: 100%;
+    order: 2;
     border-top: 1px solid var(--border);
-    margin-top: 8px;
     padding-top: 8px;
+    padding-bottom: 6px;
+    gap: 2px;
   }
   .links.show { display:flex; }
-  .links a    { width:100%; text-align:right; border-radius:10px; }
+  .links a {
+    width: 100%;
+    text-align: right;
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .links a.active { background:rgba(106,166,255,.12); }
+
+  /* زر الدخول في الجوال — داخل القائمة */
+  .auth-nav-btn {
+    width: 100%;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+
+  /* إخفاء الـ theme label في الجوال */
+  #themeToggle .theme-label { display:none; }
+
   h1 { font-size:24px; }
   .hero-grid { grid-template-columns:1fr; }
-  .kpis      { grid-template-columns:repeat(3,1fr); }
-  #themeToggle .theme-label { display:none; }
+  .kpis { grid-template-columns:repeat(3,1fr); }
 }
 
 @media (max-width:480px) {
   .kpis { grid-template-columns:1fr 1fr; }
   .container { padding:14px; }
+  .nav-inner { padding:8px 12px; }
 }

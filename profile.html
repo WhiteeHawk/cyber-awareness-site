@@ -115,6 +115,32 @@
     .loading-spinner{
       text-align:center;padding:40px;color:var(--muted);font-size:14px;
     }
+
+    /* تعديل الاسم */
+    .edit-name-btn{
+      background:none;border:1px solid var(--border);border-radius:8px;
+      padding:4px 8px;cursor:pointer;font-size:13px;color:var(--muted);
+      transition:.2s;
+    }
+    .edit-name-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .edit-name-input{
+      padding:8px 12px;border-radius:10px;border:1px solid rgba(106,166,255,.4);
+      background:rgba(0,0,0,.25);color:var(--text);font-family:var(--font);
+      font-size:14px;outline:none;width:200px;transition:.2s;
+    }
+    .edit-name-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(106,166,255,.1);}
+    .save-name-btn{
+      padding:8px 14px;border-radius:10px;border:1px solid rgba(75,227,154,.4);
+      background:rgba(75,227,154,.1);color:#4be39a;font-family:var(--font);
+      font-size:13px;cursor:pointer;transition:.2s;
+    }
+    .save-name-btn:hover{background:rgba(75,227,154,.2);}
+    .cancel-name-btn{
+      padding:8px 14px;border-radius:10px;border:1px solid var(--border);
+      background:none;color:var(--muted);font-family:var(--font);
+      font-size:13px;cursor:pointer;transition:.2s;
+    }
+    .cancel-name-btn:hover{border-color:var(--danger);color:var(--danger);}
   </style>
 </head>
 <body>
@@ -123,10 +149,10 @@
   <header class="nav">
     <div class="container nav-inner">
       <div class="nav-left">
-        <div class="brand">
+        <a href="index.html" class="brand">
           <span class="logo">🛡️</span>
           <div><strong>سايف ديجيتال</strong><span class="badge">Profile</span></div>
-        </div>
+        </a>
         <button id="themeToggle" type="button">
           <span id="themeIcon">🌙</span>
           <span id="themeLabel" class="theme-label">ليلي</span>
@@ -152,7 +178,16 @@
     <div class="profile-hero" id="profileHero">
       <div class="profile-avatar" id="profileAvatar">👤</div>
       <div class="profile-info">
-        <div class="profile-name" id="profileName">جاري التحميل...</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div class="profile-name" id="profileName">جاري التحميل...</div>
+          <button class="edit-name-btn" id="editNameBtn" onclick="toggleEditName()" title="تغيير الاسم">✏️</button>
+        </div>
+        <!-- حقل تعديل الاسم — مخفي بالبداية -->
+        <div id="editNameRow" style="display:none;margin:8px 0;display:none;align-items:center;gap:8px;flex-wrap:wrap;">
+          <input id="newNameInput" type="text" class="edit-name-input" placeholder="اكتب اسمك الجديد"/>
+          <button class="save-name-btn" onclick="saveName()">حفظ ✓</button>
+          <button class="cancel-name-btn" onclick="toggleEditName()">إلغاء</button>
+        </div>
         <div class="profile-email" id="profileEmail">—</div>
         <div class="profile-joined" id="profileJoined">—</div>
       </div>
@@ -303,6 +338,7 @@
   }
 
   async function loadProfile(user) {
+    _currentUserId = user.id;
     // ── هيرو ──
     document.getElementById("profileEmail").textContent  = user.email;
     document.getElementById("profileJoined").textContent = "انضم في " + fmtDate(user.created_at);
@@ -419,6 +455,42 @@
   async function logout() {
     if (sb) await sb.auth.signOut();
     window.location.href = "index.html";
+  }
+
+  /* ── تعديل الاسم ── */
+  let _currentUserId = null;
+
+  function toggleEditName() {
+    const row = document.getElementById("editNameRow");
+    const input = document.getElementById("newNameInput");
+    const isHidden = row.style.display === "none" || row.style.display === "";
+    row.style.display = isHidden ? "flex" : "none";
+    if (isHidden) {
+      input.value = document.getElementById("profileName").textContent;
+      input.focus();
+    }
+  }
+
+  async function saveName() {
+    if (!sb || !_currentUserId) return;
+    const newName = document.getElementById("newNameInput").value.trim();
+    if (!newName) return;
+
+    const btn = document.querySelector(".save-name-btn");
+    btn.disabled = true; btn.textContent = "جاري الحفظ...";
+
+    const { error } = await sb
+      .from("profiles")
+      .update({ username: newName })
+      .eq("id", _currentUserId);
+
+    btn.disabled = false; btn.textContent = "حفظ ✓";
+
+    if (!error) {
+      document.getElementById("profileName").textContent = newName;
+      document.getElementById("profileAvatar").textContent = newName[0]?.toUpperCase() || "؟";
+      toggleEditName();
+    }
   }
 
   init();
