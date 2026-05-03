@@ -48,6 +48,7 @@ body.light-mode {
 html, body { height:100%; margin:0; padding:0; }
 
 body {
+  padding-top: 58px;
   font-family: var(--font);
   background:
     radial-gradient(1200px 700px at 80% -10%, rgba(106,166,255,.25), transparent 55%),
@@ -75,9 +76,11 @@ a:hover { color:var(--accent2); }
    شريط التنقل — مُعاد تصميمه بالكامل
 ══════════════════════════════════════════ */
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  right: 0;
+  left: 0;
+  z-index: 1000;
   background: var(--nav-bg);
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
   backdrop-filter: blur(20px) saturate(1.5);
