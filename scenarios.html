@@ -199,18 +199,19 @@
 <body>
   <div class="sc-bg"></div>
 
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <div class="brand">
-          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <div><strong>سايف ديجيتال</strong><span class="badge">Scenarios</span></div>
-        </div>
-        <button id="themeToggle" type="button">
-          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
-        </button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong><span class="badge">Scenarios</span></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -220,8 +221,8 @@
         <a href="resources.html">موارد</a>
         <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
-      </nav>
       </nav>
     </div>
   </header>
@@ -270,7 +271,7 @@
         <p class="sf-msg" id="sfMsg">—</p>
         <div class="sf-actions">
           <a class="btn-sf outline" href="learn.html">📘 الدروس</a>
-          <a class="btn-sf outline" href="quiz.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الاختبار</a>
+          <a class="btn-sf outline" href="quiz.html">🔒 الاختبار</a>
           <button class="btn-sf" id="sfRestart" type="button">🔄 أعد السيناريوهات</button>
         </div>
       </div>
@@ -278,7 +279,7 @@
 
     <footer class="footer" style="max-width:720px;margin:0 auto;">
       <div class="footer-content">
-        <div class="small"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> تعلّم من المواقف لتفادي الأخطاء الواقعية.</div>
+        <div class="small">🎯 تعلّم من المواقف لتفادي الأخطاء الواقعية.</div>
         <div class="footer-links">
           <a href="policies.html">سياسة الخصوصية</a>
           <a href="contact.html">تواصل معنا</a>
@@ -321,15 +322,15 @@
   })();
 
   const SCENES=[
-    {icon:"📱",tag:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",title:"رسالة واتساب: ربحت جائزة من البنك!",
+    {icon:"📱",tag:"🎯 التصيّد",title:"رسالة واتساب: ربحت جائزة من البنك!",
      desc:"وصلتك رسالة من رقم مجهول تدّعي أنك ربحت جائزة مالية كبيرة من بنكك، مع رابط لاستلامها فوراً.",
      opts:[{t:"أضغط الرابط فوراً لأنها فرصة",c:false},{t:"أتجاهل الرسالة وأحذفها",c:true},{t:"أرسل بياناتي عبر الرسالة",c:false}],
      tip:"البنوك لا ترسل جوائز عبر واتساب. الروابط المجهولة قد تسرق بياناتك أو تنصب برامج خبيثة."},
-    {icon:"🧑‍💼",tag:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> الهندسة الاجتماعية",title:"موظف الدعم الفني يطلب رمز OTP",
+    {icon:"🧑‍💼",tag:"🎭 الهندسة الاجتماعية",title:"موظف الدعم الفني يطلب رمز OTP",
      desc:"اتصل بك شخص يدّعي أنه من فريق دعم بنكك، وقال إن حسابك تعرّض لمحاولة اختراق ويحتاج رمز التحقق لتأكيد هويتك.",
      opts:[{t:"أعطيه الرمز لأنه يقول بنك",c:false},{t:"أرفض وأغلق وأتصل بالبنك رسمياً",c:true}],
      tip:"الموظف الحقيقي لا يطلب OTP أبداً. أغلق الخط واتصل بالرقم الرسمي على ظهر البطاقة."},
-    {icon:"📧",tag:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",title:"إيميل من 'أمازون' يطلب تحديث بطاقتك",
+    {icon:"📧",tag:"🎯 التصيّد",title:"إيميل من 'أمازون' يطلب تحديث بطاقتك",
      desc:"وصلك إيميل يبدو أنه من Amazon يقول إن طلبك أُوقف وتحتاج تحديث بيانات بطاقتك عبر رابط مرفق.",
      opts:[{t:"أضغط الرابط وأحدّث البطاقة",c:false},{t:"أفحص المُرسِل وأدخل أمازون يدوياً",c:true},{t:"أرسل بيانات البطاقة رداً",c:false}],
      tip:"افحص عنوان المُرسِل دائماً. ادخل الموقع الرسمي يدوياً بدل الضغط على روابط الإيميل."},
@@ -345,11 +346,11 @@
      desc:"سجّلت في تطبيق جديد وظهر حقل يطلب منك كتابة كلمة مرور Gmail مباشرة في الموقع.",
      opts:[{t:"أكتبها لأن التطبيق يطلبها",c:false},{t:"أرفض — التطبيقات الحقيقية تستخدم OAuth",c:true}],
      tip:"لا تطبيق شرعي يطلب كلمة مرور حساب آخر مباشرة. استخدم دائماً 'تسجيل الدخول بـ Google'."},
-    {icon:"📱",tag:"<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية",title:"تطبيق مصباح يطلب جهات الاتصال والموقع",
+    {icon:"📱",tag:"🔒 الخصوصية",title:"تطبيق مصباح يطلب جهات الاتصال والموقع",
      desc:"حمّلت تطبيق مصباح وعند فتحه طلب صلاحية جهات الاتصال والموقع والميكروفون.",
      opts:[{t:"أوافق على الكل عشان يشتغل",c:false},{t:"أرفض الصلاحيات الزائدة أو أحذف التطبيق",c:true}],
      tip:"تطبيق المصباح لا يحتاج هذه الصلاحيات. الطلبات الزائدة علامة تطبيق مشبوه."},
-    {icon:"🛒",tag:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",title:"SMS: طردك بالجمارك — ادفع 15 ريال",
+    {icon:"🛒",tag:"🎯 التصيّد",title:"SMS: طردك بالجمارك — ادفع 15 ريال",
      desc:"وصلتك رسالة SMS تقول إن طرداً باسمك محتجز في الجمارك ويحتاج دفع رسوم 15 ريال عبر رابط مرفق.",
      opts:[{t:"أضغط الرابط وأدفع المبلغ الصغير",c:false},{t:"أتجاهل وأتحقق من الجمارك رسمياً",c:true},{t:"أرسل بيانات بطاقتي",c:false}],
      tip:"هذا 'Smishing' — تصيّد عبر SMS. الجمارك لا تطلب مدفوعات عبر رسائل نصية."}
@@ -428,7 +429,7 @@
     saveScenarioResult(scScore, SCENES.length);
     const pct=Math.round(scScore/SCENES.length*100);
     let lvl,msg,col;
-    if(pct>=88){lvl="وعيك الأمني ممتاز <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg>";msg="أنت على دراية عالية بالتهديدات الرقمية — شارك الموقع!";col="var(--accent2)";}
+    if(pct>=88){lvl="وعيك الأمني ممتاز 👑";msg="أنت على دراية عالية بالتهديدات الرقمية — شارك الموقع!";col="var(--accent2)";}
     else if(pct>=63){lvl="جيد جداً ✅";msg="وعيك جيد — راجع المواقف اللي أخطأت فيها.";col="#6aa6ff";}
     else{lvl="تحتاج مزيداً من التعلّم 💪";msg="لا بأس — راجع صفحة تعلّم وأعد المحاولة!";col="#ffb347";}
     $("sfLevel").textContent=lvl;$("sfLevel").style.color=col;

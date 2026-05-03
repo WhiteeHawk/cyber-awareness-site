@@ -64,25 +64,26 @@
       background:var(--item-bg); text-align:center; transition:.2s;
     }
     .summary-item:hover { border-color:var(--accent2); transform:translateY(-2px); }
-    .summary-item .s-icon { font-size:26px; margin-bottom:6px; }
+    .summary-item .s-icon { width:26px;height:26px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;color:var(--accent); }
     .summary-item h4 { margin:0 0 4px; font-size:14px; color:var(--text); }
     .summary-item p  { margin:0; font-size:12px; color:var(--muted); }
   </style>
 </head>
 
 <body>
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <div class="brand">
-          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <div><strong>سايف ديجيتال</strong><span class="badge">Learn</span></div>
-        </div>
-        <button id="themeToggle" type="button" aria-label="تبديل الوضع">
-          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
-        </button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong><span class="badge">Learn</span></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html" class="active">تعلّم</a>
@@ -92,6 +93,7 @@
         <a href="resources.html">مصادر</a>
         <a href="policies.html">تلخيص سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
       </nav>
     </div>
@@ -103,13 +105,13 @@
     <section class="card pad" style="margin-bottom:18px;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;">
         <div>
-          <h1>التعلّم السريع 💡</h1>
+          <h1 style="display:flex;align-items:center;gap:10px;">التعلّم السريع <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></h1>
           <p style="max-width:560px;">اختر المحور اللي يهمك — ستجد تعريفاً مبسطاً، نصائح قابلة للتطبيق، وأمثلة واقعية.</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
             <span class="tag">8 محاور</span>
             <span class="tag">نصائح فورية</span>
             <span class="tag">أمثلة واقعية</span>
-          </div>
+          </div></div>
         </div>
         <div style="text-align:center;padding:12px 22px;border:1px solid var(--border);border-radius:14px;background:var(--item-bg);flex-shrink:0;">
           <strong style="font-size:30px;color:var(--accent2);" id="readCount">0</strong><span style="font-size:18px;color:var(--muted);">/8</span>
@@ -124,14 +126,14 @@
       </div>
 
       <div class="topic-tabs" id="topicTabs">
-        <button class="topic-tab active" data-topic="phishing"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد</button>
-        <button class="topic-tab" data-topic="password">🔐 كلمات المرور</button>
-        <button class="topic-tab" data-topic="wifi">📶 Wi-Fi</button>
-        <button class="topic-tab" data-topic="privacy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية</button>
-        <button class="topic-tab" data-topic="updates">⏫ التحديثات</button>
-        <button class="topic-tab" data-topic="cloud">☁️ السحابة</button>
-        <button class="topic-tab" data-topic="social">🧠 الهندسة الاجتماعية</button>
-        <button class="topic-tab" data-topic="malware">🦠 البرمجيات الخبيثة</button>
+        <button class="topic-tab active" data-topic="phishing" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد</button>
+        <button class="topic-tab" data-topic="password" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> كلمات المرور</button>
+        <button class="topic-tab" data-topic="wifi" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Wi-Fi</button>
+        <button class="topic-tab" data-topic="privacy" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية</button>
+        <button class="topic-tab" data-topic="updates" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg> التحديثات</button>
+        <button class="topic-tab" data-topic="cloud" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> السحابة</button>
+        <button class="topic-tab" data-topic="social" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.97-3.14 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-3.08A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.97-3.14 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-3.08A2.5 2.5 0 0 0 14.5 2z"/></svg> الهندسة الاجتماعية</button>
+        <button class="topic-tab" data-topic="malware" style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg> البرمجيات الخبيثة</button>
       </div>
     </section>
 
@@ -139,30 +141,30 @@
     <div class="topic-panel show" id="panel-phishing">
       <div class="topic-hero">
         <div class="card pad">
-          <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد (Phishing)</h2>
+          <h2 style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد (Phishing)</h2>
           <p>محاولات خداع عبر رسائل أو روابط مزيفة تنتحل هوية جهات موثوقة لسرقة بياناتك.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:90%;background:#ff6a6a;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> رسالة من "البنك" تقول "حسابك سيُغلق خلال 24 ساعة — اضغط هنا". الرابط يؤدي لموقع مزيف يسرق بياناتك.</div>
-          <a href="quiz.html" class="btn primary" style="margin-top:10px;">اختبر نفسك <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></a>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> رسالة من "البنك" تقول "حسابك سيُغلق خلال 24 ساعة — اضغط هنا". الرابط يؤدي لموقع مزيف يسرق بياناتك.</div></div>
+          <a href="quiz.html" class="btn primary" style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;">اختبر نفسك <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></a>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تكتشف التصيّد؟</h3>
-          <div class="tip-card"><div class="tip-icon">🔗</div><div class="tip-text"><h4>افحص الدومين بدقة</h4><p>مثال: <code>paypa1.com</code> بدل <code>paypal.com</code> — حرف واحد يفرق.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-text"><h4>تجاهل رسائل الاستعجال</h4><p>"حسابك بيتقفل الآن!" — المؤسسات الحقيقية لا تستعجلك هكذا.</p></div></div>
-          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="tip-text"><h4>لا تعطِ OTP لأحد أبداً</h4><p>حتى لو قال إنه من البنك — OTP سري تماماً.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-text"><h4>ادخل للمواقع يدوياً</h4><p>اكتب عنوان الموقع الرسمي في المتصفح مباشرة بدل الضغط على الرابط.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><div class="tip-text"><h4>افحص الدومين بدقة</h4><p>مثال: <code>paypa1.com</code> بدل <code>paypal.com</code> — حرف واحد يفرق.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="tip-text"><h4>تجاهل رسائل الاستعجال</h4><p>"حسابك بيتقفل الآن!" — المؤسسات الحقيقية لا تستعجلك هكذا.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="tip-text"><h4>لا تعطِ OTP لأحد أبداً</h4><p>حتى لو قال إنه من البنك — OTP سري تماماً.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="tip-text"><h4>ادخل للمواقع يدوياً</h4><p>اكتب عنوان الموقع الرسمي في المتصفح مباشرة بدل الضغط على الرابط.</p></div></div></div>
         </div>
       </div>
       <div class="card pad">
-        <h3 style="margin-bottom:14px;color:var(--accent2);">⚠️ أنواع التصيّد الشائعة</h3>
+        <h3 style="margin-bottom:14px;color:var(--accent2);display:flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> أنواع التصيّد الشائعة</h3>
         <div class="summary-grid">
-          <div class="summary-item"><div class="s-icon">📧</div><h4>Email Phishing</h4><p>بريد إلكتروني مزيف من جهات تبدو موثوقة</p></div>
-          <div class="summary-item"><div class="s-icon">📱</div><h4>Smishing</h4><p>تصيّد عبر SMS أو واتساب</p></div>
-          <div class="summary-item"><div class="s-icon">📞</div><h4>Vishing</h4><p>مكالمات هاتفية من "موظفين" وهميين</p></div>
-          <div class="summary-item"><div class="s-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h4>Spear Phishing</h4><p>هجوم موجّه لشخص بعينه بمعلومات شخصية</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><h4>Email Phishing</h4><p>بريد إلكتروني مزيف من جهات تبدو موثوقة</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><h4>Smishing</h4><p>تصيّد عبر SMS أو واتساب</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 2 2 0 0 1 3.6 2.4h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.87-1.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><h4>Vishing</h4><p>مكالمات هاتفية من "موظفين" وهميين</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h4>Spear Phishing</h4><p>هجوم موجّه لشخص بعينه بمعلومات شخصية</p></div></div>
         </div>
       </div>
     </div>
@@ -171,30 +173,30 @@
     <div class="topic-panel" id="panel-password">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>🔐 كلمات المرور</h2>
+          <h2 style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> كلمات المرور</h2>
           <p>كلمة مرور قوية وفريدة لكل حساب هي أقوى خط دفاع ضد الاختراق.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">خطر الإهمال: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:88%;background:#ff6a6a;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> في 2024 تسرّبت ملايين كلمات المرور. من كرّر نفس الكلمة خسر كل حساباته دفعة واحدة.</div>
-          <a href="tools.html" class="btn primary" style="margin-top:10px;">جرّب مولّد كلمات المرور <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></a>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> في 2024 تسرّبت ملايين كلمات المرور. من كرّر نفس الكلمة خسر كل حساباته دفعة واحدة.</div></div>
+          <a href="tools.html" class="btn primary" style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;">جرّب مولّد كلمات المرور <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></a>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي كلمات مرورك؟</h3>
-          <div class="tip-card"><div class="tip-icon">📏</div><div class="tip-text"><h4>أطوَل = أقوى</h4><p>12 حرف كحد أدنى — جملة طويلة أفضل من كلمة معقدة قصيرة.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🎲</div><div class="tip-text"><h4>كلمة فريدة لكل حساب</h4><p>لا تكرر — لو تسرّب موقع واحد ينهار الكل.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🗝️</div><div class="tip-text"><h4>استخدم Password Manager</h4><p>مثل Bitwarden أو 1Password — يحفظها ويولّدها عنك.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📲</div><div class="tip-text"><h4>فعّل MFA دائماً</h4><p>يحميك حتى لو سُرقت كلمة المرور.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7l-1 1L18 7.4l1-1a1 1 0 0 1 1.4 0l.9.9a1 1 0 0 1 0 1.4z"/><path d="M3.7 15.3L15.3 3.7l4 4L7.7 19.3l-5 1 1-5z"/></svg></div><div class="tip-text"><h4>أطوَل = أقوى</h4><p>12 حرف كحد أدنى — جملة طويلة أفضل من كلمة معقدة قصيرة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><line x1="8" y1="8" x2="8.01" y2="8"/><line x1="16" y1="8" x2="16.01" y2="8"/><line x1="8" y1="16" x2="8.01" y2="16"/><line x1="16" y1="16" x2="16.01" y2="16"/><line x1="12" y1="12" x2="12.01" y2="12"/></svg></div><div class="tip-text"><h4>كلمة فريدة لكل حساب</h4><p>لا تكرر — لو تسرّب موقع واحد ينهار الكل.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></div><div class="tip-text"><h4>استخدم Password Manager</h4><p>مثل Bitwarden أو 1Password — يحفظها ويولّدها عنك.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div class="tip-text"><h4>فعّل MFA دائماً</h4><p>يحميك حتى لو سُرقت كلمة المرور.</p></div></div></div>
         </div>
       </div>
       <div class="card pad">
-        <h3 style="margin-bottom:14px;color:var(--accent2);">✅ معيار كلمة المرور القوية</h3>
+        <h3 style="margin-bottom:14px;color:var(--accent2);display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> معيار كلمة المرور القوية</h3>
         <div class="summary-grid">
-          <div class="summary-item"><div class="s-icon">📏</div><h4>12+ حرف</h4><p>الطول أهم عامل</p></div>
-          <div class="summary-item"><div class="s-icon">🔡</div><h4>أحرف كبيرة وصغيرة</h4><p>تنويع يزيد الصعوبة</p></div>
-          <div class="summary-item"><div class="s-icon">🔢</div><h4>أرقام ورموز</h4><p>أضف ! @ # $ للتقوية</p></div>
-          <div class="summary-item"><div class="s-icon">🚫</div><h4>تجنب المعلومات الشخصية</h4><p>اسمك وتاريخ ميلادك سهل التخمين</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 8.7l-1 1L18 7.4l1-1a1 1 0 0 1 1.4 0l.9.9a1 1 0 0 1 0 1.4z"/><path d="M3.7 15.3L15.3 3.7l4 4L7.7 19.3l-5 1 1-5z"/></svg></div><h4>12+ حرف</h4><p>الطول أهم عامل</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div><h4>أحرف كبيرة وصغيرة</h4><p>تنويع يزيد الصعوبة</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><h4>أرقام ورموز</h4><p>أضف ! @ # $ للتقوية</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><h4>تجنب المعلومات الشخصية</h4><p>اسمك وتاريخ ميلادك سهل التخمين</p></div></div>
         </div>
       </div>
     </div>
@@ -203,20 +205,20 @@
     <div class="topic-panel" id="panel-wifi">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>📶 Wi-Fi وأمان الشبكات</h2>
+          <h2 style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Wi-Fi وأمان الشبكات</h2>
           <p>الشبكات العامة قد تكون مراقَبة أو مزيفة — بياناتك تمر عليها بدون تشفير.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">خطر الشبكات العامة: <strong style="color:#ffb347;">متوسط-مرتفع</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:70%;background:#ffb347;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> مهاجم في مقهى يُنشئ شبكة "CafeWiFi_Free" — كل من يتصل يمر حركة بياناته عبر جهازه.</div>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> مهاجم في مقهى يُنشئ شبكة "CafeWiFi_Free" — كل من يتصل يمر حركة بياناته عبر جهازه.</div></div>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي نفسك؟</h3>
-          <div class="tip-card"><div class="tip-icon">🚫</div><div class="tip-text"><h4>تجنب العمليات الحساسة</h4><p>لا تدخل على البنك أو البريد على شبكة عامة.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🔐</div><div class="tip-text"><h4>استخدم VPN</h4><p>يشفّر بياناتك — مثل Mullvad أو ProtonVPN.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">✅</div><div class="tip-text"><h4>تحقق من اسم الشبكة</h4><p>اسأل الموظف عن الاسم الرسمي قبل الاتصال.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📡</div><div class="tip-text"><h4>فضّل بيانات الجوال</h4><p>أكثر أماناً من شبكات مجهولة المصدر.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="tip-text"><h4>تجنب العمليات الحساسة</h4><p>لا تدخل على البنك أو البريد على شبكة عامة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="tip-text"><h4>استخدم VPN</h4><p>يشفّر بياناتك — مثل Mullvad أو ProtonVPN.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="tip-text"><h4>تحقق من اسم الشبكة</h4><p>اسأل الموظف عن الاسم الرسمي قبل الاتصال.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div><div class="tip-text"><h4>فضّل بيانات الجوال</h4><p>أكثر أماناً من شبكات مجهولة المصدر.</p></div></div></div>
         </div>
       </div>
     </div>
@@ -225,20 +227,20 @@
     <div class="topic-panel" id="panel-privacy">
       <div class="topic-hero">
         <div class="card pad">
-          <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية الرقمية</h2>
+          <h2 style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية الرقمية</h2>
           <p>بياناتك الشخصية لها قيمة — التحكم فيها حق أساسي يحميك من الاستغلال.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">تأثير الإهمال: <strong style="color:#ffb347;">مرتفع</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:75%;background:#ffb347;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> تطبيق ألعاب يطلب صلاحية الميكروفون والموقع — هذه البيانات تُباع لشركات إعلانية.</div>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> تطبيق ألعاب يطلب صلاحية الميكروفون والموقع — هذه البيانات تُباع لشركات إعلانية.</div></div>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">خطوات عملية</h3>
-          <div class="tip-card"><div class="tip-icon">📋</div><div class="tip-text"><h4>راجع صلاحيات التطبيقات</h4><p>الإعدادات ← التطبيقات ← الصلاحيات — كل أسبوع.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📍</div><div class="tip-text"><h4>أوقف تتبع الموقع</h4><p>فعّله فقط للتطبيقات اللي تحتاجه مثل الخرائط.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🍪</div><div class="tip-text"><h4>لا تقبل كل الكوكيز</h4><p>اختر "الضروري فقط" — الكوكيز الإعلانية تتبع تصفحك.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">👤</div><div class="tip-text"><h4>قلّل ما تنشره علناً</h4><p>معلوماتك في السوشيال ميديا تُستخدم في الهندسة الاجتماعية.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div><div class="tip-text"><h4>راجع صلاحيات التطبيقات</h4><p>الإعدادات ← التطبيقات ← الصلاحيات — كل أسبوع.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="tip-text"><h4>أوقف تتبع الموقع</h4><p>فعّله فقط للتطبيقات اللي تحتاجه مثل الخرائط.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/></svg></div><div class="tip-text"><h4>لا تقبل كل الكوكيز</h4><p>اختر "الضروري فقط" — الكوكيز الإعلانية تتبع تصفحك.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="tip-text"><h4>قلّل ما تنشره علناً</h4><p>معلوماتك في السوشيال ميديا تُستخدم في الهندسة الاجتماعية.</p></div></div></div>
         </div>
       </div>
     </div>
@@ -247,20 +249,20 @@
     <div class="topic-panel" id="panel-updates">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>⏫ التحديثات الأمنية</h2>
+          <h2 style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg> التحديثات الأمنية</h2>
           <p>التحديثات ليست مميزات فقط — هي إصلاحات لثغرات يستغلها المهاجمون.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">خطر عدم التحديث: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:85%;background:#ff6a6a;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> هجوم WannaCry 2017 أصاب 200,000 جهاز في 150 دولة — كلها تشغّل ويندوز قديم لم يُحدَّث.</div>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> هجوم WannaCry 2017 أصاب 200,000 جهاز في 150 دولة — كلها تشغّل ويندوز قديم لم يُحدَّث.</div></div>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">ماذا تحدّث؟</h3>
-          <div class="tip-card"><div class="tip-icon">💻</div><div class="tip-text"><h4>نظام التشغيل أولاً</h4><p>Windows / macOS / iOS / Android — فعّل التحديث التلقائي.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-text"><h4>المتصفح دائماً</h4><p>Chrome و Firefox يُصدران تحديثات أمنية كل أسبوعين.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📡</div><div class="tip-text"><h4>الراوتر لا تنساه</h4><p>تحقق من التحديثات مرة كل شهر.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-text"><h4>التطبيقات أيضاً</h4><p>فعّل التحديث التلقائي من المتجر.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="tip-text"><h4>نظام التشغيل أولاً</h4><p>Windows / macOS / iOS / Android — فعّل التحديث التلقائي.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="tip-text"><h4>المتصفح دائماً</h4><p>Chrome و Firefox يُصدران تحديثات أمنية كل أسبوعين.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div><div class="tip-text"><h4>الراوتر لا تنساه</h4><p>تحقق من التحديثات مرة كل شهر.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div class="tip-text"><h4>التطبيقات أيضاً</h4><p>فعّل التحديث التلقائي من المتجر.</p></div></div></div>
         </div>
       </div>
     </div>
@@ -269,20 +271,20 @@
     <div class="topic-panel" id="panel-cloud">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>☁️ الأمان السحابي</h2>
+          <h2 style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> الأمان السحابي</h2>
           <p>التخزين السحابي مريح لكن خطأ واحد في الإعداد يكشف ملفاتك للعالم.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">خطر الإعداد الخاطئ: <strong style="color:#ffb347;">مرتفع</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:72%;background:#ffb347;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> شركات تركت قواعد بيانات AWS "مفتوحة للعموم" بالخطأ — وتسرّبت بيانات ملايين العملاء.</div>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> شركات تركت قواعد بيانات AWS "مفتوحة للعموم" بالخطأ — وتسرّبت بيانات ملايين العملاء.</div></div>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تأمن ملفاتك السحابية؟</h3>
-          <div class="tip-card"><div class="tip-icon">🔐</div><div class="tip-text"><h4>راجع إعدادات المشاركة</h4><p>تأكد أن ملفاتك "خاصة" وليست "عامة".</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🔔</div><div class="tip-text"><h4>فعّل تنبيهات تسجيل الدخول</h4><p>لو دخل أحد غيرك ستعرف فوراً.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">👥</div><div class="tip-text"><h4>راجع قائمة من لديه صلاحية</h4><p>احذف الصلاحيات القديمة لأشخاص لم تعد تتعامل معهم.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📂</div><div class="tip-text"><h4>لا تشارك روابط "للجميع"</h4><p>فضّل المشاركة بالبريد بدل الرابط العام.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="tip-text"><h4>راجع إعدادات المشاركة</h4><p>تأكد أن ملفاتك "خاصة" وليست "عامة".</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="tip-text"><h4>فعّل تنبيهات تسجيل الدخول</h4><p>لو دخل أحد غيرك ستعرف فوراً.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="tip-text"><h4>راجع قائمة من لديه صلاحية</h4><p>احذف الصلاحيات القديمة لأشخاص لم تعد تتعامل معهم.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div class="tip-text"><h4>لا تشارك روابط "للجميع"</h4><p>فضّل المشاركة بالبريد بدل الرابط العام.</p></div></div></div>
         </div>
       </div>
     </div>
@@ -291,20 +293,20 @@
     <div class="topic-panel" id="panel-social">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>🧠 الهندسة الاجتماعية</h2>
+          <h2 style="display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.97-3.14 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-3.08A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.97-3.14 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-3.08A2.5 2.5 0 0 0 14.5 2z"/></svg> الهندسة الاجتماعية</h2>
           <p>أخطر أنواع الهجمات — لا تحتاج تقنية، تستغل ثقتك وعواطفك فقط.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">الأعلى</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:95%;background:linear-gradient(90deg,#ff6a6a,#ff4444);"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> موظف يعطي "الدعم الفني" كلمة مرور بعد محادثة ودية — المهاجم بنى ثقة بالكلام فقط، بدون أي اختراق تقني.</div>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> موظف يعطي "الدعم الفني" كلمة مرور بعد محادثة ودية — المهاجم بنى ثقة بالكلام فقط، بدون أي اختراق تقني.</div></div>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تتعرف عليها؟</h3>
-          <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-text"><h4>الاستعجال المصطنع</h4><p>"الآن فقط!" — مصمم لمنعك من التفكير.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🎁</div><div class="tip-text"><h4>العروض المغرية جداً</h4><p>ربحت جائزة؟ — تحقق قبل أي خطوة.</p></div></div>
-          <div class="tip-card"><div class="tip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div class="tip-text"><h4>انتحال الهوية</h4><p>يدّعي أنه من IT أو البنك — تحقق من هويته بشكل مستقل.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">💭</div><div class="tip-text"><h4>القاعدة الذهبية</h4><p>لو شعرت بضغط للتصرف بسرعة — توقف، تنفّس، تحقق.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="tip-text"><h4>الاستعجال المصطنع</h4><p>"الآن فقط!" — مصمم لمنعك من التفكير.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div><div class="tip-text"><h4>العروض المغرية جداً</h4><p>ربحت جائزة؟ — تحقق قبل أي خطوة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div class="tip-text"><h4>انتحال الهوية</h4><p>يدّعي أنه من IT أو البنك — تحقق من هويته بشكل مستقل.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="tip-text"><h4>القاعدة الذهبية</h4><p>لو شعرت بضغط للتصرف بسرعة — توقف، تنفّس، تحقق.</p></div></div></div>
         </div>
       </div>
     </div>
@@ -313,36 +315,36 @@
     <div class="topic-panel" id="panel-malware">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>🦠 البرمجيات الخبيثة (Malware)</h2>
+          <h2 style="display:flex;align-items:center;gap:10px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg> البرمجيات الخبيثة (Malware)</h2>
           <p>برامج مصممة للتجسس أو التدمير أو الابتزاز — تدخل جهازك بطرق غير متوقعة.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:88%;background:#ff6a6a;"></div></div>
           </div>
-          <div class="example-box">📌 <strong>مثال:</strong> Ransomware يشفّر كل ملفاتك ويطلب فدية بالبيتكوين — شركات كبرى دفعت ملايين لاستعادة بياناتها.</div>
+          <div class="example-box" style="display:flex;gap:8px;align-items:flex-start;"><span style="flex-shrink:0;margin-top:2px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>مثال:</strong> Ransomware يشفّر كل ملفاتك ويطلب فدية بالبيتكوين — شركات كبرى دفعت ملايين لاستعادة بياناتها.</div></div>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي نفسك؟</h3>
-          <div class="tip-card"><div class="tip-icon">📥</div><div class="tip-text"><h4>حمّل من مصادر رسمية فقط</h4><p>App Store / Play Store / المواقع الرسمية — لا روابط مجهولة.</p></div></div>
-          <div class="tip-card"><div class="tip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tip-text"><h4>فعّل مضاد الفيروسات</h4><p>Windows Defender كافٍ للأغلبية — حدّثه باستمرار.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">💾</div><div class="tip-text"><h4>احتفظ بنسخة احتياطية</h4><p>Backup منتظم على هارد خارجي — يحميك من Ransomware.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">📎</div><div class="tip-text"><h4>لا تفتح مرفقات مجهولة</h4><p>حتى من معارفك — حسابهم ممكن يكون مخترقاً.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><div class="tip-text"><h4>حمّل من مصادر رسمية فقط</h4><p>App Store / Play Store / المواقع الرسمية — لا روابط مجهولة.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tip-text"><h4>فعّل مضاد الفيروسات</h4><p>Windows Defender كافٍ للأغلبية — حدّثه باستمرار.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div><div class="tip-text"><h4>احتفظ بنسخة احتياطية</h4><p>Backup منتظم على هارد خارجي — يحميك من Ransomware.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div><div class="tip-text"><h4>لا تفتح مرفقات مجهولة</h4><p>حتى من معارفك — حسابهم ممكن يكون مخترقاً.</p></div></div></div>
         </div>
       </div>
       <div class="card pad">
-        <h3 style="margin-bottom:14px;color:var(--accent2);">🦠 أنواع Malware الشائعة</h3>
+        <h3 style="margin-bottom:14px;color:var(--accent2);display:flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg> أنواع Malware الشائعة</h3>
         <div class="summary-grid">
-          <div class="summary-item"><div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h4>Ransomware</h4><p>يشفّر ملفاتك ويطلب فدية</p></div>
-          <div class="summary-item"><div class="s-icon">👁️</div><h4>Spyware</h4><p>يتجسس على نشاطك وكلمات مرورك</p></div>
-          <div class="summary-item"><div class="s-icon">🐴</div><h4>Trojan</h4><p>يبدو برنامجاً شرعياً لكنه خبيث</p></div>
-          <div class="summary-item"><div class="s-icon">🤖</div><h4>Botnet</h4><p>يحوّل جهازك لأداة في شبكة هجمات</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h4>Ransomware</h4><p>يشفّر ملفاتك ويطلب فدية</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Spyware</h4><p>يتجسس على نشاطك وكلمات مرورك</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><line x1="12" y1="15" x2="12" y2="19"/></svg></div><h4>Trojan</h4><p>يبدو برنامجاً شرعياً لكنه خبيث</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/></svg></div><h4>Botnet</h4><p>يحوّل جهازك لأداة في شبكة هجمات</p></div></div>
         </div>
       </div>
     </div>
 
     <footer class="footer">
       <div class="footer-content">
-        <div class="small"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> بعد قراءة المحاور، جرّب <a href="quiz.html" class="accent">الاختبار</a> لتقييم وعيك السيبراني.</div>
+        <div class="small" style="display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> بعد قراءة المحاور، جرّب <a href="quiz.html" class="accent">الاختبار</a> لتقييم وعيك السيبراني.</div>
         <div class="footer-links">
           <a href="policies.html">سياسة الخصوصية</a>
           <a href="contact.html">تواصل معنا</a>
@@ -359,7 +361,7 @@
     const lbl=document.getElementById("themeLabel");
     function applyTheme(isDark){
       document.body.classList.toggle("light-mode",!isDark);
-      icon.textContent=isDark?"🌙":"☀️";
+      icon.innerHTML=isDark?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
       lbl.textContent=isDark?"ليلي":"صباحي";
       localStorage.setItem("sd-theme",isDark?"dark":"light");
     }

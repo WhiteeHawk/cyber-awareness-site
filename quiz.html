@@ -213,6 +213,59 @@
       animation: fadeUp .4s ease both;
     }
 
+
+    /* ══ اختيار المستوى ══ */
+    .level-select-card {
+      background: rgba(16,26,51,.9);
+      border: 1px solid rgba(106,166,255,.15);
+      border-radius: 24px; padding: 32px;
+      backdrop-filter: blur(14px);
+      position: relative; overflow: hidden;
+      animation: fadeUp .5s .1s ease both;
+      text-align: center;
+    }
+    .level-select-card::before {
+      content:''; position:absolute; top:0; right:0; left:0; height:2px;
+      background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+    }
+    .level-title { font-size:20px; font-weight:800; color:var(--text); margin:0 0 6px; }
+    .level-sub   { font-size:14px; color:var(--muted); margin:0 0 28px; }
+    .levels-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+    }
+    @media(max-width:480px){ .levels-grid{grid-template-columns:1fr;} }
+    .level-btn {
+      padding:20px 14px; border-radius:18px; cursor:pointer;
+      border:2px solid rgba(255,255,255,.07);
+      background:rgba(0,0,0,.2); transition:.25s;
+      display:flex; flex-direction:column; align-items:center; gap:10px;
+      font-family:var(--font);
+    }
+    .level-btn:hover { transform:translateY(-4px); }
+    .level-btn.beginner:hover,
+    .level-btn.beginner.sel { border-color:#4be39a; background:rgba(75,227,154,.08); }
+    .level-btn.medium:hover,
+    .level-btn.medium.sel   { border-color:#6aa6ff; background:rgba(106,166,255,.08); }
+    .level-btn.hard:hover,
+    .level-btn.hard.sel     { border-color:#ff6a6a; background:rgba(255,106,106,.08); }
+    .level-icon { font-size:32px; }
+    .level-name { font-size:16px; font-weight:700; color:var(--text); }
+    .level-desc { font-size:12px; color:var(--muted); }
+    .level-count{ font-size:11px; padding:3px 10px; border-radius:999px; border:1px solid var(--border); color:var(--muted); }
+    .start-quiz-btn {
+      margin-top:24px; width:100%; padding:14px;
+      border-radius:14px; border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(135deg,rgba(106,166,255,.22),rgba(124,240,214,.15));
+      color:var(--text); font-family:var(--font); font-size:16px; font-weight:700;
+      cursor:pointer; transition:.2s; display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .start-quiz-btn:hover { background:linear-gradient(135deg,rgba(106,166,255,.32),rgba(124,240,214,.22)); transform:translateY(-1px); }
+    .level-badge {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 12px; border-radius:999px; font-size:12px; font-weight:700;
+      margin-bottom:12px;
+    }
+
     .result-actions { display:flex;gap:10px;flex-wrap:wrap; }
     .btn-restart {
       flex:1;padding:13px;border-radius:12px;
@@ -238,18 +291,19 @@
 <body>
   <div class="quiz-bg"></div>
 
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <div class="brand">
-          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <div><strong>سايف ديجيتال</strong><span class="badge">Quiz</span></div>
-        </div>
-        <button id="themeToggle" type="button">
-          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
-        </button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong><span class="badge">Quiz</span></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -259,6 +313,7 @@
         <a href="resources.html">موارد</a>
         <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
       </nav>
     </div>
@@ -272,8 +327,43 @@
 
     <div class="quiz-wrap">
 
+      <!-- ══ اختيار المستوى ══ -->
+      <div class="level-select-card" id="levelCard">
+        <div class="level-title">اختر مستوى الاختبار</div>
+        <div class="level-sub">كل مستوى يقيس جانباً مختلفاً من وعيك الأمني</div>
+        <div class="levels-grid">
+          <button class="level-btn beginner" onclick="selectLevel('beginner')">
+            <div class="level-icon" style="color:#4be39a;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            <div class="level-name">مبتدئ</div>
+            <div class="level-desc">أساسيات الأمان اليومي</div>
+            <span class="level-count">10 أسئلة · 30 ثانية</span>
+          </button>
+          <button class="level-btn medium" onclick="selectLevel('medium')">
+            <div class="level-icon" style="color:#6aa6ff;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <div class="level-name">متوسط</div>
+            <div class="level-desc">تهديدات وتقنيات متقدمة</div>
+            <span class="level-count">10 أسئلة · 25 ثانية</span>
+          </button>
+          <button class="level-btn hard" onclick="selectLevel('hard')">
+            <div class="level-icon" style="color:#ff6a6a;">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="level-name">متقدم</div>
+            <div class="level-desc">سيناريوهات الخبراء</div>
+            <span class="level-count">10 أسئلة · 20 ثانية</span>
+          </button>
+        </div>
+        <button class="start-quiz-btn" id="startBtn" onclick="startQuiz()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> ابدأ الاختبار
+        </button>
+      </div>
+
       <!-- ══ بطاقة الاختبار ══ -->
-      <div class="quiz-card" id="quizCard">
+      <div class="quiz-card" id="quizCard" style="display:none;">
         <div class="qp-header">
           <div class="qp-info">
             <span class="qp-num">السؤال <strong id="qNum">1</strong><span style="color:var(--muted);font-size:14px;"> / 10</span></span>
@@ -315,6 +405,7 @@
               <span class="rsr-lbl" id="rsrLbl">0/10</span>
             </div>
           </div>
+          <div class="level-badge" id="resLevelBadge" style="display:none;"></div>
           <div class="result-level" id="resLevel">—</div>
           <div class="result-sub"  id="resSub">—</div>
         </div>
@@ -322,16 +413,16 @@
         <div class="result-tips" id="resTips"></div>
 
         <div class="result-actions">
-          <a class="btn-link" href="learn.html">📘 الدروس</a>
-          <a class="btn-link" href="scenarios.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> السيناريوهات</a>
-          <button class="btn-restart" id="restartBtn" type="button">🔄 أعد الاختبار</button>
+          <a class="btn-link" href="learn.html" style="display:inline-flex;align-items:center;gap:7px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> الدروس</a>
+          <a class="btn-link" href="scenarios.html" style="display:inline-flex;align-items:center;gap:7px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> السيناريوهات</a>
+          <button class="btn-restart" id="restartBtn" type="button" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> أعد الاختبار</button>
         </div>
       </div>
     </div>
 
     <footer class="footer" style="max-width:680px;margin:0 auto;">
       <div class="footer-content">
-        <div class="small">📘 لأغراض التوعية فقط.</div>
+        <div class="small" style="display:flex;align-items:center;gap:6px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> لأغراض التوعية فقط.</div>
         <div class="footer-links">
           <a href="policies.html">سياسة الخصوصية</a>
           <a href="contact.html">تواصل معنا</a>
@@ -363,7 +454,8 @@
         user_id: session.user.id,
         score, total,
         percentage: pct,
-        missed_tips: missed
+        missed_tips: missed,
+        level: CURRENT_LEVEL
       });
     }catch(e){ console.log("save failed", e); }
   }
@@ -376,32 +468,86 @@
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
 
-  const Q=[
-    {q:"وصلك إيميل: حسابك بيتقفل خلال ساعة، مع رابط. وش أفضل تصرف؟",a:["أضغط الرابط بسرعة","أدخل الموقع الرسمي يدوياً","أرسل بياناتي للدعم"],c:1,cat:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",tip:"رسائل الاستعجال = تصيّد. ادخل الموقع الرسمي يدوياً دائماً."},
-    {q:"أفضل كلمة مرور؟",a:["12345678","A1b2!","جملة طويلة وفريدة لكل حساب"],c:2,cat:"🔐 كلمات المرور",tip:"الأطول + الفريد أفضل. استخدم مدير كلمات مرور."},
-    {q:"التحقق الثنائي (MFA) يفيد لأنه:",a:["يزيد سرعة الدخول","يحمي حتى لو انسرقت كلمة المرور","يمنع التحديثات"],c:1,cat:"🔐 كلمات المرور",tip:"MFA يحميك حتى لو كلمة المرور تسربت."},
-    {q:"شبكة Wi-Fi عامة بدون كلمة مرور. التصرف الصحيح؟",a:["أسجل دخول البنك عادي","أتجنب الحساسات وأستخدم VPN","أرسل ملفات مهمة"],c:1,cat:"📶 Wi-Fi",tip:"الشبكات العامة مراقبة — استخدم VPN إذا اضطررت."},
-    {q:"أي علامة تدل على رابط مشبوه؟",a:["دومين غريب مثل paypa1.com","وجود https فقط","فيه اسم الشركة"],c:0,cat:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",tip:"الدومين هو الأهم — لا تعتمد على https أو التصميم وحده."},
-    {q:"أفضل سياسة للتحديثات؟",a:["أحدّث أول بأول","ما أحدّث أبداً","أحدّث كل سنتين"],c:0,cat:"⏫ التحديثات",tip:"التحديثات تسد الثغرات قبل أن تُستغل."},
-    {q:"وش معنى Password Reuse؟",a:["تغيير كلمة المرور كثير","نفس كلمة المرور في أكثر من موقع","نسيان كلمة المرور"],c:1,cat:"🔐 كلمات المرور",tip:"إعادة استخدام كلمة المرور يعرض كل حساباتك للخطر."},
-    {q:"برنامج طلب صلاحية موقع وصور بدون سبب:",a:["أعطيه كل شيء","أرفض أو أقلل الصلاحيات","أرسلها لصديقي"],c:1,cat:"<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية",tip:"قلل الصلاحيات لأقل حد ممكن دائماً."},
-    {q:"وصلك OTP من البنك، وشخص يطلبه للتأكيد:",a:["أعطيه لأنه يقول بنك","أرفض — OTP سري لا يُطلب","أرسله ثم أغير كلمة المرور"],c:1,cat:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",tip:"OTP لا تشاركه أبداً — حتى لو ادّعى أنه من البنك."},
-    {q:"أفضل طريقة لتخزين كلمات المرور؟",a:["ملاحظات الجوال","Password Manager + MFA","ورقة تحت الكيبورد"],c:1,cat:"🔐 كلمات المرور",tip:"مدير كلمات المرور + MFA = الأكثر أماناً وسهولة."}
-  ];
+  /* ══ بنك الأسئلة — 3 مستويات ══ */
+  const QUESTIONS = {
+    beginner: [
+      {q:"وصلك إيميل يقول 'حسابك سيُغلق خلال ساعة' مع رابط. وش تسوي؟",a:["أضغط الرابط فوراً","أدخل الموقع الرسمي يدوياً بالمتصفح","أرسل بياناتي لدعم العملاء"],c:1,cat:"التصيّد",tip:"رسائل الاستعجال علامة تصيّد. ادخل الموقع الرسمي يدوياً دائماً."},
+      {q:"أي كلمة مرور أقوى؟",a:["Ahmed1990!","Tr0ub4dor&3","جملة_طويلة_فريدة_لهذا_الحساب!"],c:2,cat:"كلمات المرور",tip:"الطول أهم من التعقيد. جملة طويلة فريدة لكل حساب هي المعيار الذهبي."},
+      {q:"التحقق الثنائي (2FA) يحميك لأنه:",a:["يجعل الدخول أسرع","يحمي حسابك حتى لو سُرقت كلمة مرورك","يمنع التحديثات التلقائية"],c:1,cat:"كلمات المرور",tip:"2FA يعني أن سرقة كلمة المرور وحدها لا تكفي للاختراق."},
+      {q:"وجدت شبكة Wi-Fi مجانية في المقهى. وش تتجنب؟",a:["تشغيل يوتيوب","الدخول على حساب البنك","قراءة الأخبار"],c:1,cat:"Wi-Fi",tip:"الشبكات العامة قد تكون مراقبة. تجنب العمليات الحساسة أو استخدم VPN."},
+      {q:"أيٍّ من هذه علامة رابط مزيف؟",a:["https://paypa1.com","https://paypal.com","paypal.com/login"],c:0,cat:"التصيّد",tip:"حرف واحد مختلف في الدومين يكشف التزوير. افحص الدومين بدقة."},
+      {q:"لماذا تهم التحديثات الأمنية؟",a:["لإضافة ميزات جديدة فقط","لسد ثغرات يستغلها المهاجمون","لتحسين سرعة الجهاز فقط"],c:1,cat:"التحديثات",tip:"معظم الاختراقات تستغل ثغرات في برامج قديمة. حدّث فوراً."},
+      {q:"صديق يطلب OTP وصلك من البنك 'للتأكيد'. وش تسوي؟",a:["أعطيه — هو صديق موثوق","أرفض — OTP سري ولا يُعطى لأحد أبداً","أرسله وأبلّغ البنك لاحقاً"],c:1,cat:"التصيّد",tip:"OTP كلمة سر مؤقتة. لا تشاركها حتى مع أشخاص تثق بهم."},
+      {q:"تطبيق ألعاب يطلب صلاحية 'الميكروفون'. وش تسوي؟",a:["أوافق — اللعبة تحتاجه","أرفض إذا لم يكن ضرورياً للعبة","أعطيه كل الصلاحيات"],c:1,cat:"الخصوصية",tip:"اسأل نفسك: لماذا يحتاج هذا التطبيق هذه الصلاحية؟ قلل الصلاحيات دائماً."},
+      {q:"أفضل طريقة لحفظ كلمات المرور؟",a:["ملف على سطح المكتب","Password Manager مشفّر","نفس الكلمة لكل المواقع"],c:1,cat:"كلمات المرور",tip:"مدير كلمات المرور يحفظ ويولد كلمات قوية فريدة لكل موقع."},
+      {q:"رسالة واتساب من رقم مجهول: 'ربحت جائزة! أرسل بياناتك'. وش تفعل؟",a:["أرسل البيانات — قد تكون حقيقية","أتجاهل وأحذف وأبلّغ عن الرقم","أطلب المزيد من التفاصيل"],c:1,cat:"التصيّد",tip:"الجوائز المجانية من أرقام مجهولة دائماً احتيال. لا تتفاعل معها."}
+    ],
+    medium: [
+      {q:"ما الفرق بين Phishing و Spear Phishing؟",a:["لا فرق، نفس الشيء","Spear Phishing موجّه لشخص بعينه بمعلومات شخصية","Spear Phishing أسهل اكتشافاً"],c:1,cat:"التصيّد",tip:"Spear Phishing يستخدم معلوماتك الشخصية لجعل الهجوم أكثر إقناعاً."},
+      {q:"Ransomware يصيب جهازك. أول خطوة؟",a:["أدفع الفدية فوراً","أفصل الجهاز عن الشبكة فوراً","أعيد تشغيل الجهاز"],c:1,cat:"البرمجيات الخبيثة",tip:"الفصل الفوري عن الشبكة يمنع انتشار الفيروس لباقي الأجهزة."},
+      {q:"ما معنى Zero-Day Vulnerability؟",a:["ثغرة قديمة تم إصلاحها","ثغرة اكتُشفت ولم يصدر لها إصلاح بعد","خطأ في كلمة المرور"],c:1,cat:"التحديثات",tip:"Zero-Day خطيرة لأن المهاجم يستغلها قبل أن تعلم الشركة بوجودها."},
+      {q:"شركة تطلب كلمة مرورك 'للتحقق من حسابك'. وش هذا؟",a:["إجراء أمني طبيعي","هندسة اجتماعية — الشركات لا تطلب كلمتك أبداً","طلب مشروع إذا كان بالبريد الرسمي"],c:1,cat:"الهندسة الاجتماعية",tip:"أي جهة شرعية لن تطلب كلمة مرورك. هذا دائماً احتيال."},
+      {q:"ما هو HTTPS وهل يضمن أمان الموقع؟",a:["يضمن أن الموقع آمن وموثوق","يشفّر الاتصال فقط، لا يضمن أن الموقع شرعي","يعني الموقع حكومي"],c:1,cat:"التصيّد",tip:"HTTPS يشفّر البيانات فقط. مواقع التصيّد تستخدمه أيضاً."},
+      {q:"وجدت USB في الشارع. وش تسوي؟",a:["أوصّله لأرى ما فيه","أتجاهله — USB مجهول قد يحتوي على ملفات خبيثة","أعطيه للشرطة وأوصّله أولاً"],c:1,cat:"البرمجيات الخبيثة",tip:"USB Dropping هجوم شائع. ملف خبيث يعمل تلقائياً عند التوصيل."},
+      {q:"النسخة الاحتياطية (Backup) المثالية تتبع قاعدة؟",a:["نسخة وحدة كافية","3-2-1: 3 نسخ، وسيطان، 1 خارج الموقع","نسخة أسبوعية على نفس الجهاز"],c:1,cat:"الخصوصية",tip:"قاعدة 3-2-1 تضمن حماية بياناتك حتى في حالة Ransomware أو كارثة."},
+      {q:"ما خطورة إعادة استخدام كلمة المرور؟",a:["لا خطورة إذا كانت قوية","اختراق موقع واحد يعرض كل حساباتك للخطر","الخطورة فقط على المواقع الصغيرة"],c:1,cat:"كلمات المرور",tip:"هجوم Credential Stuffing يجرب كلماتك المسرّبة على آلاف المواقع تلقائياً."},
+      {q:"تطبيق مجاني يعرض إعلانات. ما مصدر دخله الحقيقي؟",a:["الإعلانات فقط","بيع بياناتك وسلوكك للمعلنين","تبرعات المستخدمين"],c:1,cat:"الخصوصية",tip:"'إذا كان المنتج مجانياً، أنت المنتج.' بياناتك هي العملة الحقيقية."},
+      {q:"ما هو Man-in-the-Middle Attack؟",a:["اختراق مباشر للجهاز","مهاجم يعترض الاتصال بينك وبين الموقع","فيروس في الملفات"],c:1,cat:"Wi-Fi",tip:"في شبكات غير مشفّرة، المهاجم يقرأ بياناتك كلها. VPN يحميك."}
+    ],
+    hard: [
+      {q:"ما الفرق بين Symmetric و Asymmetric Encryption؟",a:["لا فرق في الأمان","Symmetric تستخدم مفتاحاً واحداً، Asymmetric تستخدم مفتاحاً عاماً وخاصاً","Asymmetric أبطأ وأقل أماناً"],c:1,cat:"التشفير",tip:"HTTPS يستخدم Asymmetric للتبادل الأولي ثم Symmetric للاتصال المستمر."},
+      {q:"SOC (Security Operations Center) مسؤول عن:",a:["إصلاح أجهزة الكمبيوتر","مراقبة وتحليل التهديدات الأمنية في الوقت الفعلي","إدارة كلمات مرور الموظفين"],c:1,cat:"مفاهيم متقدمة",tip:"SOC هو العقل الأمني للمنظمة، يعمل 24/7 لرصد الهجمات."},
+      {q:"ما هو هجوم SQL Injection؟",a:["إدخال كود SQL في حقول الإدخال لاستغلال قاعدة البيانات","اختراق عبر Wi-Fi","تغيير كلمة مرور قاعدة البيانات"],c:0,cat:"اختراق التطبيقات",tip:"SQL Injection من أخطر الثغرات. يمكن من خلاله سرقة كل بيانات الموقع."},
+      {q:"ما هو مبدأ Least Privilege؟",a:["إعطاء المستخدم أقل صلاحيات ضرورية لعمله فقط","تقليل عدد المستخدمين","تقليل سرعة الإنترنت"],c:0,cat:"مفاهيم متقدمة",tip:"Least Privilege يحد من الضرر في حال اختراق أي حساب."},
+      {q:"ما هو هجوم DNS Poisoning؟",a:["تلويث مادي لخوادم الإنترنت","تزوير سجلات DNS لتوجيهك لموقع مزيف","حذف سجلات DNS"],c:1,cat:"الشبكات",tip:"DNS Poisoning يجعلك تزور موقعاً مزيفاً حتى لو كتبت العنوان صحيحاً."},
+      {q:"Penetration Testing يختلف عن Vulnerability Assessment في:",a:["لا فرق بينهما","Pen Testing يستغل الثغرات فعلياً، VA تكتفي بالاكتشاف والتقرير","VA أعمق وأشمل"],c:1,cat:"مفاهيم متقدمة",tip:"Pen Testing يثبت قابلية الاستغلال الفعلي، VA تعطي قائمة بالثغرات فقط."},
+      {q:"ما هو هجوم Pass-the-Hash؟",a:["تخمين كلمة المرور","استخدام Hash كلمة المرور مباشرة للمصادقة بدون معرفة الكلمة الأصلية","مشاركة كلمة المرور"],c:1,cat:"اختراق متقدم",tip:"Pass-the-Hash يتجاوز التشفير. الحل: استخدام Kerberos وPAC Validation."},
+      {q:"SIEM يعني:",a:["Security Information and Event Management","Simple Internet Email Management","Secure Internal Email Monitor"],c:0,cat:"مفاهيم متقدمة",tip:"SIEM يجمع ويحلل سجلات من مصادر متعددة للكشف عن الهجمات."},
+      {q:"ما أخطر ناقل هجوم في بيئات Cloud؟",a:["كلمات المرور الضعيفة","Misconfiguration (الإعداد الخاطئ) للموارد السحابية","فيروسات على الخادم"],c:1,cat:"الأمان السحابي",tip:"80% من اختراقات السحابة سببها Misconfiguration لا اختراق تقني."},
+      {q:"ما هو هجوم Supply Chain Attack؟",a:["هجوم على سلسلة إمداد البضائع","اختراق عبر تلويث برامج أو مكونات موثوقة تستخدمها المؤسسة","هجوم على مستودعات البيانات"],c:1,cat:"اختراق متقدم",tip:"SolarWinds 2020 مثال شهير — اختراق أداة موثوقة أصاب آلاف المؤسسات."}
+    ]
+  };
 
-  const LETTERS=["أ","ب","ج"],TIMER=30,CIRC=138.2;
-  let idx=0,score=0,answered=false,missed=[],timerInt=null,timeLeft=TIMER;
+  let CURRENT_LEVEL = 'beginner';
+  let CURRENT_TIMER = 30;
+  let Q = QUESTIONS.beginner;
+
+  function selectLevel(level) {
+    CURRENT_LEVEL = level;
+    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('sel'));
+    document.querySelector('.level-btn.' + level).classList.add('sel');
+    CURRENT_TIMER = level === 'beginner' ? 30 : level === 'medium' ? 25 : 20;
+  }
+
+  function startQuiz() {
+    Q = QUESTIONS[CURRENT_LEVEL];
+    document.getElementById('levelCard').style.display = 'none';
+    document.getElementById('quizCard').style.display = 'block';
+    idx=0; score=0; missed=[]; answered=false;
+    // update total display
+    document.querySelector('[data-total]') && (document.querySelector('[data-total]').textContent = Q.length);
+    render();
+  }
+
+  // Initialize level selection
+  selectLevel('beginner');
+
+  const LEVEL_COLORS = { beginner: '#4be39a', medium: '#6aa6ff', hard: '#ff6a6a' };
+  const LEVEL_NAMES  = { beginner: 'مبتدئ', medium: 'متوسط', hard: 'متقدم' };
+
+  const LETTERS=["أ","ب","ج"],CIRC=138.2;
+  let idx=0,score=0,answered=false,missed=[],timerInt=null,timeLeft=CURRENT_TIMER;
 
   const $=id=>document.getElementById(id);
   function startTimer(){
-    clearInterval(timerInt);timeLeft=TIMER;updTimer();
+    clearInterval(timerInt);timeLeft=CURRENT_TIMER;updTimer();
     timerInt=setInterval(()=>{timeLeft--;updTimer();if(timeLeft<=0){clearInterval(timerInt);if(!answered)skipQ();}},1000);
   }
   function updTimer(){
     $("timerNum").textContent=timeLeft;
-    const offset=CIRC*(1-timeLeft/TIMER);
+    const offset=CIRC*(1-timeLeft/CURRENT_TIMER);
     $("tcFg").style.strokeDashoffset=offset;
-    const hot=timeLeft<=10;
+    const hot=timeLeft<=(CURRENT_TIMER/3);
     $("tcFg").style.stroke=hot?"#ff6a6a":"var(--accent2)";
     $("timerNum").style.color=hot?"#ff6a6a":"var(--text)";
   }
@@ -435,11 +581,7 @@
       if(j===i&&i!==cur.c)b.classList.add("wrong");
     });
     const tip=$("aTip");
-    if(i===cur.c){
-      score++;tip.className="a-tip show correct-tip";tip.textContent="✅ "+cur.tip;
-    } else {
-      missed.push(cur.tip);tip.className="a-tip show wrong-tip";tip.textContent="❌ "+cur.tip;
-    }
+    if(i===cur.c){score++;tip.className="a-tip show correct-tip";tip.innerHTML=`<span style="flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> `+cur.tip;} else {missed.push(cur.tip);tip.className="a-tip show wrong-tip";tip.innerHTML=`<span style="flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> `+cur.tip;}
   }
   function nextQ(){idx++;idx<Q.length?render():finish();}
   function skipQ(){clearInterval(timerInt);missed.push(Q[idx].tip);nextQ();}
@@ -451,10 +593,21 @@
     /* حفظ النتيجة */
     saveQuizResult(score, Q.length, pct, missed.slice(0,6));
     let lvl,sub,col;
-    if(pct>=90){lvl="ممتاز <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg>";sub="وعيك السيبراني عالٍ جداً!";col="#4be39a";}
-    else if(pct>=70){lvl="جيد جداً ✅";sub="أنت على الطريق الصحيح.";col="#6aa6ff";}
-    else if(pct>=50){lvl="جيد 👌";sub="راجع النقاط أدناه لتتحسن.";col="#ffb347";}
-    else{lvl="يحتاج تقوية 💪";sub="لا بأس — التعلّم يبدأ من هنا!";col="#ff6a6a";}
+    if(pct>=90){lvl="ممتاز";sub="وعيك السيبراني عالٍ جداً!";col="#4be39a";}
+    else if(pct>=70){lvl="جيد جداً";sub="أنت على الطريق الصحيح.";col="#6aa6ff";}
+    else if(pct>=50){lvl="جيد";sub="راجع النقاط أدناه لتتحسن.";col="#ffb347";}
+    else{lvl="يحتاج تقوية";sub="لا بأس — التعلّم يبدأ من هنا!";col="#ff6a6a";}
+    // Level badge
+    const lvlBadge = document.getElementById("resLevelBadge");
+    if(lvlBadge){
+      const lColor = LEVEL_COLORS[CURRENT_LEVEL];
+      const lName  = LEVEL_NAMES[CURRENT_LEVEL];
+      lvlBadge.style.display="inline-flex";
+      lvlBadge.style.background=lColor+"22";
+      lvlBadge.style.border="1px solid "+lColor+"55";
+      lvlBadge.style.color=lColor;
+      lvlBadge.textContent="مستوى "+lName;
+    }
     $("rsrPct").textContent=pct+"%";$("rsrPct").style.color=col;
     $("rsrLbl").textContent=score+"/"+Q.length;
     $("rsrFg").style.stroke=col;
@@ -463,21 +616,23 @@
     $("resSub").textContent=sub;
     const box=$("resTips");box.innerHTML="";
     if(!missed.length){
-      box.innerHTML=`<div class="rtip"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 8 21 16 21 16 17"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M3 7H1v5a6 6 0 0 0 6 6h10a6 6 0 0 0 6-6V7h-2"/><path d="M3 2h18v10H3z"/></svg></span><span>إجاباتك كلها صحيحة — شارك الموقع مع أصدقائك!</span></div>`;
+      box.innerHTML=`<div class="rtip"><span style="flex-shrink:0;color:#4be39a;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 8 21 16 21 16 17"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M3 7H1v5a6 6 0 0 0 6 6h10a6 6 0 0 0 6-6V7h-2"/><path d="M3 2h18v10H3z"/></svg></span><span>إجاباتك كلها صحيحة — شارك الموقع مع أصدقائك!</span></div>`;
     } else {
       missed.slice(0,5).forEach((t,i)=>{
         const d=document.createElement("div");
         d.className="rtip";d.style.animationDelay=(i*.08)+"s";
-        d.innerHTML=`<span>💡</span><span>${t}</span>`;
+        d.innerHTML=`<span style="flex-shrink:0;color:var(--accent);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span><span>${t}</span>`;
         box.appendChild(d);
       });
     }
   }
   function restart(){
     idx=0;score=0;missed=[];answered=false;
-    $("quizCard").style.display="block";
+    $("quizCard").style.display="none";
     $("resultCard").style.display="none";
-    render();
+    $("levelCard").style.display="block";
+    const lvlBadge=$("resLevelBadge");
+    if(lvlBadge) lvlBadge.style.display="none";
   }
   $("nextBtn").addEventListener("click",nextQ);
   $("skipBtn").addEventListener("click",skipQ);

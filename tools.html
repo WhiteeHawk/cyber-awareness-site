@@ -112,9 +112,10 @@
     }
 
     .tool-icon {
-      font-size: 36px;
+      width: 40px; height: 40px;
       margin-bottom: 14px;
-      display: block;
+      display: flex; align-items: center;
+      color: var(--accent);
       filter: drop-shadow(0 0 12px rgba(106,166,255,.4));
     }
     .tool-card h2 {
@@ -291,7 +292,7 @@
       transition: border-color .2s;
     }
     .info-item:hover { border-color: rgba(124,240,214,.3); }
-    .info-item .ii-icon { font-size: 26px; flex-shrink:0; }
+    .info-item .ii-icon { width:28px;height:28px;flex-shrink:0;display:flex;align-items:center;color:var(--accent); }
     .info-item h4 { margin:0 0 3px; font-size:14px; color:var(--text); }
     .info-item p  { margin:0; font-size:12px; color:var(--muted); }
 
@@ -326,18 +327,19 @@
 <body>
   <div class="tools-bg"><div class="grid-lines"></div></div>
 
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <div class="brand">
-          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <div><strong>سايف ديجيتال</strong><span class="badge">Tools</span></div>
-        </div>
-        <button id="themeToggle" type="button">
-          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
-        </button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong><span class="badge">Tools</span></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -347,30 +349,30 @@
         <a href="resources.html">موارد</a>
         <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
-      </nav>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <div class="tools-hero">
-      <h1>🧰 أدوات الأمان</h1>
+      <h1 style="display:flex;align-items:center;justify-content:center;gap:12px;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> أدوات الأمان</h1>
       <p>أدوات تفاعلية تساعدك على تقوية حمايتك الرقمية — مجانية وتعمل على جهازك فقط.</p>
     </div>
 
     <!-- شريط المعلومات -->
     <div class="info-strip">
       <div class="info-item">
-        <span class="ii-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <span class="ii-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <div><h4>خصوصية تامة</h4><p>لا شيء يُرسل لأي خادم</p></div>
       </div>
       <div class="info-item">
-        <span class="ii-icon">⚡</span>
+        <span class="ii-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
         <div><h4>فوري ومحلي</h4><p>يعمل في متصفحك مباشرة</p></div>
       </div>
       <div class="info-item">
-        <span class="ii-icon">🎲</span>
+        <span class="ii-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/><circle cx="16" cy="8" r="1.5" fill="currentColor"/><circle cx="8" cy="16" r="1.5" fill="currentColor"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></span>
         <div><h4>عشوائية حقيقية</h4><p>يستخدم Crypto API المدمج</p></div>
       </div>
     </div>
@@ -379,7 +381,7 @@
 
       <!-- ══ مولد كلمة المرور ══ -->
       <div class="tool-card">
-        <span class="tool-icon">🔐</span>
+        <span class="tool-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <h2>مولّد كلمة مرور</h2>
         <p>أنشئ كلمة مرور قوية وعشوائية في ثانية.</p>
 
@@ -409,15 +411,15 @@
         <!-- الناتج -->
         <div class="pass-output" id="passOutput">
           <span id="passText" style="opacity:.4;">اضغط توليد...</span>
-          <button class="pass-copy-btn" id="passCopyBtn" title="نسخ">📋</button>
+          <button class="pass-copy-btn" id="passCopyBtn" title="نسخ"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
         </div>
 
-        <button class="btn-gen" id="genBtn">⚡ توليد كلمة مرور</button>
+        <button class="btn-gen" id="genBtn" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> توليد كلمة مرور</button>
       </div>
 
       <!-- ══ فاحص القوة ══ -->
       <div class="tool-card">
-        <span class="tool-icon">💪</span>
+        <span class="tool-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
         <h2>فاحص قوة كلمة المرور</h2>
         <p>اكتب كلمة مرورك وسيحلّلها فوراً.</p>
 
@@ -441,13 +443,20 @@
           <div class="crit" id="crit-lower"><span class="dot"></span>حروف صغيرة a-z</div>
           <div class="crit" id="crit-noreuse"><span class="dot"></span>لا تكرار واضح</div>
         </div>
+      
+        <!-- وقت الاختراق -->
+        <div id="crackTime" style="margin-top:16px;padding:14px;border-radius:12px;border:1px solid rgba(106,166,255,.15);background:rgba(0,0,0,.2);display:none;">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">⏱ كم يستغرق اختراقها؟</div>
+          <div id="crackLabel" style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--accent2);">—</div>
+          <div id="crackDesc" style="font-size:12px;color:var(--muted);margin-top:4px;"></div>
+        </div>
       </div>
 
     </div>
 
     <footer class="footer">
       <div class="footer-content">
-        <div class="small">🔏 كلمات المرور لا تغادر جهازك — معالجة محلية بالكامل.</div>
+        <div class="small" style="display:flex;align-items:center;gap:6px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> كلمات المرور لا تغادر جهازك — معالجة محلية بالكامل.</div>
         <div class="footer-links">
           <a href="policies.html">سياسة الخصوصية</a>
           <a href="contact.html">تواصل معنا</a>
@@ -523,16 +532,44 @@
     const pass = passText.textContent;
     if(!pass || pass==="اضغط توليد...") return;
     navigator.clipboard.writeText(pass).then(()=>{
-      copyBtn.textContent = "✅";
-      setTimeout(()=>copyBtn.textContent="📋",1500);
+      copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+      setTimeout(()=>copyBtn.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`,1500);
     });
   });
 
+
+  /* ── وقت الاختراق ── */
+  function calcCrackTime(pass){
+    if(!pass) return null;
+    const hasUpper  = /[A-Z]/.test(pass);
+    const hasLower  = /[a-z]/.test(pass);
+    const hasNums   = /[0-9]/.test(pass);
+    const hasSym    = /[^A-Za-z0-9]/.test(pass);
+    let pool = 0;
+    if(hasLower)  pool += 26;
+    if(hasUpper)  pool += 26;
+    if(hasNums)   pool += 10;
+    if(hasSym)    pool += 32;
+    if(pool === 0) pool = 26;
+    const combinations = Math.pow(pool, pass.length);
+    const guessPerSec  = 1e10; // 10 مليار محاولة/ثانية
+    const seconds = combinations / guessPerSec;
+    let label, desc, color;
+    if(seconds < 1)           { label="فوري";             desc="يُخترق آنياً";                color="#ff6a6a"; }
+    else if(seconds < 60)     { label="ثوانٍ";            desc="أقل من دقيقة";               color="#ff6a6a"; }
+    else if(seconds < 3600)   { label=Math.round(seconds/60)+" دقيقة";   desc="سريع جداً";  color="#ff8c47"; }
+    else if(seconds < 86400)  { label=Math.round(seconds/3600)+" ساعة";  desc="في نفس اليوم"; color="#ffb347"; }
+    else if(seconds < 2592000){ label=Math.round(seconds/86400)+" يوم";  desc="خلال شهر";   color="#ffb347"; }
+    else if(seconds < 31536000*10){ label=Math.round(seconds/31536000)+" سنة"; desc="سنوات";color="#6aa6ff"; }
+    else if(seconds < 31536000*1000){ label=Math.round(seconds/31536000)+" سنة"; desc="عقود"; color="#4be39a"; }
+    else { label="أكثر من ألف سنة"; desc="آمنة جداً"; color="#4be39a"; }
+    return {label, desc, color};
+  }
   /* ── فاحص القوة ── */
   const checkInput = document.getElementById("checkInput");
   const bars = [1,2,3,4].map(i=>document.getElementById("sb"+i));
   const COLORS = ["#ff6a6a","#ffb347","#6aa6ff","#4be39a"];
-  const LABELS = ["ضعيفة جداً ❌","متوسطة ⚠️","جيدة ✅","قوية جداً 🟢"];
+  const LABELS = ["ضعيفة جداً","متوسطة","جيدة","قوية جداً"];
 
   function checkCrit(id, met){
     const el = document.getElementById("crit-"+id);
@@ -566,6 +603,19 @@
     });
     document.getElementById("strengthLabel").textContent = LABELS[score];
     document.getElementById("strengthLabel").style.color = col;
+
+    // وقت الاختراق
+    const ct = calcCrackTime(v);
+    const crackEl = document.getElementById("crackTime");
+    if(ct){
+      crackEl.style.display = "block";
+      crackEl.style.borderColor = ct.color + "44";
+      document.getElementById("crackLabel").textContent = ct.label;
+      document.getElementById("crackLabel").style.color = ct.color;
+      document.getElementById("crackDesc").textContent  = ct.desc;
+    } else {
+      crackEl.style.display = "none";
+    }
   });
   </script>
 </body>

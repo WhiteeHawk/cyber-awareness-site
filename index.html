@@ -36,11 +36,11 @@
 
     /* ══ هيرو ══ */
     .hero-section {
-      min-height: auto;
+      min-height: 92vh;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
       text-align: center;
-      padding: 100px 22px 60px;
+      padding: 100px 22px 80px;
       position: relative;
     }
 
@@ -135,6 +135,7 @@
       display: flex; flex-direction: column; align-items: center; gap: 6px;
       color: var(--muted); font-size: 12px;
       animation: fadeUp .7s .8s ease both;
+      pointer-events: none;
     }
     .scroll-arrow { animation: bounce 1.8s infinite; font-size: 18px; }
     @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
@@ -195,7 +196,8 @@
     .feature-card:hover::before { opacity:1; }
 
     .fc-icon {
-      font-size: 36px; margin-bottom: 16px; display: block;
+      width: 36px; height: 36px; margin-bottom: 16px; display: block;
+      color: var(--accent);
       filter: drop-shadow(0 0 10px rgba(106,166,255,.3));
     }
     .fc-title { font-size: 17px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
@@ -377,18 +379,19 @@
   <div class="grid-overlay"></div>
 
   <!-- الناف -->
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <div class="brand">
-          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <div><strong>سايف ديجيتال</strong><span class="badge">Cyber Awareness</span></div>
-        </div>
-        <button id="themeToggle" type="button">
-          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
-        </button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html" class="active">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -419,9 +422,9 @@
     </p>
 
     <div class="hero-btns">
-      <a href="learn.html" class="btn-hero-primary">🚀 ابدأ التعلّم</a>
-      <a href="quiz.html"  class="btn-hero-outline"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> اختبر مستواك</a>
-      <a href="policies.html" class="btn-hero-outline">🔍 حلّل سياسة خصوصية</a>
+      <a href="learn.html" class="btn-hero-primary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> ابدأ التعلّم</a>
+      <a href="quiz.html" class="btn-hero-outline"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> اختبر مستواك</a>
+      <a href="policies.html" class="btn-hero-outline"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> حلّل سياسة خصوصية</a>
     </div>
 
     <div class="hero-stats">
@@ -442,11 +445,6 @@
         <span class="stat-lbl">تحليل السياسات</span>
       </div>
     </div>
-
-    <div class="scroll-hint">
-      <span>اكتشف المزيد</span>
-      <span class="scroll-arrow">↓</span>
-    </div>
   </section>
 
   <main class="container">
@@ -459,42 +457,42 @@
 
       <div class="features-grid">
         <a href="learn.html" class="feature-card">
-          <span class="fc-icon">📘</span>
+          <span class="fc-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
           <div class="fc-title">تعلّم</div>
           <p class="fc-desc">8 محاور أمنية مبسّطة مع أمثلة واقعية وتطبيقات يومية — من التصيّد إلى أمان السحابة.</p>
           <span class="fc-link">ابدأ التعلّم →</span>
         </a>
 
         <a href="quiz.html" class="feature-card">
-          <span class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+          <span class="fc-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
           <div class="fc-title">اختبار الوعي</div>
           <p class="fc-desc">10 أسئلة مع مؤقت وتغذية راجعة فورية — اكتشف مستوى وعيك السيبراني.</p>
           <span class="fc-link">ابدأ الاختبار →</span>
         </a>
 
         <a href="scenarios.html" class="feature-card">
-          <span class="fc-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span>
+          <span class="fc-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span>
           <div class="fc-title">سيناريوهات واقعية</div>
           <p class="fc-desc">8 مواقف حقيقية تتخذ فيها القرار الصحيح — تعلّم قبل أن تقع في الفخ.</p>
           <span class="fc-link">جرّب السيناريوهات →</span>
         </a>
 
         <a href="tools.html" class="feature-card">
-          <span class="fc-icon">🔐</span>
+          <span class="fc-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
           <div class="fc-title">أدوات الأمان</div>
           <p class="fc-desc">مولّد كلمات مرور بـ Crypto API وفاحص قوة متقدم — كل شيء محلي وخاص.</p>
           <span class="fc-link">جرّب الأدوات →</span>
         </a>
 
         <a href="policies.html" class="feature-card">
-          <span class="fc-icon">🤖</span>
+          <span class="fc-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span>
           <div class="fc-title">تحليل السياسات بالذكاء الاصطناعي</div>
           <p class="fc-desc">اكتب اسم أي تطبيق والـ AI يلخّص سياسة الخصوصية في ثوانٍ — بدل صفحات الشروط الطويلة.</p>
           <span class="fc-link">حلّل سياسة →</span>
         </a>
 
         <a href="resources.html" class="feature-card">
-          <span class="fc-icon">🌍</span>
+          <span class="fc-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
           <div class="fc-title">موارد ومراجع</div>
           <p class="fc-desc">مصادر موثوقة من هيئة الأمن السيبراني السعودية وCISA وأبرز المراجع العالمية.</p>
           <span class="fc-link">استكشف الموارد →</span>
@@ -507,7 +505,7 @@
       <div class="daily-card">
         <div>
           <div class="section-label" style="text-align:right;margin-bottom:8px;">ابدأ اليوم</div>
-          <h2 class="daily-title">خطة الأمان اليومية ⚡</h2>
+          <h2 class="daily-title" style="display:flex;align-items:center;gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> خطة الأمان اليومية</h2>
           <p class="daily-sub">3 خطوات بسيطة كل يوم تحميك من 90% من التهديدات الشائعة.</p>
           <a href="quiz.html" class="btn-hero-primary" style="display:inline-flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> اختبر نفسك الآن</a>
         </div>
@@ -541,7 +539,7 @@
     <section class="map-section">
       <div class="map-card">
         <div style="margin-bottom:16px;"><span class="map-pulse"></span></div>
-        <h2 class="map-title">🗺️ خريطة الهجمات السيبرانية المباشرة</h2>
+        <h2 class="map-title" style="display:flex;align-items:center;justify-content:center;gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg> خريطة الهجمات السيبرانية المباشرة</h2>
         <p class="map-sub">شاهد حركة التهديدات والهجمات السيبرانية حول العالم في الوقت الفعلي.</p>
         <a href="https://cybermap.kaspersky.com/" target="_blank" class="btn-map">
           <span class="map-pulse"></span>
@@ -555,13 +553,13 @@
     <section class="news-section">
       <div class="news-header">
         <div class="news-title-wrap">
-          <h2>📡 أخبار الأمن السيبراني</h2>
+          <h2 style="display:flex;align-items:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-1.44 1.93A2 2 0 0 0 4 22zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><line x1="18" y1="2" x2="18" y2="22"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg> أخبار الأمن السيبراني</h2>
           <p class="small" id="news-last-update" style="margin:4px 0 0;">جاري التحميل...</p>
         </div>
         <div class="news-src-btns">
-          <button class="news-src-btn active-src" data-src="thn">📰 Hacker News</button>
-          <button class="news-src-btn" data-src="bleeping">💻 BleepingComputer</button>
-          <button class="news-src-btn" data-src="csnews">🔐 CyberSec</button>
+          <button class="news-src-btn active-src" data-src="thn">Hacker News</button>
+          <button class="news-src-btn" data-src="bleeping">BleepingComputer</button>
+          <button class="news-src-btn" data-src="csnews">CyberSec</button>
         </div>
       </div>
 
@@ -571,13 +569,13 @@
       </div>
       <div id="news-error" style="display:none;">
         <div class="note" style="text-align:center;padding:28px;">
-          <p style="margin:0 0 12px;">⚠️ تعذّر تحميل الأخبار حالياً.</p>
-          <button class="btn outline" id="news-retry" style="font-size:13px;">🔄 إعادة المحاولة</button>
+          <p style="margin:0 0 12px;display:flex;align-items:center;justify-content:center;gap:6px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> تعذّر تحميل الأخبار حالياً.</p>
+          <button class="btn outline" id="news-retry" style="font-size:13px;display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> إعادة المحاولة</button>
         </div>
       </div>
       <div id="news-grid" class="news-grid-wrap" style="display:none;"></div>
       <div id="news-more-wrap" style="display:none;text-align:center;margin-top:20px;">
-        <button class="btn outline" id="news-more-btn" style="font-size:13px;padding:10px 26px;">⬇️ تحميل المزيد</button>
+        <button class="btn outline" id="news-more-btn" style="font-size:13px;padding:10px 26px;display:inline-flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg> تحميل المزيد</button>
       </div>
     </section>
 
@@ -587,7 +585,7 @@
   <section style="padding:0 0 80px;">
     <div class="container">
       <div style="text-align:center;margin-bottom:36px;">
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(106,166,255,.25);background:rgba(106,166,255,.08);font-size:13px;color:var(--accent);margin-bottom:14px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> آراء المستخدمين</div>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(106,166,255,.25);background:rgba(106,166,255,.08);font-size:13px;color:var(--accent);margin-bottom:14px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> آراء المستخدمين</div>
         <h2 style="font-size:28px;font-weight:900;color:var(--text);margin:0 0 10px;">ماذا قالوا عن سايف ديجيتال؟</h2>
         <p style="color:var(--muted);font-size:15px;max-width:480px;margin:0 auto;">تجارب حقيقية من مستخدمين تعلموا الأمن الرقمي معنا</p>
       </div>
@@ -618,7 +616,7 @@
   <footer class="main-footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span style="display:flex;align-items:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
         <span>سايف ديجيتال</span>
         <span style="font-size:12px;color:var(--muted);font-weight:400;">© 2026 Safe Digital | Cyber Awareness Platform by Abdulelah</span>
       </div>
@@ -644,9 +642,9 @@
   (function(){
     const PROXY="https://api.allorigins.win/raw?url=";
     const SOURCES={
-      thn:     {feed:"https://feeds.feedburner.com/TheHackersNews",label:"Hacker News",   color:"#6aa6ff",icon:"📰"},
-      bleeping:{feed:"https://www.bleepingcomputer.com/feed/",      label:"BleepingComputer",color:"#7cf0d6",icon:"💻"},
-      csnews:  {feed:"https://cybersecuritynews.com/feed/",          label:"CyberSec News",  color:"#ffb347",icon:"🔐"}
+      thn:     {feed:"https://feeds.feedburner.com/TheHackersNews",label:"Hacker News",   color:"#6aa6ff",icon:""},
+      bleeping:{feed:"https://www.bleepingcomputer.com/feed/",      label:"BleepingComputer",color:"#7cf0d6",icon:""},
+      csnews:  {feed:"https://cybersecuritynews.com/feed/",          label:"CyberSec News",  color:"#ffb347",icon:""}
     };
     const BATCH=6;
     let allItems=[],shown=0,currentSrc="thn";
@@ -737,7 +735,7 @@
         const res = await fetch("/.netlify/functions/reviews");
         const reviews = await res.json();
         if(!Array.isArray(reviews) || reviews.length === 0){
-          grid.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> لا توجد مراجعات بعد — <a href="reviews.html" style="color:var(--accent);">كن أول من يراجع!</a></div>`;
+          grid.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;">لا توجد مراجعات بعد — <a href="reviews.html" style="color:var(--accent);">كن أول من يراجع!</a></div>`;
           document.getElementById("idx-avg").textContent   = "0";
           document.getElementById("idx-total").textContent = "0";
           document.getElementById("idx-avg-stars").innerHTML = starsHTML(0);
@@ -765,7 +763,7 @@
         `).join("");
       }catch(e){
         const grid = document.getElementById("idx-reviews-grid");
-        if(grid) grid.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;">⚠️ تعذّر تحميل المراجعات</div>`;
+        if(grid) grid.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);grid-column:1/-1;">تعذّر تحميل المراجعات</div>`;
       }
     }
     loadIndexReviews();

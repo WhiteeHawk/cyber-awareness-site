@@ -55,7 +55,7 @@
       backdrop-filter:blur(10px);transition:.2s;
     }
     .stat-card:hover{border-color:rgba(124,240,214,.3);transform:translateY(-2px);}
-    .stat-icon{font-size:26px;margin-bottom:8px;}
+    .stat-icon{width:28px;height:28px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;color:var(--accent);}
     .stat-num{
       font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:700;line-height:1;
       background:linear-gradient(135deg,var(--accent),var(--accent2));
@@ -108,7 +108,7 @@
     }
     .badge-item.earned{border-color:rgba(124,240,214,.35);background:rgba(124,240,214,.06);}
     .badge-item:not(.earned){opacity:.35;filter:grayscale(1);}
-    .badge-icon{font-size:28px;margin-bottom:6px;}
+    .badge-icon{width:32px;height:32px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;color:var(--accent2);}
     .badge-name{font-size:12px;color:var(--text);font-weight:600;}
     .badge-desc{font-size:11px;color:var(--muted);margin-top:3px;}
 
@@ -146,19 +146,19 @@
 <body>
   <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
 
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <a href="index.html" class="brand">
-          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <div><strong>سايف ديجيتال</strong><span class="badge">Profile</span></div>
-        </a>
-        <button id="themeToggle" type="button">
-          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
-          <span id="themeLabel" class="theme-label">ليلي</span>
-        </button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong><span class="badge">Profile</span></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -167,6 +167,7 @@
         <a href="scenarios.html">سيناريوهات</a>
         <a href="resources.html">موارد</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
       </nav>
     </div>
@@ -176,11 +177,11 @@
 
     <!-- هيرو -->
     <div class="profile-hero" id="profileHero">
-      <div class="profile-avatar" id="profileAvatar">👤</div>
+      <div class="profile-avatar" id="profileAvatar" style="font-size:0;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
       <div class="profile-info">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
           <div class="profile-name" id="profileName">جاري التحميل...</div>
-          <button class="edit-name-btn" id="editNameBtn" onclick="toggleEditName()" title="تغيير الاسم"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="edit-name-btn" id="editNameBtn" onclick="toggleEditName()" title="تغيير الاسم" style="display:inline-flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
         </div>
         <!-- حقل تعديل الاسم — مخفي بالبداية -->
         <div id="editNameRow" style="display:none;margin:8px 0;display:none;align-items:center;gap:8px;flex-wrap:wrap;">
@@ -191,28 +192,28 @@
         <div class="profile-email" id="profileEmail">—</div>
         <div class="profile-joined" id="profileJoined">—</div>
       </div>
-      <button class="logout-btn" onclick="logout()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> تسجيل الخروج</button>
+      <button class="logout-btn" onclick="logout()" style="display:inline-flex;align-items:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> تسجيل الخروج</button>
     </div>
 
     <!-- إحصائيات -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <div class="stat-num" id="totalQuizzes">—</div>
         <div class="stat-lbl">اختبارات أجريتها</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
         <div class="stat-num" id="bestScore">—</div>
         <div class="stat-lbl">أفضل نتيجة</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <div class="stat-num" id="avgScore">—</div>
         <div class="stat-lbl">متوسط النتائج</div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <div class="stat-num" id="totalScenarios">—</div>
         <div class="stat-lbl">سيناريوهات أكملتها</div>
       </div>
@@ -220,17 +221,17 @@
 
     <!-- سجل الاختبارات -->
     <div class="history-section">
-      <div class="hs-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> سجل الاختبارات</div>
+      <div class="hs-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> سجل الاختبارات</div>
       <div id="quizHistory">
-        <div class="loading-spinner">⏳ جاري التحميل...</div>
+        <div class="loading-spinner" style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> جاري التحميل...</div>
       </div>
     </div>
 
     <!-- سجل السيناريوهات -->
     <div class="history-section">
-      <div class="hs-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> سجل السيناريوهات</div>
+      <div class="hs-title"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> سجل السيناريوهات</div>
       <div id="scenarioHistory">
-        <div class="loading-spinner">⏳ جاري التحميل...</div>
+        <div class="loading-spinner" style="display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> جاري التحميل...</div>
       </div>
     </div>
 
@@ -239,27 +240,27 @@
       <div class="hs-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 8 21 16 21 16 17"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M3 7H1v5a6 6 0 0 0 6 6h10a6 6 0 0 0 6-6V7h-2"/><path d="M3 2h18v10H3z"/></svg> الإنجازات</div>
       <div class="badges-grid">
         <div class="badge-item" id="badge-first">
-          <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
           <div class="badge-name">أول اختبار</div>
           <div class="badge-desc">أجري اختبارك الأول</div>
         </div>
         <div class="badge-item" id="badge-perfect">
-          <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg></div>
+          <div class="badge-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg></div>
           <div class="badge-name">مثالي</div>
           <div class="badge-desc">100% في اختبار</div>
         </div>
         <div class="badge-item" id="badge-five">
-          <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg></div>
+          <div class="badge-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg></div>
           <div class="badge-name">مثابر</div>
           <div class="badge-desc">5 اختبارات</div>
         </div>
         <div class="badge-item" id="badge-scenario">
-          <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <div class="badge-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
           <div class="badge-name">محترف</div>
           <div class="badge-desc">أكمل السيناريوهات</div>
         </div>
         <div class="badge-item" id="badge-expert">
-          <div class="badge-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="badge-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="badge-name">خبير أمني</div>
           <div class="badge-desc">متوسط 90%+</div>
         </div>
@@ -296,6 +297,8 @@
   })();
 
   /* ── Helpers ── */
+const LEVEL_NAMES = {beginner:'مبتدئ',medium:'متوسط',hard:'متقدم'};
+  const LEVEL_COLORS = {beginner:'#4be39a',medium:'#6aa6ff',hard:'#ff6a6a'};
   function fmtDate(str) {
     if (!str) return "—";
     try {
@@ -309,10 +312,10 @@
     return "#ff6a6a";
   }
   function scoreLabel(pct) {
-    if (pct >= 90) return "ممتاز <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg>";
-    if (pct >= 70) return "جيد جداً ✅";
-    if (pct >= 50) return "جيد 👌";
-    return "يحتاج تقوية 💪";
+    if (pct >= 90) return "ممتاز";
+    if (pct >= 70) return "جيد جداً";
+    if (pct >= 50) return "جيد";
+    return "يحتاج تقوية";
   }
 
   /* ── Main ── */
@@ -356,7 +359,7 @@
       // اسم المستخدم
       const username = profile?.username || user.email.split("@")[0];
       document.getElementById("profileName").textContent   = username;
-      document.getElementById("profileAvatar").textContent = username[0]?.toUpperCase() || "؟";
+      document.getElementById("profileAvatar").innerHTML = `<span style="font-size:32px;font-weight:800;color:#fff;">${username[0]?.toUpperCase()||"؟"}</span>`;
 
       // ── إحصائيات ──
       const quizCount = Array.isArray(quiz) ? quiz.length : 0;
@@ -378,13 +381,16 @@
           const lbl = scoreLabel(q.percentage);
           const div = document.createElement("div");
           div.className = "history-item";
+          const lvl = q.level || 'beginner';
+          const lvlColor = LEVEL_COLORS[lvl] || '#6aa6ff';
+          const lvlName  = LEVEL_NAMES[lvl]  || 'مبتدئ';
           div.innerHTML = `
             <div class="hi-left">
               <div class="hi-score" style="background:${col}22;border:1px solid ${col}55;color:${col};">
                 ${q.percentage}%
               </div>
               <div class="hi-info">
-                <h4>اختبار رقم ${quizCount - i}</h4>
+                <h4>اختبار رقم ${quizCount - i} <span style="font-size:11px;padding:2px 8px;border-radius:999px;background:${lvlColor}22;color:${lvlColor};border:1px solid ${lvlColor}55;margin-right:4px;">${lvlName}</span></h4>
                 <p>${q.score} / ${q.total} إجابة صحيحة &nbsp;·&nbsp; ${fmtDate(q.created_at)}</p>
               </div>
             </div>
@@ -395,7 +401,7 @@
       } else {
         qEl.innerHTML = `
           <div class="empty-state">
-            <div class="es-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            <div class="es-icon" style="display:flex;justify-content:center;align-items:center;color:var(--muted);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <p>ما أجريت أي اختبار بعد</p>
             <a href="quiz.html" class="btn primary" style="font-size:13px;padding:10px 18px;">ابدأ الاختبار الآن</a>
           </div>`;
@@ -427,7 +433,7 @@
       } else {
         sEl.innerHTML = `
           <div class="empty-state">
-            <div class="es-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+            <div class="es-icon" style="display:flex;justify-content:center;align-items:center;color:var(--muted);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
             <p>ما جربت السيناريوهات بعد</p>
             <a href="scenarios.html" class="btn primary" style="font-size:13px;padding:10px 18px;">جرّب السيناريوهات</a>
           </div>`;
@@ -443,13 +449,13 @@
     } catch (e) {
       console.error("loadProfile error:", e);
       document.getElementById("profileName").textContent = user.email.split("@")[0];
-      document.getElementById("profileAvatar").textContent = "؟";
+      document.getElementById("profileAvatar").innerHTML = `<span style="font-size:32px;font-weight:800;color:#fff;">؟</span>`;
       document.getElementById("totalQuizzes").textContent  = "0";
       document.getElementById("bestScore").textContent     = "0%";
       document.getElementById("avgScore").textContent      = "0%";
       document.getElementById("totalScenarios").textContent = "0";
-      document.getElementById("quizHistory").innerHTML = `<div class="empty-state"><div class="es-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><p>ما أجريت أي اختبار بعد</p><a href="quiz.html" class="btn primary" style="font-size:13px;padding:10px 18px;">ابدأ الاختبار الآن</a></div>`;
-      document.getElementById("scenarioHistory").innerHTML = `<div class="empty-state"><div class="es-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><p>ما جربت السيناريوهات بعد</p><a href="scenarios.html" class="btn primary" style="font-size:13px;padding:10px 18px;">جرّب السيناريوهات</a></div>`;
+      document.getElementById("quizHistory").innerHTML = `<div class="empty-state"><div class="es-icon" style="display:flex;justify-content:center;align-items:center;color:var(--muted);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><p>ما أجريت أي اختبار بعد</p><a href="quiz.html" class="btn primary" style="font-size:13px;padding:10px 18px;">ابدأ الاختبار الآن</a></div>`;
+      document.getElementById("scenarioHistory").innerHTML = `<div class="empty-state"><div class="es-icon" style="display:flex;justify-content:center;align-items:center;color:var(--muted);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><p>ما جربت السيناريوهات بعد</p><a href="scenarios.html" class="btn primary" style="font-size:13px;padding:10px 18px;">جرّب السيناريوهات</a></div>`;
     }
   }
 
@@ -487,7 +493,7 @@
 
     if (!error) {
       document.getElementById("profileName").textContent = newName;
-      document.getElementById("profileAvatar").textContent = newName[0]?.toUpperCase() || "؟";
+      document.getElementById("profileAvatar").innerHTML = `<span style="font-size:32px;font-weight:800;color:#fff;">${newName[0]?.toUpperCase()||"؟"}</span>`;
       toggleEditName();
     }
   }

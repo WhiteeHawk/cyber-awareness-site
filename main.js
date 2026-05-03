@@ -83,7 +83,7 @@
         btn.href      = "profile.html";
         btn.classList.add("logged-in");
       } else {
-        btn.innerHTML = "🔑 دخول";
+        btn.innerHTML = "تسجيل الدخول";
         btn.href      = "auth.html";
         btn.classList.remove("logged-in");
       }
@@ -97,7 +97,7 @@
       const a = document.createElement("a");
       a.className = "auth-nav-btn";
       a.href      = "auth.html";
-      a.innerHTML = "🔑 دخول";
+      a.innerHTML = "تسجيل الدخول";
       nav.appendChild(a);
     });
   }

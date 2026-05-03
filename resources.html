@@ -73,7 +73,8 @@
     }
     .rc-icon-wrap{
       width:52px;height:52px;border-radius:14px;flex-shrink:0;
-      display:flex;align-items:center;justify-content:center;font-size:24px;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--accent);
       border:1px solid rgba(255,255,255,.07);
     }
     .rc-body{flex:1;}
@@ -162,13 +163,19 @@
 <body>
   <div class="page-bg"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
 
-  <header class="nav">
+    <header class="nav">
     <div class="container nav-inner">
-      <div class="nav-left">
-        <a href="index.html" class="brand"><span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><strong>سايف ديجيتال</strong><span class="badge">Resources</span></div></div>
-        <button id="themeToggle" type="button"><span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span></button>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="index.html" class="brand">
+        <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><strong>سايف ديجيتال</strong><span class="badge">Resources</span></div>
+      </a>
+      <button id="themeToggle" type="button">
+        <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span id="themeLabel" class="theme-label">ليلي</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -178,34 +185,34 @@
         <a href="resources.html" class="active">موارد</a>
         <a href="policies.html">سياسات الخصوصية</a>
         <a href="about.html">عن المشروع</a>
+        <a href="reviews.html">المراجعات</a>
         <a href="contact.html">تواصل</a>
-      </nav>
       </nav>
     </div>
   </header>
 
   <main class="container">
     <div class="res-hero">
-      <h1>🌍 الموارد والمراجع</h1>
+      <h1 style="display:flex;align-items:center;justify-content:center;gap:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> الموارد والمراجع</h1>
       <p>مصادر موثوقة ومنتقاة من أبرز الجهات الأمنية حول العالم — لتعمّق معرفتك السيبرانية.</p>
     </div>
 
     <!-- تبويبات -->
     <div class="res-tabs">
-      <button class="res-tab on" data-filter="all">🌐 الكل</button>
-      <button class="res-tab" data-filter="حكومي">🏛️ حكومي</button>
-      <button class="res-tab" data-filter="دولي">🌍 دولي</button>
-      <button class="res-tab" data-filter="أدوات">🔧 أدوات</button>
-      <button class="res-tab" data-filter="تعليمي">📚 تعليمي</button>
+      <button class="res-tab on" data-filter="all" style="display:inline-flex;align-items:center;gap:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> الكل</button>
+      <button class="res-tab" data-filter="حكومي" style="display:inline-flex;align-items:center;gap:6px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> حكومي</button>
+      <button class="res-tab" data-filter="دولي" style="display:inline-flex;align-items:center;gap:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> دولي</button>
+      <button class="res-tab" data-filter="أدوات" style="display:inline-flex;align-items:center;gap:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> أدوات</button>
+      <button class="res-tab" data-filter="تعليمي" style="display:inline-flex;align-items:center;gap:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> تعليمي</button>
     </div>
 
     <!-- مورد مميز -->
     <div class="res-featured">
       <div>
-        <div class="rf-label"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> المورد الأبرز</div>
+        <div class="rf-label" style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> المورد الأبرز</div>
         <div class="rf-title">الهيئة الوطنية للأمن السيبراني</div>
         <p class="rf-desc">المرجع الرسمي للأمن السيبراني في المملكة العربية السعودية — توجيهات، تنبيهات، وأطر حماية معتمدة.</p>
-        <a href="https://www.ncsc.gov.sa/" target="_blank" class="rf-btn">🔗 زيارة الموقع الرسمي</a>
+        <a href="https://www.ncsc.gov.sa/" target="_blank" class="rf-btn" style="display:inline-flex;align-items:center;gap:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> زيارة الموقع الرسمي</a>
       </div>
       <div style="font-size:72px;opacity:.15;font-family:'IBM Plex Mono',monospace;line-height:1;">NCA</div>
     </div>
@@ -215,7 +222,7 @@
 
       <a href="https://www.ncsc.gov.sa/" target="_blank" class="res-card" data-cat="حكومي">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(106,166,255,.1);">🏛️</div>
+          <div class="rc-icon-wrap" style="background:rgba(106,166,255,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(106,166,255,.4);color:#6aa6ff;">حكومي</span>
             <div class="rc-name">الهيئة الوطنية للأمن السيبراني</div>
@@ -227,7 +234,7 @@
 
       <a href="https://www.cisa.gov/" target="_blank" class="res-card" data-cat="دولي">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(124,240,214,.1);">🇺🇸</div>
+          <div class="rc-icon-wrap" style="background:rgba(124,240,214,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(124,240,214,.4);color:#7cf0d6;">دولي</span>
             <div class="rc-name">CISA – وكالة الأمن السيبراني الأمريكية</div>
@@ -239,7 +246,7 @@
 
       <a href="https://haveibeenpwned.com/" target="_blank" class="res-card" data-cat="أدوات">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);">🔓</div>
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
             <div class="rc-name">Have I Been Pwned</div>
@@ -251,7 +258,7 @@
 
       <a href="https://staysafeonline.org/" target="_blank" class="res-card" data-cat="تعليمي">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(167,139,250,.1);">📚</div>
+          <div class="rc-icon-wrap" style="background:rgba(167,139,250,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(167,139,250,.4);color:#a78bfa;">تعليمي</span>
             <div class="rc-name">Stay Safe Online</div>
@@ -263,7 +270,7 @@
 
       <a href="https://www.sans.org/security-awareness-training/" target="_blank" class="res-card" data-cat="تعليمي">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(167,139,250,.1);">🎓</div>
+          <div class="rc-icon-wrap" style="background:rgba(167,139,250,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(167,139,250,.4);color:#a78bfa;">تعليمي</span>
             <div class="rc-name">SANS Security Awareness</div>
@@ -275,7 +282,7 @@
 
       <a href="https://www.virustotal.com/" target="_blank" class="res-card" data-cat="أدوات">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);">🦠</div>
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
             <div class="rc-name">VirusTotal</div>
@@ -287,7 +294,7 @@
 
       <a href="https://www.ncsc.gov.uk/cyberaware" target="_blank" class="res-card" data-cat="دولي">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(124,240,214,.1);">🇬🇧</div>
+          <div class="rc-icon-wrap" style="background:rgba(124,240,214,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(124,240,214,.4);color:#7cf0d6;">دولي</span>
             <div class="rc-name">NCSC UK – Cyber Aware</div>
@@ -299,7 +306,7 @@
 
       <a href="https://bitwarden.com/" target="_blank" class="res-card" data-cat="أدوات">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></div>
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);" style="display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
             <div class="rc-name">Bitwarden – مدير كلمات المرور</div>
@@ -313,7 +320,7 @@
 
     <!-- فحص الاختراق -->
     <div class="check-section">
-      <h2 class="check-title">🔍 هل تسرّب بريدك الإلكتروني؟</h2>
+      <h2 class="check-title" style="display:flex;align-items:center;justify-content:center;gap:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> هل تسرّب بريدك الإلكتروني؟</h2>
       <p class="check-sub">تحقق مباشرة من موقع Have I Been Pwned — أكبر قاعدة بيانات للاختراقات عالمياً.</p>
       <div class="check-input-wrap">
         <input class="check-input" id="pwnedInput" type="email" placeholder="email@example.com"/>
@@ -357,8 +364,8 @@
   document.getElementById("pwnedBtn").addEventListener("click",async()=>{
     const email=document.getElementById("pwnedInput").value.trim();
     const res=document.getElementById("pwnedResult");
-    if(!email||!email.includes("@")){res.textContent="⚠️ أدخل بريداً إلكترونياً صحيحاً.";res.style.color="var(--danger)";return;}
-    res.textContent="🔍 جاري الفحص...";res.style.color="var(--muted)";
+    if(!email||!email.includes("@")){res.textContent="أدخل بريداً إلكترونياً صحيحاً.";res.style.color="var(--danger)";return;}
+    res.textContent="جاري الفحص...";res.style.color="var(--muted)";
     try{
       const enc=new TextEncoder(),hash=await crypto.subtle.digest("SHA-1",enc.encode(email));
       const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("").toUpperCase();
@@ -366,9 +373,9 @@
       const r=await fetch(`https://api.pwnedpasswords.com/range/${prefix}`,{headers:{"Add-Padding":"true"}});
       const text=await r.text();
       const found=text.split("\r\n").some(line=>line.split(":")[0]===suffix&&parseInt(line.split(":")[1])>0);
-      if(found){res.innerHTML="❌ <strong>تسرّب!</strong> بريدك موجود في قواعد بيانات الاختراقات. غيّر كلمة مرورك فوراً.";res.style.color="var(--danger)";}
-      else{res.innerHTML="✅ <strong>آمن!</strong> لم نجد بريدك في قواعد بيانات الاختراقات المعروفة.";res.style.color="var(--ok)";}
-    }catch{res.textContent="⚠️ تعذّر الفحص — تحقق من اتصالك.";res.style.color="var(--danger)";}
+      if(found){res.innerHTML='<strong style="color:var(--danger);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> تسرّب!</strong> بريدك موجود في قواعد بيانات الاختراقات. غيّر كلمة مرورك فوراً.';res.style.color="var(--danger)";}
+      else{res.innerHTML='<strong style="color:var(--ok);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> آمن!</strong> لم نجد بريدك في قواعد بيانات الاختراقات المعروفة.';res.style.color="var(--ok)";}
+    }catch{res.textContent="تعذّر الفحص — تحقق من اتصالك.";res.style.color="var(--danger)";}
   });
   document.getElementById("pwnedInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("pwnedBtn").click();});
   </script>

@@ -90,9 +90,9 @@ a:hover { color:var(--accent2); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 4px;
   flex-wrap: nowrap;
-  padding: 0 22px;
+  padding: 0 16px;
   height: 58px;
   max-width: var(--max);
   margin: 0 auto;
@@ -130,12 +130,15 @@ a:hover { color:var(--accent2); }
   padding: 6px 10px;
   border-radius: 12px;
   transition: background .2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .brand:hover {
   background: rgba(106,166,255,.1);
   color: var(--text);
 }
 .logo { font-size:22px; }
+.brand strong { white-space:nowrap; }
 
 .badge {
   font-size: 11px;
@@ -176,12 +179,12 @@ body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
   order: 2; /* وسط */
 }
 .links a {
-  padding: 7px 11px;
+  padding: 5px 8px;
   border-radius: 999px;
   border: 1px solid transparent;
   color: var(--muted);
   font-weight: 500;
-  font-size: 13.5px;
+  font-size: 12.5px;
   white-space: nowrap;
   transition: .2s;
 }
@@ -196,21 +199,21 @@ body.light-mode #themeToggle { background:rgba(0,0,0,.05); }
 .auth-nav-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 14px;
+  gap: 6px;
+  padding: 7px 12px;
   border-radius: 999px;
   border: 1px solid rgba(106,166,255,.35);
   background: rgba(106,166,255,.1);
   color: var(--accent);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12.5px;
   font-family: var(--font);
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
   transition: .2s;
   flex-shrink: 0;
-  order: 3; /* يسار — آخر شي */
+  order: 3;
 }
 .auth-nav-btn:hover {
   background: rgba(106,166,255,.2);
