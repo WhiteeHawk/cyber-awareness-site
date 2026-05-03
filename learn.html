@@ -75,14 +75,14 @@
     <div class="container nav-inner">
       <div class="nav-left">
         <div class="brand">
-          <span class="logo">🛡️</span>
+          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
           <div><strong>سايف ديجيتال</strong><span class="badge">Learn</span></div>
         </div>
         <button id="themeToggle" type="button" aria-label="تبديل الوضع">
-          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
         </button>
       </div>
-      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html" class="active">تعلّم</a>
@@ -124,10 +124,10 @@
       </div>
 
       <div class="topic-tabs" id="topicTabs">
-        <button class="topic-tab active" data-topic="phishing">🎯 التصيّد</button>
+        <button class="topic-tab active" data-topic="phishing"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد</button>
         <button class="topic-tab" data-topic="password">🔐 كلمات المرور</button>
         <button class="topic-tab" data-topic="wifi">📶 Wi-Fi</button>
-        <button class="topic-tab" data-topic="privacy">🔒 الخصوصية</button>
+        <button class="topic-tab" data-topic="privacy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية</button>
         <button class="topic-tab" data-topic="updates">⏫ التحديثات</button>
         <button class="topic-tab" data-topic="cloud">☁️ السحابة</button>
         <button class="topic-tab" data-topic="social">🧠 الهندسة الاجتماعية</button>
@@ -139,20 +139,20 @@
     <div class="topic-panel show" id="panel-phishing">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>🎯 التصيّد (Phishing)</h2>
+          <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد (Phishing)</h2>
           <p>محاولات خداع عبر رسائل أو روابط مزيفة تنتحل هوية جهات موثوقة لسرقة بياناتك.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">مستوى الخطر: <strong style="color:#ff6a6a;">مرتفع جداً</strong></div>
             <div class="risk-bar"><div class="risk-fill" style="width:90%;background:#ff6a6a;"></div></div>
           </div>
           <div class="example-box">📌 <strong>مثال:</strong> رسالة من "البنك" تقول "حسابك سيُغلق خلال 24 ساعة — اضغط هنا". الرابط يؤدي لموقع مزيف يسرق بياناتك.</div>
-          <a href="quiz.html" class="btn primary" style="margin-top:10px;">اختبر نفسك 🎯</a>
+          <a href="quiz.html" class="btn primary" style="margin-top:10px;">اختبر نفسك <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></a>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تكتشف التصيّد؟</h3>
           <div class="tip-card"><div class="tip-icon">🔗</div><div class="tip-text"><h4>افحص الدومين بدقة</h4><p>مثال: <code>paypa1.com</code> بدل <code>paypal.com</code> — حرف واحد يفرق.</p></div></div>
           <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-text"><h4>تجاهل رسائل الاستعجال</h4><p>"حسابك بيتقفل الآن!" — المؤسسات الحقيقية لا تستعجلك هكذا.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🔒</div><div class="tip-text"><h4>لا تعطِ OTP لأحد أبداً</h4><p>حتى لو قال إنه من البنك — OTP سري تماماً.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="tip-text"><h4>لا تعطِ OTP لأحد أبداً</h4><p>حتى لو قال إنه من البنك — OTP سري تماماً.</p></div></div>
           <div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-text"><h4>ادخل للمواقع يدوياً</h4><p>اكتب عنوان الموقع الرسمي في المتصفح مباشرة بدل الضغط على الرابط.</p></div></div>
         </div>
       </div>
@@ -162,7 +162,7 @@
           <div class="summary-item"><div class="s-icon">📧</div><h4>Email Phishing</h4><p>بريد إلكتروني مزيف من جهات تبدو موثوقة</p></div>
           <div class="summary-item"><div class="s-icon">📱</div><h4>Smishing</h4><p>تصيّد عبر SMS أو واتساب</p></div>
           <div class="summary-item"><div class="s-icon">📞</div><h4>Vishing</h4><p>مكالمات هاتفية من "موظفين" وهميين</p></div>
-          <div class="summary-item"><div class="s-icon">🎯</div><h4>Spear Phishing</h4><p>هجوم موجّه لشخص بعينه بمعلومات شخصية</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h4>Spear Phishing</h4><p>هجوم موجّه لشخص بعينه بمعلومات شخصية</p></div>
         </div>
       </div>
     </div>
@@ -178,7 +178,7 @@
             <div class="risk-bar"><div class="risk-fill" style="width:88%;background:#ff6a6a;"></div></div>
           </div>
           <div class="example-box">📌 <strong>مثال:</strong> في 2024 تسرّبت ملايين كلمات المرور. من كرّر نفس الكلمة خسر كل حساباته دفعة واحدة.</div>
-          <a href="tools.html" class="btn primary" style="margin-top:10px;">جرّب مولّد كلمات المرور 🔑</a>
+          <a href="tools.html" class="btn primary" style="margin-top:10px;">جرّب مولّد كلمات المرور <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></a>
         </div>
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي كلمات مرورك؟</h3>
@@ -225,7 +225,7 @@
     <div class="topic-panel" id="panel-privacy">
       <div class="topic-hero">
         <div class="card pad">
-          <h2>🔒 الخصوصية الرقمية</h2>
+          <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية الرقمية</h2>
           <p>بياناتك الشخصية لها قيمة — التحكم فيها حق أساسي يحميك من الاستغلال.</p>
           <div class="risk-bar-wrap">
             <div class="risk-label">تأثير الإهمال: <strong style="color:#ffb347;">مرتفع</strong></div>
@@ -303,7 +303,7 @@
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تتعرف عليها؟</h3>
           <div class="tip-card"><div class="tip-icon">⚡</div><div class="tip-text"><h4>الاستعجال المصطنع</h4><p>"الآن فقط!" — مصمم لمنعك من التفكير.</p></div></div>
           <div class="tip-card"><div class="tip-icon">🎁</div><div class="tip-text"><h4>العروض المغرية جداً</h4><p>ربحت جائزة؟ — تحقق قبل أي خطوة.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🎭</div><div class="tip-text"><h4>انتحال الهوية</h4><p>يدّعي أنه من IT أو البنك — تحقق من هويته بشكل مستقل.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div class="tip-text"><h4>انتحال الهوية</h4><p>يدّعي أنه من IT أو البنك — تحقق من هويته بشكل مستقل.</p></div></div>
           <div class="tip-card"><div class="tip-icon">💭</div><div class="tip-text"><h4>القاعدة الذهبية</h4><p>لو شعرت بضغط للتصرف بسرعة — توقف، تنفّس، تحقق.</p></div></div>
         </div>
       </div>
@@ -324,7 +324,7 @@
         <div class="card pad">
           <h3 style="margin-bottom:14px;color:var(--accent2);">كيف تحمي نفسك؟</h3>
           <div class="tip-card"><div class="tip-icon">📥</div><div class="tip-text"><h4>حمّل من مصادر رسمية فقط</h4><p>App Store / Play Store / المواقع الرسمية — لا روابط مجهولة.</p></div></div>
-          <div class="tip-card"><div class="tip-icon">🛡️</div><div class="tip-text"><h4>فعّل مضاد الفيروسات</h4><p>Windows Defender كافٍ للأغلبية — حدّثه باستمرار.</p></div></div>
+          <div class="tip-card"><div class="tip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tip-text"><h4>فعّل مضاد الفيروسات</h4><p>Windows Defender كافٍ للأغلبية — حدّثه باستمرار.</p></div></div>
           <div class="tip-card"><div class="tip-icon">💾</div><div class="tip-text"><h4>احتفظ بنسخة احتياطية</h4><p>Backup منتظم على هارد خارجي — يحميك من Ransomware.</p></div></div>
           <div class="tip-card"><div class="tip-icon">📎</div><div class="tip-text"><h4>لا تفتح مرفقات مجهولة</h4><p>حتى من معارفك — حسابهم ممكن يكون مخترقاً.</p></div></div>
         </div>
@@ -332,7 +332,7 @@
       <div class="card pad">
         <h3 style="margin-bottom:14px;color:var(--accent2);">🦠 أنواع Malware الشائعة</h3>
         <div class="summary-grid">
-          <div class="summary-item"><div class="s-icon">🔒</div><h4>Ransomware</h4><p>يشفّر ملفاتك ويطلب فدية</p></div>
+          <div class="summary-item"><div class="s-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h4>Ransomware</h4><p>يشفّر ملفاتك ويطلب فدية</p></div>
           <div class="summary-item"><div class="s-icon">👁️</div><h4>Spyware</h4><p>يتجسس على نشاطك وكلمات مرورك</p></div>
           <div class="summary-item"><div class="s-icon">🐴</div><h4>Trojan</h4><p>يبدو برنامجاً شرعياً لكنه خبيث</p></div>
           <div class="summary-item"><div class="s-icon">🤖</div><h4>Botnet</h4><p>يحوّل جهازك لأداة في شبكة هجمات</p></div>
@@ -342,7 +342,7 @@
 
     <footer class="footer">
       <div class="footer-content">
-        <div class="small">💬 بعد قراءة المحاور، جرّب <a href="quiz.html" class="accent">الاختبار</a> لتقييم وعيك السيبراني.</div>
+        <div class="small"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> بعد قراءة المحاور، جرّب <a href="quiz.html" class="accent">الاختبار</a> لتقييم وعيك السيبراني.</div>
         <div class="footer-links">
           <a href="policies.html">سياسة الخصوصية</a>
           <a href="contact.html">تواصل معنا</a>

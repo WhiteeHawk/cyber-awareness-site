@@ -282,14 +282,14 @@
     <div class="container nav-inner">
       <div class="nav-left">
         <div class="brand">
-          <span class="logo">🛡️</span>
+          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
           <div><strong>سايف ديجيتال</strong><span class="badge">Policies</span></div>
         </div>
         <button id="themeToggle" type="button">
-          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
         </button>
       </div>
-      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -335,7 +335,7 @@
       <div class="quick-suggestions">
         <button class="qs-btn" data-q="سناب شات">📸 سناب شات</button>
         <button class="qs-btn" data-q="تيك توك">🎵 تيك توك</button>
-        <button class="qs-btn" data-q="واتساب">💬 واتساب</button>
+        <button class="qs-btn" data-q="واتساب"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> واتساب</button>
         <button class="qs-btn" data-q="بنك الراجحي">🏦 الراجحي</button>
         <button class="qs-btn" data-q="إنستغرام">📷 إنستغرام</button>
         <button class="qs-btn" data-q="جوجل">🔍 جوجل</button>
@@ -373,7 +373,7 @@
           </div>
         </div>
         <div class="info-item">
-          <span class="ii-icon">🛡️</span>
+          <span class="ii-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
           <div>
             <h4>قرار مدروس</h4>
             <p>اعرف ما توافق عليه قبل الضغط على "موافق" — حقك قبل حقهم.</p>
@@ -385,7 +385,7 @@
       <div class="info-title">ماذا يغطي التحليل؟</div>
       <div class="info-grid">
         <div class="info-item">
-          <span class="ii-icon">📊</span>
+          <span class="ii-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
           <div><h4>جمع البيانات</h4><p>ما البيانات التي تُجمع وكيف تُستخدم.</p></div>
         </div>
         <div class="info-item">
@@ -425,7 +425,7 @@
   /* ── Theme ── */
   (function(){
     const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
-    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.innerHTML=dark?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
     apply(localStorage.getItem("sd-theme")!=="light");
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
@@ -457,7 +457,7 @@
   const KNOWN = {
     "سناب": {name:"Snapchat سناب شات",emoji:"👻",category:"تواصل اجتماعي",privacy_score:3,score_color:"#ffb347",summary:"سناب شات يجمع بيانات الموقع والجهاز ونشاط الاستخدام. يمتلك ميزات خصوصية جيدة مثل حذف الرسائل، لكن Snap Map قد يكشف موقعك.",pros:["رسائل تختفي تلقائياً","إشعار عند تصوير الشاشة","Ghost Mode لإخفاء الموقع"],cons:["يجمع بيانات موقعك بدقة","يشارك بيانات مع معلنين","تخزين البيانات لفترات طويلة"],tip:"فعّل Ghost Mode في Snap Map لإخفاء موقعك تماماً.",official_url:"https://privacy.snap.com"},
     "تيك توك": {name:"TikTok تيك توك",emoji:"🎵",category:"تواصل اجتماعي / ترفيه",privacy_score:2,score_color:"#ff6a6a",summary:"تيك توك يجمع كميات ضخمة من البيانات تشمل معلومات الجهاز والموقع وبيانات الحافظة. أثار مخاوف أمنية واسعة على مستوى حكومي.",pros:["إمكانية تقييد خصوصية الحساب","إمكانية حذف الحساب والبيانات","التحكم في من يرى مقاطعك"],cons:["يجمع بيانات الحافظة (Clipboard)","مخاوف من وصول حكومي للبيانات","تتبع مكثف لسلوك الاستخدام"],tip:"استخدم حساباً خاصاً وراجع الصلاحيات الممنوحة للتطبيق بانتظام.",official_url:"https://www.tiktok.com/legal/privacy-policy"},
-    "واتساب": {name:"WhatsApp واتساب",emoji:"💬",category:"مراسلة فورية",privacy_score:3,score_color:"#ffb347",summary:"واتساب يستخدم تشفيراً من طرف لطرف قوياً، لكنه يشارك بيانات وصفية مع Meta مثل وقت الاتصال وجهات الاتصال.",pros:["تشفير كامل من طرف لطرف","الرسائل المؤقتة تختفي تلقائياً","لا يقرأ محتوى رسائلك"],cons:["يشارك بيانات وصفية مع Meta","يجمع قائمة جهات اتصالك","النسخ الاحتياطي غير مشفر افتراضياً"],tip:"فعّل النسخ الاحتياطي المشفر من الإعدادات لحماية رسائلك المحفوظة.",official_url:"https://www.whatsapp.com/legal/privacy-policy"},
+    "واتساب": {name:"WhatsApp واتساب",emoji:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>",category:"مراسلة فورية",privacy_score:3,score_color:"#ffb347",summary:"واتساب يستخدم تشفيراً من طرف لطرف قوياً، لكنه يشارك بيانات وصفية مع Meta مثل وقت الاتصال وجهات الاتصال.",pros:["تشفير كامل من طرف لطرف","الرسائل المؤقتة تختفي تلقائياً","لا يقرأ محتوى رسائلك"],cons:["يشارك بيانات وصفية مع Meta","يجمع قائمة جهات اتصالك","النسخ الاحتياطي غير مشفر افتراضياً"],tip:"فعّل النسخ الاحتياطي المشفر من الإعدادات لحماية رسائلك المحفوظة.",official_url:"https://www.whatsapp.com/legal/privacy-policy"},
     "راجحي": {name:"بنك الراجحي",emoji:"🏦",category:"خدمات مصرفية",privacy_score:4,score_color:"#4be39a",summary:"بنك الراجحي يلتزم بلوائح ساما وأنظمة حماية البيانات السعودية. يجمع البيانات المالية للتحقق والأمن فقط.",pros:["ملتزم بأنظمة ساما","تشفير عالي المستوى","لا يشارك بياناتك المالية تجارياً"],cons:["يجمع بيانات تصفحك داخل التطبيق","استخدام البيانات للتسويق الداخلي","مشاركة بيانات مع جهات تنظيمية"],tip:"لا تشارك OTP أو كلمة المرور مع أحد — الراجحي لن يطلبها أبداً.",official_url:"https://www.alrajhibank.com.sa/privacy"},
     "الاهلي": {name:"البنك الأهلي السعودي",emoji:"🏦",category:"خدمات مصرفية",privacy_score:4,score_color:"#4be39a",summary:"البنك الأهلي يلتزم بمعايير ساما ويطبق تشفيراً عالياً لحماية بيانات العملاء المالية.",pros:["التزام كامل بلوائح ساما","حماية قوية للبيانات المالية","تنبيهات فورية لأي نشاط"],cons:["جمع بيانات الاستخدام داخل التطبيق","تسويق داخلي بناءً على نشاطك","مشاركة البيانات مع الجهات الرقابية"],tip:"فعّل التحقق البيومتري وتنبيهات المعاملات لأقصى حماية.",official_url:"https://www.alahli.com/privacy-policy"},
     "انماء": {name:"بنك الإنماء",emoji:"🏦",category:"خدمات مصرفية",privacy_score:4,score_color:"#4be39a",summary:"بنك الإنماء يلتزم بمعايير ساما لحماية البيانات ويستخدم تشفيراً متقدماً لجميع المعاملات.",pros:["التزام بأنظمة ساما","تشفير عالي للمعاملات","خصوصية جيدة للبيانات المالية"],cons:["جمع بيانات الاستخدام","تسويق داخلي مستهدف","مشاركة بعض البيانات مع الجهات الرقابية"],tip:"راجع إعدادات التطبيق وقيّد الصلاحيات الممنوحة له.",official_url:"https://www.alinma.com/privacy-policy"},

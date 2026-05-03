@@ -242,14 +242,14 @@
     <div class="container nav-inner">
       <div class="nav-left">
         <div class="brand">
-          <span class="logo">🛡️</span>
+          <span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
           <div><strong>سايف ديجيتال</strong><span class="badge">Quiz</span></div>
         </div>
         <button id="themeToggle" type="button">
-          <span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span>
+          <span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span>
         </button>
       </div>
-      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -323,7 +323,7 @@
 
         <div class="result-actions">
           <a class="btn-link" href="learn.html">📘 الدروس</a>
-          <a class="btn-link" href="scenarios.html">🎭 السيناريوهات</a>
+          <a class="btn-link" href="scenarios.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> السيناريوهات</a>
           <button class="btn-restart" id="restartBtn" type="button">🔄 أعد الاختبار</button>
         </div>
       </div>
@@ -371,21 +371,21 @@
   <script>
   (function(){
     const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
-    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.innerHTML=dark?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
     apply(localStorage.getItem("sd-theme")!=="light");
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
 
   const Q=[
-    {q:"وصلك إيميل: حسابك بيتقفل خلال ساعة، مع رابط. وش أفضل تصرف؟",a:["أضغط الرابط بسرعة","أدخل الموقع الرسمي يدوياً","أرسل بياناتي للدعم"],c:1,cat:"🎯 التصيّد",tip:"رسائل الاستعجال = تصيّد. ادخل الموقع الرسمي يدوياً دائماً."},
+    {q:"وصلك إيميل: حسابك بيتقفل خلال ساعة، مع رابط. وش أفضل تصرف؟",a:["أضغط الرابط بسرعة","أدخل الموقع الرسمي يدوياً","أرسل بياناتي للدعم"],c:1,cat:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",tip:"رسائل الاستعجال = تصيّد. ادخل الموقع الرسمي يدوياً دائماً."},
     {q:"أفضل كلمة مرور؟",a:["12345678","A1b2!","جملة طويلة وفريدة لكل حساب"],c:2,cat:"🔐 كلمات المرور",tip:"الأطول + الفريد أفضل. استخدم مدير كلمات مرور."},
     {q:"التحقق الثنائي (MFA) يفيد لأنه:",a:["يزيد سرعة الدخول","يحمي حتى لو انسرقت كلمة المرور","يمنع التحديثات"],c:1,cat:"🔐 كلمات المرور",tip:"MFA يحميك حتى لو كلمة المرور تسربت."},
     {q:"شبكة Wi-Fi عامة بدون كلمة مرور. التصرف الصحيح؟",a:["أسجل دخول البنك عادي","أتجنب الحساسات وأستخدم VPN","أرسل ملفات مهمة"],c:1,cat:"📶 Wi-Fi",tip:"الشبكات العامة مراقبة — استخدم VPN إذا اضطررت."},
-    {q:"أي علامة تدل على رابط مشبوه؟",a:["دومين غريب مثل paypa1.com","وجود https فقط","فيه اسم الشركة"],c:0,cat:"🎯 التصيّد",tip:"الدومين هو الأهم — لا تعتمد على https أو التصميم وحده."},
+    {q:"أي علامة تدل على رابط مشبوه؟",a:["دومين غريب مثل paypa1.com","وجود https فقط","فيه اسم الشركة"],c:0,cat:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",tip:"الدومين هو الأهم — لا تعتمد على https أو التصميم وحده."},
     {q:"أفضل سياسة للتحديثات؟",a:["أحدّث أول بأول","ما أحدّث أبداً","أحدّث كل سنتين"],c:0,cat:"⏫ التحديثات",tip:"التحديثات تسد الثغرات قبل أن تُستغل."},
     {q:"وش معنى Password Reuse؟",a:["تغيير كلمة المرور كثير","نفس كلمة المرور في أكثر من موقع","نسيان كلمة المرور"],c:1,cat:"🔐 كلمات المرور",tip:"إعادة استخدام كلمة المرور يعرض كل حساباتك للخطر."},
-    {q:"برنامج طلب صلاحية موقع وصور بدون سبب:",a:["أعطيه كل شيء","أرفض أو أقلل الصلاحيات","أرسلها لصديقي"],c:1,cat:"🔒 الخصوصية",tip:"قلل الصلاحيات لأقل حد ممكن دائماً."},
-    {q:"وصلك OTP من البنك، وشخص يطلبه للتأكيد:",a:["أعطيه لأنه يقول بنك","أرفض — OTP سري لا يُطلب","أرسله ثم أغير كلمة المرور"],c:1,cat:"🎯 التصيّد",tip:"OTP لا تشاركه أبداً — حتى لو ادّعى أنه من البنك."},
+    {q:"برنامج طلب صلاحية موقع وصور بدون سبب:",a:["أعطيه كل شيء","أرفض أو أقلل الصلاحيات","أرسلها لصديقي"],c:1,cat:"<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> الخصوصية",tip:"قلل الصلاحيات لأقل حد ممكن دائماً."},
+    {q:"وصلك OTP من البنك، وشخص يطلبه للتأكيد:",a:["أعطيه لأنه يقول بنك","أرفض — OTP سري لا يُطلب","أرسله ثم أغير كلمة المرور"],c:1,cat:"<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> التصيّد",tip:"OTP لا تشاركه أبداً — حتى لو ادّعى أنه من البنك."},
     {q:"أفضل طريقة لتخزين كلمات المرور؟",a:["ملاحظات الجوال","Password Manager + MFA","ورقة تحت الكيبورد"],c:1,cat:"🔐 كلمات المرور",tip:"مدير كلمات المرور + MFA = الأكثر أماناً وسهولة."}
   ];
 
@@ -451,7 +451,7 @@
     /* حفظ النتيجة */
     saveQuizResult(score, Q.length, pct, missed.slice(0,6));
     let lvl,sub,col;
-    if(pct>=90){lvl="ممتاز 👑";sub="وعيك السيبراني عالٍ جداً!";col="#4be39a";}
+    if(pct>=90){lvl="ممتاز <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/></svg>";sub="وعيك السيبراني عالٍ جداً!";col="#4be39a";}
     else if(pct>=70){lvl="جيد جداً ✅";sub="أنت على الطريق الصحيح.";col="#6aa6ff";}
     else if(pct>=50){lvl="جيد 👌";sub="راجع النقاط أدناه لتتحسن.";col="#ffb347";}
     else{lvl="يحتاج تقوية 💪";sub="لا بأس — التعلّم يبدأ من هنا!";col="#ff6a6a";}
@@ -463,7 +463,7 @@
     $("resSub").textContent=sub;
     const box=$("resTips");box.innerHTML="";
     if(!missed.length){
-      box.innerHTML=`<div class="rtip"><span>🏆</span><span>إجاباتك كلها صحيحة — شارك الموقع مع أصدقائك!</span></div>`;
+      box.innerHTML=`<div class="rtip"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 8 21 16 21 16 17"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M3 7H1v5a6 6 0 0 0 6 6h10a6 6 0 0 0 6-6V7h-2"/><path d="M3 2h18v10H3z"/></svg></span><span>إجاباتك كلها صحيحة — شارك الموقع مع أصدقائك!</span></div>`;
     } else {
       missed.slice(0,5).forEach((t,i)=>{
         const d=document.createElement("div");

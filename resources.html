@@ -165,10 +165,10 @@
   <header class="nav">
     <div class="container nav-inner">
       <div class="nav-left">
-        <div class="brand"><span class="logo">🛡️</span><div><strong>سايف ديجيتال</strong><span class="badge">Resources</span></div></div>
-        <button id="themeToggle" type="button"><span id="themeIcon">🌙</span><span id="themeLabel" class="theme-label">ليلي</span></button>
+        <a href="index.html" class="brand"><span class="logo" style="display:flex;align-items:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><div><strong>سايف ديجيتال</strong><span class="badge">Resources</span></div></div>
+        <button id="themeToggle" type="button"><span id="themeIcon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span id="themeLabel" class="theme-label">ليلي</span></button>
       </div>
-      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <button class="menu-toggle" id="menuToggle" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <nav class="links" id="navLinks">
         <a href="index.html">الرئيسية</a>
         <a href="learn.html">تعلّم</a>
@@ -202,7 +202,7 @@
     <!-- مورد مميز -->
     <div class="res-featured">
       <div>
-        <div class="rf-label">⭐ المورد الأبرز</div>
+        <div class="rf-label"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> المورد الأبرز</div>
         <div class="rf-title">الهيئة الوطنية للأمن السيبراني</div>
         <p class="rf-desc">المرجع الرسمي للأمن السيبراني في المملكة العربية السعودية — توجيهات، تنبيهات، وأطر حماية معتمدة.</p>
         <a href="https://www.ncsc.gov.sa/" target="_blank" class="rf-btn">🔗 زيارة الموقع الرسمي</a>
@@ -299,7 +299,7 @@
 
       <a href="https://bitwarden.com/" target="_blank" class="res-card" data-cat="أدوات">
         <div class="rc-top">
-          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);">🔑</div>
+          <div class="rc-icon-wrap" style="background:rgba(255,179,71,.1);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></svg></div>
           <div class="rc-body">
             <span class="rc-cat" style="border-color:rgba(255,179,71,.4);color:#ffb347;">أدوات</span>
             <div class="rc-name">Bitwarden – مدير كلمات المرور</div>
@@ -336,7 +336,7 @@
   <script>
   (function(){
     const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
-    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.textContent=dark?"🌙":"☀️";lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
+    function apply(dark){document.body.classList.toggle("light-mode",!dark);icon.innerHTML=dark?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;lbl.textContent=dark?"ليلي":"صباحي";localStorage.setItem("sd-theme",dark?"dark":"light");}
     apply(localStorage.getItem("sd-theme")!=="light");
     btn.addEventListener("click",()=>apply(document.body.classList.contains("light-mode")));
   })();
