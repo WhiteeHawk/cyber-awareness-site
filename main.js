@@ -137,3 +137,13 @@
   });
 
 })();
+
+
+/* ── Active link حسب الصفحة الحالية ── */
+(function(){
+  const path = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.links a').forEach(a => {
+    if(a.getAttribute('href') === path || (path === '' && a.getAttribute('href') === 'index.html'))
+      a.classList.add('active');
+  });
+})();
