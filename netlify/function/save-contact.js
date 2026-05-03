@@ -40,7 +40,7 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify({
           from:     "سايف ديجيتال <noreply@safedigital.space>",
-          to:       ["AbdulelahMutlaq@gmail.com"],
+          to:       ["AbdulelahAlotaibe@gmail.com"],
           reply_to: email,
           subject:  `[سايف ديجيتال] ${type || "رسالة"}: ${subject || name}`,
           html: `

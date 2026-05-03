@@ -311,6 +311,8 @@
   </footer>
 
   <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init("tm_44mFFcURMVbNLk");</script>
   <script>
   (function(){
     const btn=document.getElementById("themeToggle"),icon=document.getElementById("themeIcon"),lbl=document.getElementById("themeLabel");
@@ -328,88 +330,74 @@
     });
   });
 
-function encode(data) {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-}
+  /* ── إرسال النموذج ── */
+  const send_ic_svg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+  const loading_ic  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
 
-document.getElementById("submitBtn").addEventListener("click", async (e) => {
-  e.preventDefault();
+  document.getElementById("submitBtn").addEventListener("click", async () => {
+    const name    = document.getElementById("nameInput").value.trim();
+    const email   = document.getElementById("emailInput").value.trim();
+    const subject = document.getElementById("subjectInput").value.trim();
+    const msg     = document.getElementById("msgInput").value.trim();
+    const typeEl  = document.querySelector(".msg-type.sel");
+    const msgType = typeEl ? typeEl.dataset.type : "استفسار";
 
-  const name = document.getElementById("nameInput").value.trim();
-  const email = document.getElementById("emailInput").value.trim();
-  const msg = document.getElementById("msgInput").value.trim();
+    if (!name || !email || !msg) {
+      document.getElementById("btnText").textContent = "يرجى تعبئة الاسم والبريد والرسالة";
+      setTimeout(() => document.getElementById("btnText").textContent = "إرسال الرسالة", 2000);
+      return;
+    }
 
-  if (!name || !email || !msg) {
-    alert("يرجى تعبئة الاسم والبريد والرسالة.");
-    return;
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    document.getElementById("btnText").textContent = "جاري الإرسال...";
+    document.getElementById("btnIcon").innerHTML = loading_ic;
+
+    try {
+      await emailjs.send("service_9pj47ny", "template_h40phys", {
+        from_name:  name,
+        from_email: email,
+        msg_type:   msgType,
+        subject:    subject || "—",
+        message:    msg,
+        reply_to:   email,
+        to_email:   "abdulelahalotaibe@gmail.com"
+      });
+      document.getElementById("formContent").style.display = "none";
+      document.getElementById("successMsg").style.display  = "block";
+    } catch(err) {
+      console.error("EmailJS error:", err);
+      document.getElementById("btnText").textContent = "فشل الإرسال — حاول مرة أخرى";
+      document.getElementById("btnIcon").innerHTML = send_ic_svg;
+      btn.disabled = false;
+    }
+  });
+
+  function resetForm() {
+    document.getElementById("formContent").style.display = "block";
+    document.getElementById("successMsg").style.display  = "none";
+    document.getElementById("nameInput").value    = "";
+    document.getElementById("emailInput").value   = "";
+    document.getElementById("subjectInput").value = "";
+    document.getElementById("msgInput").value     = "";
+    document.getElementById("btnText").textContent = "إرسال الرسالة";
+    document.getElementById("btnIcon").innerHTML   = send_ic_svg;
+    document.getElementById("submitBtn").disabled  = false;
   }
 
-  const btn = document.getElementById("submitBtn");
-  btn.disabled = true;
-
-  document.getElementById("btnText").textContent = "جاري الإرسال...";
-
-  try {
-    await fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": "contact",
-        name: name,
-        email: email,
-        message: msg
-      })
+  /* نوع الرسالة */
+  document.querySelectorAll(".msg-type").forEach(el => {
+    el.addEventListener("click", () => {
+      document.querySelectorAll(".msg-type").forEach(e => e.classList.remove("sel"));
+      el.classList.add("sel");
     });
+  });
 
-    document.getElementById("formContent").style.display = "none";
-    document.getElementById("successMsg").style.display = "block";
+  /* spin animation */
+  const styleEl = document.createElement("style");
+  styleEl.textContent = "@keyframes spin{to{transform:rotate(360deg)}}";
+  document.head.appendChild(styleEl);
 
-  } catch (error) {
-    alert("فشل الإرسال ❌");
-    btn.disabled = false;
-  }
-});
-<form name="contact" method="POST" action="/" data-netlify="true">
-  
-  <!-- مهم جدًا -->
-  <input type="hidden" name="form-name" value="contact">
-
-  <div id="formContent">
-    
-    <input id="nameInput" type="text" name="name" placeholder="Your Name" required>
-    
-    <input id="emailInput" type="email" name="email" placeholder="Your Email" required>
-    
-    <textarea id="msgInput" name="message" placeholder="Your Message" required></textarea>
-
-    <button id="submitBtn" type="submit">
-      <span id="btnText">إرسال الرسالة</span>
-    </button>
-
-  </div>
-
-  <div id="successMsg" style="display:none;">
-    ✅ تم إرسال رسالتك بنجاح
-  </div>
-
-</form>
-document.querySelector("form").addEventListener("submit", function () {
-  const btn = document.getElementById("submitBtn");
-
-  btn.disabled = true;
-  document.getElementById("btnText").textContent = "جاري الإرسال...";
-});
-<form name="contact" method="POST" action="/" data-netlify="true">
-  <input type="hidden" name="form-name" value="contact">
-
-  <input type="text" name="name">
-  <input type="email" name="email">
-  <textarea name="message"></textarea>
-
-  <button type="submit">Send</button>
-</form>
   /* FAQ */
   document.querySelectorAll(".faq-item").forEach(item=>{
     item.querySelector(".faq-q").addEventListener("click",()=>{
