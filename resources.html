@@ -379,5 +379,87 @@
   });
   document.getElementById("pwnedInput").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("pwnedBtn").click();});
   </script>
+
+  <!-- Google Translate Hidden -->
+  <div id="google_translate_element" style="display:none"></div>
+  <style>
+    /* إخفاء شريط Google Translate بالكامل */
+    .goog-te-banner-frame, .goog-te-banner-frame.skiptranslate,
+    #goog-gt-tt, .goog-te-balloon-frame,
+    .goog-tooltip, .goog-tooltip:hover,
+    .goog-text-highlight { display:none !important; }
+    body { top: 0 !important; }
+    .skiptranslate { display:none !important; }
+  </style>
+  <script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'ar',
+      includedLanguages: 'en,ar',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script>
+  (function(){
+    var KEY = 'sd-lang';
+    var lang = localStorage.getItem(KEY) || 'ar';
+
+    function injectBtn() {
+      if (document.getElementById('langToggle')) return;
+      var nav = document.querySelector('.nav-inner') || document.querySelector('.nav .container');
+      if (!nav) return;
+      var btn = document.createElement('button');
+      btn.id = 'langToggle';
+      btn.type = 'button';
+      btn.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:10px;cursor:pointer;border:1px solid rgba(106,166,255,.3);background:rgba(106,166,255,.08);color:var(--text,#e8ecff);font-family:inherit;font-size:13px;font-weight:700;transition:.2s;white-space:nowrap;margin:0 4px;';
+      btn.onmouseenter = function(){ btn.style.borderColor='rgba(106,166,255,.7)'; };
+      btn.onmouseleave = function(){ btn.style.borderColor='rgba(106,166,255,.3)'; };
+      btn.onclick = toggleLang;
+      setLabel(btn);
+      var th = document.getElementById('themeToggle');
+      if (th) th.insertAdjacentElement('afterend', btn);
+      else nav.prepend(btn);
+    }
+
+    function setLabel(btn) {
+      btn = btn || document.getElementById('langToggle');
+      if (btn) btn.innerHTML = lang==='ar' ? '<span>🌐</span><span>EN</span>' : '<span>🌐</span><span>عر</span>';
+    }
+
+    function doTranslate(to) {
+      var n = 0;
+      var iv = setInterval(function(){
+        var sel = document.querySelector('.goog-te-combo');
+        if (sel) { clearInterval(iv); sel.value=to; sel.dispatchEvent(new Event('change')); }
+        if (++n > 40) clearInterval(iv);
+      }, 250);
+    }
+
+    function toggleLang() {
+      lang = lang==='ar' ? 'en' : 'ar';
+      localStorage.setItem(KEY, lang);
+      setLabel();
+      if (lang==='en') {
+        document.documentElement.dir='ltr';
+        doTranslate('en');
+      } else {
+        document.cookie='googtrans=;expires=Thu,01 Jan 1970 00:00:01 UTC;path=/;';
+        document.cookie='googtrans=;expires=Thu,01 Jan 1970 00:00:01 UTC;path=/;domain=.'+location.hostname;
+        localStorage.setItem(KEY,'ar');
+        location.reload();
+      }
+    }
+
+    function init() {
+      injectBtn();
+      if (lang==='en') { document.documentElement.dir='ltr'; doTranslate('en'); }
+    }
+
+    if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+  </script>
 </body>
 </html>
