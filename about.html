@@ -268,7 +268,87 @@
       </div>
     </div>
 
+    <!-- فريق العمل -->
+    <div class="team-section">
+      <div class="team-header">
+        <h2>👨‍💻 فريق المشروع</h2>
+        <p>الطلاب المشاركون في تطوير منصة سايف ديجيتال</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">ع</div><div class="team-name">Abdulelah Al-Otaibi</div><div class="team-id">441110100</div></div>
+        <div class="team-card"><div class="team-avatar">م</div><div class="team-name">Muhannad Al-Mutairi</div><div class="team-id">441110336</div></div>
+        <div class="team-card"><div class="team-avatar">ن</div><div class="team-name">Nawaf Al-Mutairi</div><div class="team-id">442110917</div></div>
+        <div class="team-card"><div class="team-avatar">ب</div><div class="team-name">Bassam Aba Al-Safaa</div><div class="team-id">441110105</div></div>
+        <div class="team-card"><div class="team-avatar">ن</div><div class="team-name">Nadim Al-Otaibi</div><div class="team-id">442111087</div></div>
+        <div class="team-card"><div class="team-avatar">ع</div><div class="team-name">Emad Al-Harbi</div><div class="team-id">441110476</div></div>
+        <div class="team-card"><div class="team-avatar">ع</div><div class="team-name">Abdullah Al-Mutairi</div><div class="team-id">441110305</div></div>
+      </div>
+
+      <!-- المشرف -->
+      <div class="supervisor-card">
+        <div class="supervisor-icon">🎓</div>
+        <div class="supervisor-info">
+          <div class="supervisor-label">المشرف الأكاديمي</div>
+          <div class="supervisor-name">Dr. Anas A. AbuDaqa</div>
+        </div>
+      </div>
+    </div>
+
   </main>
+
+  <style>
+    .team-section {
+      background: rgba(16,26,51,.88);
+      border: 1px solid rgba(167,139,250,.2);
+      border-radius: 24px; padding: 40px; margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+      animation: fadeUp .5s .35s ease both;
+    }
+    .team-section::before {
+      content:''; position:absolute; top:0; right:0; left:0; height:2px;
+      background: linear-gradient(90deg, transparent, #a78bfa, var(--accent2), transparent);
+    }
+    .team-header { text-align:center; margin-bottom: 32px; }
+    .team-header h2 { font-size:22px; font-weight:800; color:var(--text); margin:0 0 8px; }
+    .team-header p  { font-size:14px; color:var(--muted); margin:0; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .team-card {
+      text-align: center; padding: 24px 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px; background: rgba(0,0,0,.2); transition: .25s;
+    }
+    .team-card:hover {
+      border-color: rgba(167,139,250,.35);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(167,139,250,.1);
+    }
+    .team-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #a78bfa);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #fff;
+      margin: 0 auto 14px; border: 2px solid rgba(167,139,250,.3);
+    }
+    .team-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+    .team-id   { font-size: 12px; color: var(--accent2); font-family: 'IBM Plex Mono', monospace; }
+    .supervisor-card {
+      display: flex; align-items: center; gap: 20px;
+      padding: 24px 28px;
+      border: 1px solid rgba(124,240,214,.2);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(124,240,214,.05), rgba(106,166,255,.05));
+    }
+    @media(max-width:480px){ .supervisor-card { flex-direction:column; text-align:center; } }
+    .supervisor-icon { font-size: 42px; flex-shrink: 0; }
+    .supervisor-label { font-size: 12px; color: var(--accent2); font-weight: 700; margin-bottom: 5px; letter-spacing: .05em; }
+    .supervisor-name  { font-size: 20px; font-weight: 800; color: var(--text); }
+  </style>
 
   <footer class="footer">
     <div class="container footer-content">

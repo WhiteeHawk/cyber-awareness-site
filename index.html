@@ -478,6 +478,24 @@
   </div>
   <div class="grid-overlay"></div>
 
+  <!-- شعار كليات عنيزة ثابت يمين الصفحة -->
+  <img src="college-logo.jpeg" alt="كليات عنيزة" class="college-logo-fixed" style="
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    mix-blend-mode: lighten;
+    z-index: 999;
+    pointer-events: none;
+  " onerror="this.style.display='none'">
+  <style>
+    @media (max-width: 768px) {
+      .college-logo-fixed { display: none !important; }
+    }
+  </style>
+
   <!-- الناف -->
     <header class="nav">
     <div class="container nav-inner">
